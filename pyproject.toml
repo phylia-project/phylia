@@ -1,0 +1,18 @@
+
+[project]
+name = "phylia"
+version = "0.0.3"
+authors = [
+  { name="Thomas de Meij", email="mailphylia@gmail.com" },
+]
+description = "phylia is a python package for phytosociological information analysis."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+	"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+	"Operating System :: Microsoft :: Windows :: Windows 11",
+]
+[project.urls]
+Homepage = "https://github.com/phylia-project/phylia.git"
+Issues = "https://github.com/phylia-project/phylia/issues"

@@ -1,0 +1,8 @@
+LICENSE
+README.md
+pyproject.toml
+phylia/__init__.py
+phylia.egg-info/PKG-INFO
+phylia.egg-info/SOURCES.txt
+phylia.egg-info/dependency_links.txt
+phylia.egg-info/top_level.txt
