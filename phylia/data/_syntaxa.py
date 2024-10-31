@@ -2,21 +2,24 @@
 Module containing functions that return datasets and tables.
     
 """
-import pkg_resources as _pkg_resources
+##import pkg_resources as _pkg_resources
 import pandas as _pd
-
+from importlib import resources as _resources
 
 def rvvn_syntables():
     """Presence and fidelity of species in syntaxa within the rvvn system."""
-    stream = _pkg_resources.resource_stream(__name__,'synbiosys_syntaxa_tabellen2017.csv')
-    return _pd.read_csv(stream, encoding='latin-1')
+
+    srcfile = (_resources.files(__package__) / 'synbiosys_syntaxa_tabellen2017.csv')
+    #stream = _pkg_resources.resource_stream(__name__,'synbiosys_syntaxa_tabellen2017.csv')
+    return _pd.read_csv(srcfile, encoding='latin-1')
 
 
 def rvvn_syntaxa():
     """Return table with list of vegetation types in the revision 
     of the Vegetation of the Netherlands (rVVN)."""
-    stream = _pkg_resources.resource_stream(__name__, 'synbiosys_syntaxa_2017.csv')
-    syntaxa = _pd.read_csv(stream, encoding='latin-1')
+    ##stream = _pkg_resources.resource_stream(__name__, 'synbiosys_syntaxa_2017.csv')
+    srcfile = (_resources.files(__package__) / 'synbiosys_syntaxa_2017.csv')
+    syntaxa = _pd.read_csv(srcfile, encoding='latin-1')
     syntaxa.columns = syntaxa.columns.str.lower()
     syntaxa = syntaxa.set_index('code').sort_index()
     return syntaxa
@@ -25,15 +28,17 @@ def rvvn_syntaxa():
 def rvvn_statistics():
     """Return table of desciptive statistics of vegetation types 
     in the revision of the Vegetation of the Netherlands (rVVN)."""
-    stream = _pkg_resources.resource_stream(__name__,'synbiosys_syntaxa_metadata2017.csv')
-    return _pd.read_csv(stream, encoding='latin-1')
+    #stream = _pkg_resources.resource_stream(__name__,'synbiosys_syntaxa_metadata2017.csv')
+    srcfile = (_resources.files(__package__) / 'synbiosys_syntaxa_metadata2017.csv')
+    return _pd.read_csv(srcfile, encoding='latin-1')
 
 
 def sbbcat_syntaxa():
     """Return table with list of vegetation types in the Staatsbosbeheer
     Catalogus."""
-    stream = _pkg_resources.resource_stream(__name__, 'sbbcat_syntaxonnames.csv')
-    sbbcat = _pd.read_csv(stream, encoding='latin-1')
+    #stream = _pkg_resources.resource_stream(__name__, 'sbbcat_syntaxonnames.csv')
+    srcfile = (_resources.files(__package__) / 'sbbcat_syntaxonnames.csv')
+    sbbcat = _pd.read_csv(srcfile, encoding='latin-1')
     sbbcat = sbbcat.set_index('sbbcat_code').sort_index()
 
     # remove entries that are not real syntaxa
@@ -54,10 +59,11 @@ def sbbcat_characteristic():
     4 : Not characteristic for this management type
     """
 
-    # This is a stream-like object. If you want the actual info, call
-    # stream.read()
-    stream = _pkg_resources.resource_stream(__name__, 'beheertypen_kenmerkendheid.csv')
-    return _pd.read_csv(stream, encoding='latin-1')
+    ## This is a stream-like object. If you want the actual info, call
+    ## stream.read()
+    ##stream = _pkg_resources.resource_stream(__name__, 'beheertypen_kenmerkendheid.csv')
+    srcfile = (_resources.files(__package__) / 'beheertypen_kenmerkendheid.csv')
+    return _pd.read_csv(srcfile, encoding='latin-1')
 
 
 def management_types():

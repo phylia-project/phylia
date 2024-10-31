@@ -1,15 +1,16 @@
 
-
-import pkg_resources as _pkg_resources
 import pandas as _pd
 import numpy as _np
-
+from importlib import resources as _resources
 
 
 def species_2017():
-    """Species list from Synbiosys."""
-    stream = _pkg_resources.resource_stream(__name__, 'synbiosys_soorten_2017.csv')
-    spec = _pd.read_csv(stream, encoding='latin-1')
+
+    # link to csv file
+    srcfile = (_resources.files(__package__) / 'synbiosys_soorten_2017.csv')
+
+    # read csv with pandas
+    spec = _pd.read_csv(srcfile, encoding='latin-1')
     spec.columns = map(str.lower,spec.columns)
     spec = spec.set_index('species_nr').sort_index()
 
@@ -18,3 +19,4 @@ def species_2017():
         lambda x:str(x).split('.')[0] if _pd.notna(x) else _np.nan)
 
     return spec
+

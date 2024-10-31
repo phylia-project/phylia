@@ -1,17 +1,198 @@
+.gitignore
 LICENSE
 README.md
+_requirements.txt
+_setup.py
 pyproject.toml
+test_projectstable.py
 phylia/__init__.py
 phylia.egg-info/PKG-INFO
 phylia.egg-info/SOURCES.txt
 phylia.egg-info/dependency_links.txt
 phylia.egg-info/requires.txt
 phylia.egg-info/top_level.txt
+phylia/_core/__init__.py
+phylia/_core/_releve.py
+phylia/data/__init__.py
+phylia/data/_syntaxa.py
+phylia/data/_taxa.py
+phylia/data/_turboveg.py
+phylia/data/beheertypen_kenmerkendheid.csv
+phylia/data/definition_remarks.csv
+phylia/data/definition_tvabund.csv
+phylia/data/definition_tvhabita.csv
+phylia/data/mapped_areas.JPG
+phylia/data/sbbcat_syntaxonnames.csv
+phylia/data/synbiosys_soorten_2017.csv
+phylia/data/synbiosys_syntaxa_2017.csv
+phylia/data/synbiosys_syntaxa_metadata2017.csv
+phylia/data/synbiosys_syntaxa_tabellen2017.csv
+phylia/plot/__init__.py
+phylia/plot/_sankey_two_maps.py
+phylia/read/__init__.py
 phylia/read/_mdb.py
 phylia/read/_shapefile.py
-phylia/read/_tv2.py
+phylia/read/_tv2db.py
 phylia/read/_tvxml.py
-phylia/sbbmaps/__init__.py
-phylia/sbbmaps/_mapdata.py
-phylia/sbbmaps/_mapelements.py
-phylia/sbbmaps/_maptables.py
+phylia/sample/__init__.py
+phylia/sample/_samplepolygonmap.py
+phylia/sbb/__init__.py
+phylia/sbb/_mapdata.py
+phylia/sbb/_mapelements.py
+phylia/sbb/_maptables.py
+phylia/tools/__init__.py
+phylia/tools/_conversions.py
+phylia/tools/_filetools.py
+phylia/tools/_projectstable.py
+phylia/tools/_syntaxontools.py
+phylia/tools/_write_excel.py
+tests/readme.rst
+tests/test_mapdata.py
+tests/test_mapelements.py
+tests/test_maptables.py
+tests/test_packagedata.py
+tests/test_read_mdb.py
+tests/test_read_shape.py
+tests/test_read_tv2.py
+tests/test_releve.py
+tests/test_stats_samplepolygonmap.py
+tests/test_tools_conversions.py
+tests/test_tools_syntaxontools.py
+tests/test_tvxml.py
+tests/data/DSprojects/Drenthe/README.txt
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/7_Hijken.mdb
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/REMARKS.CDX
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/TVABUND.CDX
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/TVHABITA.CDX
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/TVHABITA.DBF
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/remarks.DBF
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/tvabund.DBF
+tests/data/DSprojects/Drenthe/Dr 0007_Hijken_1989/TV_7/tvwin.set
+tests/data/DSprojects/Drenthe/Dr 0061_Terhorst_1991/61_Terhorst.mdb
+tests/data/DSprojects/Drenthe/Dr 0061_Terhorst_1991/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0061_Terhorst_1991/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0061_Terhorst_1991/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0061_Terhorst_1991/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/271_De_Witten - Copy.mdb
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/271_De_Witten.mdb
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen - Copy.dbf
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen - Copy.prj
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen - Copy.shp
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen - Copy.shx
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen.dbf
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen.prj
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen.shp
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/lijnen.shx
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken - Copy.dbf
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken - Copy.prj
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken - Copy.shp
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken - Copy.shx
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/REMARKS.CDX
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/REMARKS.DBF
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/TVABUND.CDX
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/TVABUND.DBF
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/TVHABITA.CDX
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/TVHABITA.DBF
+tests/data/DSprojects/Drenthe/Dr 0271_De_Witten_2000/TV_271/tvwin.set
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/469_Hijken.mdb
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/lijnen.dbf
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/lijnen.prj
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/lijnen.shp
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/lijnen.shx
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0469_Hijken_2001/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0470_Terhorst_2001/470_Terhorst.mdb
+tests/data/DSprojects/Drenthe/Dr 0470_Terhorst_2001/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0470_Terhorst_2001/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0470_Terhorst_2001/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0470_Terhorst_2001/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/763_Terhorst.mdb
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.dbf
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.prj
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.sbn
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.sbx
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.shp
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/punten.shx
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.prj
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.sbn
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.sbx
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/TVHABITA.DBF
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/TVHABITA.MDX
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/TvAdmin.dbf
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/remarks.dbf
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/tvabund.dbf
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/tvwin.set
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/Rapport/1364-Basisrapport-WSB-def.doc
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/Rapport/1364-Bijlage1a-Vertaaltabel.xls
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/Rapport/1364-Bijlage1b_5_6-OverzichtenPerDeelgebied_WSBrekken.xls
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/Rapport/1364-Bijlage2a-VegetatietabellenWSB.xls
+tests/data/DSprojects/Drenthe/Dr 0763_Terhorst_2009/TV_763/Rapport/1364-Bijlage7-matrixWSB.xls
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/0982_Wijster.mdb
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/vlakken.dbf
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/vlakken.sbn
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/vlakken.sbx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/vlakken.shp
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/vlakken.shx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/TvAdmin.cdx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/TvAdmin.dbf
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/remarks.cdx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/remarks.dbf
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/tvabund.cdx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/tvabund.dbf
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/tvhabita.cdx
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/tvhabita.dbf
+tests/data/DSprojects/Drenthe/Dr 0982 Wijster Terhorst 2017/TV_0982/tvwin.set
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/0892_Schuitwater.mdb
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/vlakken.dbf
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/vlakken.prj
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/vlakken.shp
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/vlakken.shx
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/TvAdmin.cdx
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/TvAdmin.dbf
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/remarks.cdx
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/remarks.dbf
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/tvabund.cdx
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/tvabund.dbf
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/tvhabita.cdx
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/tvhabita.dbf
+tests/data/DSprojects/Limburg/0892_Schuitwater_2013/TV_0892/tvwin.set
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/851_Keersop en Run.mdb
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.prj
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.sbn
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.sbx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.shp
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.shp.xml
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/lijnen.shx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.prj
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.sbn
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.sbx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.shp
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.shp.xml
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/vlakken.shx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/TvAdmin.cdx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/TvAdmin.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/remarks.cdx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/remarks.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/tvabund.cdx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/tvabund.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/tvhabita.cdx
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/tvhabita.dbf
+tests/data/DSprojects/Noord-Brabant/0851_Keersop en Run_2011/TV_851/tvwin.set
+tests/data/badfiles/532_Nieuwezuiderlingedijk.mdb
+tests/data/badfiles/562_Smoutjesvlietlanden.mdb
+tests/data/tv/DRA1516.xml

@@ -8,12 +8,16 @@ Project-URL: Issues, https://github.com/phylia-project/phylia/issues
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
 Classifier: Operating System :: Microsoft :: Windows :: Windows 11
-Requires-Python: >=3.8
+Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: geopandas
+Requires-Dist: numpy
 Requires-Dist: pandas
 Requires-Dist: matplotlib
+Requires-Dist: pyodbc
+Requires-Dist: lxml
+Requires-Dist: plotly
 
 # phylia
 #

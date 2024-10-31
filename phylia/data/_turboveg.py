@@ -1,13 +1,14 @@
 
-import pkg_resources as _pkg_resources
+##import pkg_resources as _pkg_resources
 import pandas as _pd
-
+from importlib import resources as _resources
 
 
 def tvabund():
     """Table definition of Turboveg2 tvabdund.dbf file."""
-    stream = _pkg_resources.resource_stream(__name__,'definition_tvabund.csv')
-    data = _pd.read_csv(stream, encoding='latin-1')
+    ##stream = _pkg_resources.resource_stream(__name__,'definition_tvabund.csv')
+    srcfile = (_resources.files(__package__) / 'definition_tvabund.csv')
+    data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
     data = data.set_index('fieldnumber')
     return data
@@ -24,8 +25,9 @@ def tvabund_types():
 
 def tvhabita():
     """Table definition of Turboveg2 tvhabita.dbf file."""
-    stream = _pkg_resources.resource_stream(__name__,'definition_tvhabita.csv')
-    data = _pd.read_csv(stream, encoding='latin-1')
+    ##stream = _pkg_resources.resource_stream(__name__,'definition_tvhabita.csv')
+    srcfile = (_resources.files(__package__) / 'definition_tvhabita.csv')
+    data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
     data = data.set_index('fieldnumber')
     return data
@@ -33,8 +35,9 @@ def tvhabita():
 
 def tvremarks():
     """Table definition of Turboveg2 remarks.dbf file."""
-    stream = _pkg_resources.resource_stream(__name__,'definition_remarks.csv')
-    data = _pd.read_csv(stream, encoding='latin-1')
+    ##stream = _pkg_resources.resource_stream(__name__,'definition_remarks.csv')
+    srcfile = (_resources.files(__package__) / 'definition_remarks.csv')
+    data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
     data = data.set_index('fieldnumber')
     return data
