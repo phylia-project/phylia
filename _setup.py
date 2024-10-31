@@ -16,7 +16,7 @@ setup(
     license="GNU3.0",
     packages=["phylia"],
     install_requires=[
-        'pandas','numpy','geopandas','fiona','pyodbc',
+        'geopandas','pandas','numpy','pyodbc',
         ],
     include_package_data=True,
     package_data={'': ['data/*.csv']},

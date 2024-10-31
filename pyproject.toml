@@ -4,6 +4,9 @@ name = "phylia"
 version = "0.0.3"
 authors = [
   { name="Thomas de Meij", email="mailphylia@gmail.com" },
+  ]
+dependencies = [
+	"geopandas", "pandas", "matplotlib", "pyodbc", "lxml", "plotly", 
 ]
 description = "phylia is a python package for phytosociological information analysis."
 readme = "README.md"

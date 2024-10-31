@@ -5,4 +5,13 @@ phylia/__init__.py
 phylia.egg-info/PKG-INFO
 phylia.egg-info/SOURCES.txt
 phylia.egg-info/dependency_links.txt
+phylia.egg-info/requires.txt
 phylia.egg-info/top_level.txt
+phylia/read/_mdb.py
+phylia/read/_shapefile.py
+phylia/read/_tv2.py
+phylia/read/_tvxml.py
+phylia/sbbmaps/__init__.py
+phylia/sbbmaps/_mapdata.py
+phylia/sbbmaps/_mapelements.py
+phylia/sbbmaps/_maptables.py
