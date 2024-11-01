@@ -3,61 +3,62 @@ import pytest
 from pandas import Series, DataFrame
 import phylia
 
-import phylia.data._syntaxa as syntaxa
-import phylia.data._taxa as taxa
-import phylia.data._turboveg as tv
+#import phylia.data._synbiosys as synbiosys
+#import phylia.data._sbb as sbb
+#import phylia.data._turboveg2 as tv
+import phylia.data as data
 
 def test_rvvn():
 
-    df = syntaxa.rvvn_syntables()
+    df = data.rvvn_syntables()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    df = syntaxa.rvvn_syntaxa()
+    df = data.rvvn_syntaxa()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    df = syntaxa.rvvn_statistics()
+    df = data.rvvn_statistics()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
 def test_sbbcat():
 
-    df = syntaxa.sbbcat_syntaxa()
+    df = data.sbbcat_syntaxa()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    df = syntaxa.sbbcat_characteristic()
+    df = data.sbbcat_characteristic()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
 def test_management_types():
 
-    sr = syntaxa.management_types()
+    sr = data.management_types()
     assert isinstance(sr, Series)
     assert not sr.empty
 
 def test_taxa():
 
-    df = taxa.species_2017()
+    df = data.species_2017()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
 def test_turboveg():
 
-    df = tv.tvabund()
+    df = data.tvabund_definition()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    df = tv.tvhabita()
+    df = data.tvhabita_definition()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    df = tv.tvremarks()
+    df = data.tvremarks_definition()
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-    rec = tv.tvabund_types()
+    rec = data.tvabund_fieldtypes()
     assert isinstance(rec, dict)
     assert len(rec.keys())==4
     assert len(rec.values())==4
