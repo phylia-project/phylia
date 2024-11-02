@@ -9,8 +9,7 @@ def tvabund_definition():
     srcfile = (_resources.files(_turboveg2_data) / 'definition_tvabund.csv')
     data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
-    data = data.set_index('fieldnumber')
-    return data
+    return data.set_index('fieldnumber')
 
 
 def tvabund_fieldtypes():
@@ -27,8 +26,7 @@ def tvhabita_definition():
     srcfile = (_resources.files(_turboveg2_data) / 'definition_tvhabita.csv')
     data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
-    data = data.set_index('fieldnumber')
-    return data
+    return data.set_index('fieldnumber')
 
 
 def tvremarks_definition():
@@ -36,5 +34,5 @@ def tvremarks_definition():
     srcfile = (_resources.files(_turboveg2_data) / 'definition_remarks.csv')
     data = _pd.read_csv(srcfile, encoding='latin-1')
     data.columns = data.columns.str.lower()
-    data = data.set_index('fieldnumber')
-    return data
+    return data.set_index('fieldnumber')
+

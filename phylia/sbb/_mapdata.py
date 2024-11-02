@@ -1,4 +1,4 @@
-"""The Mapdata module contains class MapData for reading
+"""Module Mapdata contains class MapData for reading
 vegetation map data in  the format Digitale Standaard as used by
 Staatsbosbeheer, the Dutch nature meanagement organisation.
       
@@ -172,10 +172,9 @@ class MapData:
         return f'MapData (n={self._maptbl.__len__()})'
 
     @classmethod
-    def from_filepaths(cls,mdbpath=None,polypath=None,linepath=None,
-        mapname=None,mapyear=None):
+    def from_filepaths(cls, mdbpath=None, polypath=None, linepath=None,
+        mapname=None, mapyear=None):
         """Create MapData instance from filepaths
-
         
         Parameters
         ----------
@@ -196,17 +195,17 @@ class MapData:
         
         
         """
-        if isinstance(mdbpath,str):
+        if mdbpath:
             tables = MapTables.from_mdb(mdbpath)
         else:
             tables = MapTables()
 
-        if isinstance(polypath,str):
+        if polypath:
             poly = MapElements.from_shapefile(polypath)
         else:
             poly = MapElements()
 
-        if isinstance(linepath,str):
+        if linepath:
             line = MapElements.from_shapefile(linepath)
         else:
             line = MapElements()
@@ -229,6 +228,10 @@ class MapData:
         """Return outer boundary of mapped area"""
         return self._mapelements_polygons.boundary
 
+    @property
+    def maptables(self):
+        """Return vegetation map tables."""
+        return self._maptbl
 
     def get_vegtype(self,loctype='v',select='all'):
         """

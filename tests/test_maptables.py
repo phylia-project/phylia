@@ -15,7 +15,7 @@ def db():
 def empty_db():
     return MapTables()
 
-def test_empty():
+def test_empty_maptables():
     assert isinstance(MapTables(), MapTables)
     assert len(MapTables())==0
     assert isinstance(str(MapTables()), str)
@@ -53,8 +53,15 @@ def test_yearcounts(db):
 def test_get_mapyear(db):
     assert isinstance(db.get_mapyear(), int)
 
+def test_empty(db):
+    assert not db.empty
+
+def test_sbbcatalog(db):
+    assert isinstance(db.sbbcatalog, DataFrame)
+    assert not db.sbbcatalog.empty
+
 """ For developing
-srcdir = r'.\data\DSprojects\Drenthe\Dr 0469_Hijken_2001\\'
+srcdir = '.\\data\\DSprojects\\Drenthe\\Dr 0469_Hijken_2001\\'
 mdbpath = f'{srcdir}469_Hijken.mdb'
 mdb = dsr.Mdb(mdbpath)
 db = dsr.MapTables.from_mdb(mdbpath)

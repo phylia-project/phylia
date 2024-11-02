@@ -22,7 +22,7 @@ class Mdb:
 
     ##_mdbopen_errors = []
 
-    def __init__(self,mdbpath):
+    def __init__(self, mdbpath):
         """
         Open Microsoft Access mdb-file
 
@@ -32,8 +32,8 @@ class Mdb:
             valid filepath to .mdb file
     `   """
 
-        if not isinstance(mdbpath,str):
-            raise TypeError(f'mdbpath must be of type string not {type(mdbpath)}')
+        if not mdbpath:
+            raise ValueError(f'No mdbpath was given.')
 
         if not os.path.isfile(mdbpath):
             raise TypeError(f'{mdbpath} is not a valid filepath.')
@@ -61,7 +61,7 @@ class Mdb:
         try:
             self._conn_str = (
                 r'DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};'
-                r'DBQ='+self._mdbpath+r';'
+                r'DBQ='+str(self._mdbpath)+r';'
                 )
             self._conn = pyodbc.connect(self._conn_str)
             self._cur = self._conn.cursor()

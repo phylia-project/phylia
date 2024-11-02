@@ -130,7 +130,7 @@ class MapTables:
         })
 
 
-    def __init__(self,tables=None,filepath=None): ##,mdb=None):
+    def __init__(self, tables=None, filepath=None):
         """
         Parameters
         ----------
@@ -172,17 +172,19 @@ class MapTables:
         MapTables 
         """
 
-        if not isinstance(filepath,str):
-            fptype = type(filepath)
-            raise ValueError (f'Parameter filepath must be type "str" '
-                f'not type {fptype}.')
+        #try:
+        mdb = Mdb(filepath)
+        
+
+        #if not isinstance(filepath,str):
+        #    fptype = type(filepath)
+        #    raise ValueError (f'Parameter filepath must be type "str" '
+        #        f'not type {fptype}.')
 
         # open mdb file and check format is Digitale Standaard
-        mdb = Mdb(filepath)
-
         # After mdb readerror return empty MapTables object
-        if not mdb.all_tables:
-            return cls(tables=None)
+        #if not mdb.all_tables:
+        #    return cls(tables=None)
 
         # all mdb tables to dict
         mdbtables = mdb.all_tables
@@ -406,7 +408,7 @@ class MapTables:
 
     @property
     def empty(self):
-        if self._maptbl._tbldict is None:
+        if self._tbldict is None:
             return True
         return False
 
@@ -506,6 +508,11 @@ class MapTables:
         """Return filepath to source of tables."""
         return self._filepath
 
+    @property
+    def sbbcatalog(self):
+        """Return table with complete list of Staatsbosbeheer Catalog vegetation 
+        types for the Catalog version used in this dataset."""
+        return self._tbldict['SbbType']
 
 
 

@@ -28,7 +28,7 @@ class MapElements:
         Create MapElements instance from shapefilepath.
     """
     
-    def __init__(self,shape=None,filepath=None):
+    def __init__(self, shape=None, filepath=None):
         """MapElements constructor
         
         Parameters
@@ -120,7 +120,7 @@ class MapElements:
         
 
     @classmethod
-    def from_shapefile(cls,filepath):
+    def from_shapefile(cls, filepath):
         """
         Create MapElements object from ESRI shapefile filepath."
 
@@ -129,13 +129,5 @@ class MapElements:
         filepath : str
             valid filepath to ESRI shapefile
         """
-
-        if not isinstance(filepath,str):
-            fptype = type(filepath)
-            raise ValueError (f'Parameter filepath must be type "str" '
-                f'not type {fptype}.')
-
-        # open shapefile and check presence of column ElmID
         shp = ShapeFile(filepath)
-        
         return cls(shape=shp._shape,filepath=filepath)

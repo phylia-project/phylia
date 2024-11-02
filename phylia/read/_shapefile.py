@@ -32,7 +32,7 @@ class ShapeFile:
     _empty_error = {'class':None,'msg':None,'fpath':None}
     _bad_polygons = []
 
-    def __init__(self,fpath):
+    def __init__(self, fpath):
         """
         Parameters
         ----------
@@ -42,7 +42,7 @@ class ShapeFile:
         Notes
         -----
         Geometry errors in shapefile are fixed as much as possible.
-        Fixed errors can be retriwved with shape_errors()
+        Fixed errors can be retrieved with shape_errors()
         """
         self._fpath = fpath
         if not os.path.isfile(self._fpath):
@@ -55,30 +55,16 @@ class ShapeFile:
         self._shperr = pd.DataFrame(columns=columns)
 
         # read shapefile
-        self._shape, self._shperr = self._readfile(self._fpath,self._shperr)
-
-        """
-        if (self._shape is None) and (fix_errors==True): 
-            # there was a read error, try to fix it
-            self._shape = self._fix_errors()
-            if self._shape is None:
-                warnings.warn((f'Importerrrors cound not be fixed '
-                    f'on shapefile {self._fpath}.'))
-        """
+        self._shape, self._shperr = self._readfile(self._fpath, self._shperr)
 
         if not self._shape.empty:
             self._shape.columns = map(str.lower,self._shape.columns)
-            
-            
-            # get geometry type
-            #self._geom_type = list(set(self._shape.geom_type))[0].lower()
-            #self._geom_typeset = set(self._shape.geom_type)
 
     def __repr__(self):
         nrows = len(self._shape)
         return f'{self._fname} (n={nrows})'
 
-    def _readfile(self,fpath,shperr):
+    def _readfile(self, fpath, shperr):
 
         # reading shapefile with GeoPandas when .shx file is read only
         # gives a fiona drivererror:
@@ -102,7 +88,7 @@ class ShapeFile:
                 'fpath':fpath,
                 }
 
-            # try to fix geometry errors
+            # try to fix geometry errors with fiona
             gdf, shperr = self.read_with_fiona(fpath,shperr)
 
         else:
@@ -111,8 +97,6 @@ class ShapeFile:
             # remove rows with None type geometries (GeoPandas does not 
             # check for this when reading a shapefile, but it's method 
             # geom.type will fail)
-            ##if None in set(gdf.geom_type):
-            ##    gdf, shape_errors = self.read_shape_with_errors(fpath)
             geom_null = gdf[gdf.geom_type.isnull()]
             if not geom_null.empty:
                 warnings.warn((f'Deleted {len(geom_null)} rows without '
@@ -127,7 +111,7 @@ class ShapeFile:
         if gdf.empty:
             warnings.warn((f'Empty shapefile: {self._fpath}.'))
 
-        return gdf,shperr
+        return gdf, shperr
 
     def read_with_fiona(self,fpath,shperr=None):
         """Read shapefile with errors and return GeoPandas dataframe.
