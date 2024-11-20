@@ -3,7 +3,7 @@
 import re as _re
 
 SBBDICT = {# order matters: only first match is found!
-    'nvt' : _re.compile(r'^(50[A-Z]|400)$'),
+    'nvt' : _re.compile(r'^(50[A-Z]|400|300|200|100)$'),
     'klasse':_re.compile(r'^[0-9][0-9]$'),
     'klasseromp': _re.compile(r'^[0-9]+-[a-z]$'),
     'klassederivaat': _re.compile(r'^[0-9]+/[a-z]$'),

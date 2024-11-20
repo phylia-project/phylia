@@ -11,6 +11,7 @@ from ._core._releve import Releve
 from .sbb._maptables import MapTables
 from .sbb._mapelements import MapElements
 from .sbb._mapdata import MapData
+from .sbb._cmsi_vegtypes import CmsiVegtypes
 from .read._shapefile import ShapeFile
 from .read._mdb import Mdb
 from .read._tv2db import Tv2Db

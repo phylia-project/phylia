@@ -6,7 +6,7 @@ from importlib import resources as _resources
 from . import _synbiosys_data
 import pandas as _pd
 
-from . import _sbb_data
+from . import _sbb_data, _cmsi_vegtables
 
 def sbbcat_syntaxa():
     """Return table with list of vegetation types in the Staatsbosbeheer
@@ -59,3 +59,9 @@ def management_types():
     tbl = tbl.sort_index(ascending=True)
     tbl.name = 'management_types'
     return tbl
+
+def cmsi_vegtypes():
+    """Return table of vegetation types (syntaxa) used in CMSi database."""
+    srcfile = (_resources.files(_cmsi_vegtables) / 'CMSiVegetationTypes.csv')
+    return _pd.read_csv(srcfile, encoding='utf-8') #latin-1')
+    

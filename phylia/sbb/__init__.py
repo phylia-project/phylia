@@ -12,3 +12,5 @@ information about the content of the polygons. Aditionally a shapefile
 from ._maptables import MapTables
 from ._mapelements import MapElements
 from ._mapdata import MapData
+from ._cmsi_vegtypes import CmsiVegtypes
+from ._cmsi_vegtypes import cmsi_vegtypes
