@@ -71,8 +71,11 @@ class CmsiVegtypes:
         'TO_VegClas',
         ]
 
+    VEGTYPECOLS_MINIMAL = ['Code', 'ShortScientificName', 'ShortCommonName',
+        'Created']
+
     def __repr__(self):
-        return f'CMSI vegetationtables'
+        return f'CMSI Vegetationtypes (n={len(self)})'
 
     def __len__(self):
         return len(self._cmsi_vegtypes)
@@ -102,7 +105,7 @@ class CmsiVegtypes:
                 f'{duplicates.sort_values(by=columns)}'))
 
 
-    def vegetation_types(self, typology='sbb', verbose=False):
+    def vegetation_types(self, typology='sbb', current_only=True, verbose=False):
         """Return list of vegetation type names and codes for given
         typology.
         
@@ -110,6 +113,9 @@ class CmsiVegtypes:
         ----------
         typology : {'sbb','rvvn','vvn'}, default 'sbbcat'
             Name of vegetation typology system.
+
+        current_only : boollean, default True
+            Return only vegetation types not deprecated.
 
         verbose : bool, default False
             Show minimal number of columns (False) or all columns (True).
@@ -119,32 +125,27 @@ class CmsiVegtypes:
         DataFrame
             
         """
-        typology_name = self.get_typology_name(typology)
+        typology_name = self.typology_name(typology)
+        mask_typology = self._cmsi_vegtypes['VegClas']==typology_name
+        vegtypes = self._cmsi_vegtypes[mask_typology].copy()
 
-        # select rows with current names for typology
-        mask1 = self._cmsi_vegtypes['VegClas']==typology_name
-        mask2 = self._cmsi_vegtypes['IsCurrent']=='Yes'
+        if current_only:
+            vegtypes = vegtypes[vegtypes['IsCurrent']=='Yes'].copy()
 
-        # create table
         if not verbose:
-            colnames = ['Code','ShortScientificName','ShortCommonName',
-                'Created',]
-        else:
-            colnames = ['Code','ShortScientificName','LongScientificName',
-                'ShortCommonName','LongCommonName','Created','Modified',]
-        vegtypes = self._cmsi_vegtypes[mask1&mask2][colnames]
+            vegtypes = vegtypes[self.VEGTYPECOLS_MINIMAL].copy()
 
         # turn date into year
         for colname in ['Created', 'Modified']:
             if colname in list(vegtypes):
-                vegtypes[colname] = vegtypes[colname].dt.year
+                vegtypes[colname] = vegtypes[colname].dt.year.copy()
 
         # set vegetation type code as index and sort index
         vegtypes = vegtypes.set_index('Code', drop=True, verify_integrity=True)
         return vegtypes.sort_index(ascending=True)
 
 
-    def get_typology_name(self, typology='sbb'):
+    def typology_name(self, typology='sbb'):
         """Return name of typology for given tyopology code.
         
         Parameters
@@ -166,6 +167,35 @@ class CmsiVegtypes:
                 f"Value must be in {list(self.TYPOLOGIES.values())}."))
 
         return typology_name
+
+    def changes_by_year(self, typology='sbb'):
+        """Return table of Creations and Modifications by year for all 
+        vegetation types in CMSi.
+        
+        Parameters
+        ----------
+        typology : {'sbb','rvvn','vvn'}, default 'sbb'
+            Code for typology system.
+
+        Returns
+        -------
+        DataFrame
+            Table of changes by year.
+            
+
+        Notes
+        -----
+        The resul shows changes in de list of vegetation types in CMSi. 
+        It is not a table of changes in de typology system itself.
+            
+        """
+        vegtypes = self.vegetation_types(typology=typology, 
+            current_only=False, verbose=True)
+        actions = vegtypes[['Created','Modified']].stack().reset_index()
+        actions = actions.set_axis(['Code','Action','Year'], axis=1)
+        pivot = pd.pivot_table(data=actions, values='Code', index='Year', 
+            columns='Action', aggfunc='count')
+        return pivot
 
     """
     def relations(self, to_typology='rvvn'):

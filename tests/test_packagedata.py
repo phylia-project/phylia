@@ -3,12 +3,6 @@ import pytest
 from pandas import Series, DataFrame
 from phylia import MapData
 import phylia.data as data
-#import phylia
-
-#import phylia.data._synbiosys as synbiosys
-#import phylia.data._sbb as sbb
-#import phylia.data._turboveg2 as tv
-
 
 def test_rvvn():
 
@@ -66,7 +60,14 @@ def test_turboveg():
     assert len(rec.values())==4
 
 def test_vegmap():
-    mp = data.vegmap_ziewentneede()
+
+    mp = data.vegmap_ziewentneede_2022()
     assert isinstance(mp, MapData)
     assert not mp.maptables.empty
     assert not mp.polygons.empty
+    
+    mp = data.vegmap_ruinen_1987()
+    assert isinstance(mp, MapData)
+    assert not mp.maptables.empty
+    assert not mp.polygons.empty
+    

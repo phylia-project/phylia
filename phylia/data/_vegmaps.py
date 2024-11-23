@@ -1,8 +1,4 @@
 
-
-
-
-
 import pandas as _pd
 from importlib import resources as _resources
 from ..sbb._mapdata import MapData
@@ -20,8 +16,6 @@ def vegmap_ziewentneede_2022():
         mapyear='2022',
         )
     return mapdata
-    #mapdata._maptbl._tbldict['SbbType']
-
 
 def vegmap_ruinen_1987():
     """Return vegetation map data of Ziewent Neede 2022."""

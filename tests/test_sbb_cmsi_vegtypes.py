@@ -30,8 +30,15 @@ def test_vegtypes():
 def test_typology_name():
     veg = CmsiVegtypes()
     for typology in veg.TYPOLOGIES.values():
-        name = veg.get_typology_name(typology=typology)
+        name = veg.typology_name(typology=typology)
         assert isinstance(name, str)
+
+def test_changes():
+    veg = CmsiVegtypes()
+    for typology in veg.TYPOLOGIES.values():
+        df = veg.changes_by_year(typology=typology)
+        assert isinstance(df, DataFrame)
+        assert not df.empty
 
 # test custom functions
 def function_cmsi_vegtypes():

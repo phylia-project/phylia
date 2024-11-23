@@ -64,4 +64,3 @@ def cmsi_vegtypes():
     """Return table of vegetation types (syntaxa) used in CMSi database."""
     srcfile = (_resources.files(_cmsi_vegtables) / 'CMSiVegetationTypes.csv')
     return _pd.read_csv(srcfile, encoding='utf-8') #latin-1')
-    
