@@ -3,7 +3,7 @@ Tables developed by Staatsbosbeheer.
 """
 
 from importlib import resources as _resources
-from . import _synbiosys_data
+##from . import _synbiosys_data
 import pandas as _pd
 
 from . import _sbb_data, _cmsi_vegtables

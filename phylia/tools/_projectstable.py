@@ -1,6 +1,6 @@
 import re
 import os
-import warnings
+#import warnings
 import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
@@ -8,6 +8,10 @@ import difflib
 
 from ._filetools import relativepath, absolutepath
 from ._conversions import year_from_string
+
+from logging import getLogger
+logger = getLogger(__name__)
+
 
 class ProjectsTable:
     """
@@ -71,7 +75,6 @@ class ProjectsTable:
             raise TypeError(f'{root} is not a valid directory name.')
 
         self._root = root
-        #self._relpaths = relpaths
         self._projects = self._projects(self._root)
 
 
@@ -105,7 +108,6 @@ class ProjectsTable:
 
         prvlist = []    #'Drenthe'
         prjlist = []    #'Dr 0007_Hijken_1989'
-        #yearlist = []   #'1989'
         pathlist = []   #fullpath
 
         prvnames = ([subdir for subdir in os.listdir(root)
@@ -130,7 +132,6 @@ class ProjectsTable:
             # append lists to lists
             prvlist += [prvname]*len(prjnames)
             prjlist += prjnames
-            #yearlist += prjyears
             pathlist += prjpaths
 
         projects = DataFrame(data=list(zip(prvlist, prjlist, pathlist)),
@@ -171,7 +172,6 @@ class ProjectsTable:
         """
         projects = self._projects
         if relpaths:
-            #projects['prjdir'] = self._relativepaths(projects['prjdir'])
             projects = self._relativepaths(projects)
         return projects
 
@@ -181,13 +181,11 @@ class ProjectsTable:
         if filetype is not None:
             if isinstance(filetype,str):
                 filetype=filetype.lstrip('.')
-                #if not filetype.startswith('.'):
-                #    filetype = f'.{filetype}'
                 if not len(filetype)==3:
                         warnings.warn(f'{filetype} is not a valid filetype.')
                         filetype=None
             else:
-                warnings.warn(f'{filetype} is not a valid filetype.')
+                logger.warning(f'{filetype} is not a valid filetype.')
                 filetype=None
         return filetype
 
@@ -236,7 +234,7 @@ class ProjectsTable:
         """
         filetype = self._validate_filetype(filetype)
         if filetype is None:
-            warnings.warn(f'Filetype is None. All files wil be listed.')
+            logger.warning(f'Filetype is None. All files wil be listed.')
 
         fpathcol='fpath'
         fnamecol='fname'
@@ -301,13 +299,13 @@ class ProjectsTable:
         'project' should be accepted.
         """
         if not isinstance(filetbl,pd.DataFrame):
-            warnings.warn(f'{filetbl} is not a DataFrame')
+            logger.error(f'{filetbl} is not a DataFrame')
             return DataFrame()
 
         if colname is None:
             colname = 'shpname'
         if colname not in filetbl.columns:
-            warnings.warn((f'"{colname}" not in filetbl columns: '
+            logger.warning((f'"{colname}" not in filetbl columns: '
                 f'{list(filetbl)}. Counts for all columns will be '
                 f'returned.'))
             colname = None
@@ -424,7 +422,7 @@ class ProjectsTable:
                 lambda x: any([tag.lower() in str(x).lower() for tag in discardtags]))
             
             sumfpath = sum(mask_fpath)
-            warnings.warn((f'{sumfpath} rows with mdb-files have been '
+            logger.warning((f'{sumfpath} rows with mdb-files have been '
                 f'marked as copies based on given tags.'))
         else:
             mask_fpath = Series(data=False,index=filetbl.index)
@@ -791,7 +789,7 @@ class ProjectsTable:
                 # no "best" directory has been found
                 continue
 
-                warnings.warn((f'No single best directory with Turboveg '
+                logger.warning((f'No single best directory with Turboveg '
                     f'files found for {prv} {prj}. Use X to get a list of '
                     f'projects with multiple directories.'))
 
@@ -840,7 +838,7 @@ class ProjectsTable:
 
         ambiprj = len(set(ambigous['project'].values))
         if ambiprj!=0:
-            warnings.warn((f'{ambiprj} projects with multiple mdb-files '
+            logger.warning((f'{ambiprj} projects with multiple mdb-files '
                 f'have been dropped from projectstable. Use '
                 f'method get_mdbfiles to get a table of candidate '
                 f'files.'))
@@ -856,7 +854,7 @@ class ProjectsTable:
 
         ambiprj = len(set(ambigous['project'].values))
         if ambiprj!=0:
-            warnings.warn((f'{ambiprj} projects with multiple polygonfiles '
+            logger.warning((f'{ambiprj} projects with multiple polygonfiles '
                 f'have been dropped from projectstable. Use '
                 f'method filter_shpfiles to get a table of candidate '
                 f'files.'))
@@ -869,7 +867,7 @@ class ProjectsTable:
 
         ambiprj = len(set(ambigous['project'].values))
         if ambiprj!=0:
-            warnings.warn((f'{ambiprj} projects with multiple linefiles '
+            logger.warning((f'{ambiprj} projects with multiple linefiles '
                 f'have been dropped from projectstable. Use '
                 f'method filter_shpfiles to get a table of candidate '
                 f'files.'))
@@ -877,7 +875,7 @@ class ProjectsTable:
         # list of TV2 directories
         tvdir, tvambi = self.filter_tv2()
         if not tvambi.empty:
-            warnings.warn((f'{ambiprj} projects with multiple TV2 directories '
+            logger.warning((f'{ambiprj} projects with multiple TV2 directories '
                 f'found. Use '
                 f'method filter_tv2 to get a table of candidate '
                 f'files.'))

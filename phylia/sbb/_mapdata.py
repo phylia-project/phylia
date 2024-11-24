@@ -6,7 +6,7 @@ Staatsbosbeheer, the Dutch nature meanagement organisation.
 
 import os
 from collections import OrderedDict
-import warnings
+##import warnings
 import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
@@ -15,6 +15,10 @@ import geopandas as gpd
 
 from ._maptables import MapTables
 from ._mapelements import MapElements
+
+from logging import getLogger
+logger = getLogger(__name__)
+
 
 class MapData:
     """
@@ -271,7 +275,7 @@ class MapData:
                 ) #validate='one_to_many') TURNED OFF BECAUSE OF DUPLICATE ELMIDS
                 
         except Exception as e:
-            warnings.warn((f'Merge caused fatal exception: "{e}" '
+            logger.warnings((f'Merge caused fatal exception: "{e}" '
                 f'on shapefile {shapepath}" '
                 f'and Access database "{self._maptblpath}"'))
             shape = DataFrame()
@@ -339,7 +343,7 @@ class MapData:
     def get_abiotiek(self,loctype='v'):
         """Return environmental observations"""
         if loctype not in ['v','l']:
-            warnings.warn((f'Invalid loctype {loctype}, '
+            logger.warnings((f'Invalid loctype {loctype}, '
                 f'abiotiek for loctype "v" will be returned.'))
             loctype='v'
 
@@ -351,18 +355,8 @@ class MapData:
             shppath = self._linepath
 
         abi = self._maptbl.get_abiotiek(loctype=loctype)
-
-        #try:
         abi = pd.merge(shape,abi,how='left',left_on='elmid',
-            right_on='elmid',validate='many_to_many') 
-                
-        #except Exception as e:
-        #    warnings.warn((f'Merge caused fatal exception: "{e}" '
-        #        f'on shapefile {shppath}" '
-        #        f'and Access database "{self._maptblpath}"'))
-        #    abi = DataFrame()
-
-        #else:
+            right_on='elmid',validate='many_to_many')                 
         abi = abi.dropna(subset=['locatietype'])
 
         return abi
@@ -395,20 +389,20 @@ class MapData:
         tablenames = ['vegtype','mapspecies','pointspecies','abiotiek',
             'vegtype_singlepoly',]
         if tablename not in tablenames:
-            warnings.warn((f'{tablename} is not a valid tablename. '
+            logger.warnings((f'{tablename} is not a valid tablename. '
                 f'No file has been saved.'))
             return DataFrame()
 
         # validate element
         if loctype not in ['v','l']:
-             warnings.warn((f'{loctype} is not a valid element type. '
+             logger.warnings((f'{loctype} is not a valid element type. '
                 f'Elements of type "v" will be saved.'))           
              loctype='v'
 
         # validate filepath and correct
         dirname = os.path.dirname(filepath)
         if (dirname!='') and (not os.path.exists(dirname)):
-            warnings.warn((f'{dirname} is not a valid directory. '
+            logger.warnings((f'{dirname} is not a valid directory. '
                 f'No file has been saved.'))
             return DataFrame()
         if os.path.splitext(filepath)[1]=='':
@@ -450,14 +444,14 @@ class MapData:
             shapecols = self._shapefile_colnames[tablename].values()
             coldif = set(table.columns)-set(shapecols)
             if len(coldif)!=0:
-                warnings.warn((f'Unknown column names in table '
+                logger.warnings((f'Unknown column names in table '
                     f'{tablename}: {coldif} in {filepath}.'))
 
             coldif2 = set(shapecols) - set(table.columns)
             if loctype=='l': # lines have no surface area
                 coldif2 = [col for col in coldif2 if col not in ['oppha']]
             if len(coldif2)!=0:
-                warnings.warn((f'Missing column names in table '
+                logger.warnings((f'Missing column names in table '
                     f'{tablename}: {coldif2}.'))
 
             # order columns

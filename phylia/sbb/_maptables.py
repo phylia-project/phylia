@@ -3,7 +3,7 @@ import numpy as np
 from pandas import Series, DataFrame
 import pandas as pd
 from collections import OrderedDict
-import warnings
+##import warnings
 from ..read._mdb import Mdb
 
 
@@ -225,7 +225,7 @@ class MapTables:
         if ((not 'sbbtype' in colnames) and ('sbbtype1' in colnames)):
             maptables['Element']=maptables['Element'].rename(
                 columns={'sbbtype1':'sbbtype'})
-            warnings.warn((f'Microsoft Access mdb file {filepath} '
+            logger.warning((f'Microsoft Access mdb file {filepath} '
                 f'has invalid column name "sbbtype1". Renamed to abbtype.'))
 
         return cls(tables=maptables,filepath=filepath)
@@ -252,7 +252,7 @@ class MapTables:
         vegetation type has within a map polygon.
         """
         if loctype not in ['v','l']:
-            warnings.warn((f'Loctype must be "v" of "l", not {loctype}. '
+            logger.warning((f'Loctype must be "v" of "l", not {loctype}. '
                 f'Elements of loctyp "v" will be returned.'))
             loctype = 'v'
 
@@ -317,7 +317,7 @@ class MapTables:
         """
     
         if loctype not in ['v','l']:
-            warnings.warn((f'Loctype must be "v" of "l", not {loctype}. '
+            logger.warning((f'Loctype must be "v" of "l", not {loctype}. '
                 f'Elements of loctyp "v" will be returned.'))
             loctype = 'v'
 

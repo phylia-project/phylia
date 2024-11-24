@@ -13,7 +13,11 @@ import pandas as pd
 import geopandas as gpd
 import fiona
 import json
-import warnings
+#import warnings
+
+from logging import getLogger
+logger = getLogger(__name__)
+
 
 class ShapeFile:
     """
@@ -72,7 +76,7 @@ class ShapeFile:
         if os.path.exists(shxpath):
             if not os.access(shxpath, os.W_OK):
                 os.chmod(shxpath, stat.S_IRWXU)
-                warnings.warn((f'File permisson "read-only" has been set to '
+                logger.warning((f'File permisson "read-only" has been set to '
                     f'"write" on shapefile index {shxpath}.'))
 
         # read shapefile with geopandas
@@ -99,7 +103,7 @@ class ShapeFile:
             # geom.type will fail)
             geom_null = gdf[gdf.geom_type.isnull()]
             if not geom_null.empty:
-                warnings.warn((f'Deleted {len(geom_null)} rows without '
+                logger.warning((f'Deleted {len(geom_null)} rows without '
                     f'valid geometry in {self._fpath}.'))
                 for fid,row in geom_null.iterrows():
                     idx = len(shperr)
@@ -109,7 +113,7 @@ class ShapeFile:
                 gdf = gdf[gdf.geom_type.notnull()].copy()
 
         if gdf.empty:
-            warnings.warn((f'Empty shapefile: {self._fpath}.'))
+            logger.warning((f'Empty shapefile: {self._fpath}.'))
 
         return gdf, shperr
 
@@ -143,14 +147,11 @@ class ShapeFile:
             self._fiona = fiona.open(fpath)
 
         # validate shape items one by one and copy valid items
-        ##fiona_errors = []
         reclist = []
         for key in self._fiona.keys():
 
             # copy feature from fiona to dict
             feature = self._fiona.get(key)
-            #fid = feature['id']
-            #geom = feature['geometry']
 
             # error: Geometry is None
             if feature['geometry'] is None:

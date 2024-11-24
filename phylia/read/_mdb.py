@@ -1,10 +1,14 @@
 
 import os
 import collections
-import warnings
+##import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 import pyodbc
+
+from logging import getLogger
+logger = getLogger(__name__)
+
 
 class Mdb:
     """
@@ -74,7 +78,7 @@ class Mdb:
                 'errmsg':repr(self._err),
                 'fpath':self._mdbpath,
                 }
-            warnings.warn((f'Could not open .mdb file {self._mdbpath} '
+            logger.warnings((f'Could not open .mdb file {self._mdbpath} '
              f'because of an {self._mdbopen_error["errtype"]} error. '
              f'Full error message: {self._mdbopen_error["errmsg"]}.'))
 

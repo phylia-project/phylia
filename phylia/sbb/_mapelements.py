@@ -1,10 +1,14 @@
 
-import warnings
+##import warnings
 from pandas import Series, DataFrame
 import pandas as pd
 import geopandas as gpd
 
 from ..read._shapefile import ShapeFile
+
+from logging import getLogger
+logger = getLogger(__name__)
+
 
 class MapElements:
     """Spatial data for mapped elements  
@@ -61,7 +65,7 @@ class MapElements:
                 # this needs some investigating, reporjection doesnt work
                 # but effect of overriding crs has not been tested.
                 self._shape = self._shape.set_crs(epsg=28992,allow_override=True)
-                warnings.warn((f'crs has been set to epsg:28992 on '
+                logger.warning((f'crs has been set to epsg:28992 on '
                     f'shapefile with unknown dutch grid crs: {self._filepath}.'))
 
             if self._shape.crs.name=='Rijksdriehoekstelsel_New':
@@ -77,12 +81,12 @@ class MapElements:
                 nmiss = len(self._shape["elmid"][self._shape["elmid"].isnull()])
                 if nmiss>0:
                     # missing values found for ElmID in non-integer field:
-                    warnings.warn((f'{nmiss} missing values in non-integer '
+                    logger.warning((f'{nmiss} missing values in non-integer '
                         f'ElmID field have been replaced with "9999" in '
                         f'file {self._filepath}.'))
                     self._shape['elmid'] = self._shape['elmid'].fillna(9999)
 
-                warnings.warn((f'dtype "{self._shape["elmid"].dtype}" of '
+                logger.warning((f'dtype "{self._shape["elmid"].dtype}" of '
                     f'field ElmID has been changed to dtype "int" on file '
                     f'{self._filepath}.'))
                 self._shape['elmid'] = self._shape['elmid'].astype(int)
