@@ -1,9 +1,9 @@
 """Class CmsiVegtypes holds lists of vegetation types used in CMSi."""
 
 from pandas import Series, DataFrame
-import pandas as pd
+import pandas as _pd
 
-from ..data._sbb import cmsi_vegtypes as _cmsi_vegtypes_rawtable
+from . import _data_cmsi
 
 def cmsi_vegtypes(typology='sbb'):
     """Return table of vegetation types used in CMSi.
@@ -74,20 +74,17 @@ class CmsiVegtypes:
     VEGTYPECOLS_MINIMAL = ['Code', 'ShortScientificName', 'ShortCommonName',
         'Created']
 
-    def __repr__(self):
-        return f'CMSI Vegetationtypes (n={len(self)})'
-
-    def __len__(self):
-        return len(self._cmsi_vegtypes)
 
     def __init__(self):
 
         # get table of cmsi vegetation types from package data
-        self._cmsi_vegtypes = _cmsi_vegtypes_rawtable()
+        srcfile = (_resources.files(_data_cmsi) / 'CMSiVegetationTypes.csv')
+        return _pd.read_csv(srcfile, encoding='utf-8') #latin-1')
+
 
         # convert datetime columns
         for colname in ['Created','Modified']:
-            self._cmsi_vegtypes[colname] = pd.to_datetime(
+            self._cmsi_vegtypes[colname] = _ .to_datetime(
                 self._cmsi_vegtypes[colname], format='ISO8601')
 
         # check for presence of all three typologies
@@ -103,6 +100,13 @@ class CmsiVegtypes:
             raise ValueError((f'Vegetation type codes for current '
                 f'vegetation types not unique:'
                 f'{duplicates.sort_values(by=columns)}'))
+
+
+    def __repr__(self):
+        return f'CMSI Vegetationtypes (n={len(self)})'
+
+    def __len__(self):
+        return len(self._cmsi_vegtypes)
 
 
     def vegetation_types(self, typology='sbb', current_only=True, verbose=False):
@@ -193,7 +197,7 @@ class CmsiVegtypes:
             current_only=False, verbose=True)
         actions = vegtypes[['Created','Modified']].stack().reset_index()
         actions = actions.set_axis(['Code','Action','Year'], axis=1)
-        pivot = pd.pivot_table(data=actions, values='Code', index='Year', 
+        pivot = _pd.pivot_table(data=actions, values='Code', index='Year', 
             columns='Action', aggfunc='count')
         return pivot
 

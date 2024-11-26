@@ -6,7 +6,8 @@ from importlib import resources as _resources
 ##from . import _synbiosys_data
 import pandas as _pd
 
-from . import _sbb_data, _cmsi_vegtables
+from . import _data_sbb_intern
+
 
 def sbbcat_syntaxa():
     """Return table with list of vegetation types in the Staatsbosbeheer
@@ -16,7 +17,7 @@ def sbbcat_syntaxa():
     -----
     This table has been developed by Piet Schipper.
     """
-    srcfile = (_resources.files(_sbb_data) / 'sbbcat_syntaxonnames.csv')
+    srcfile = (_resources.files(_data_sbb_intern) / 'sbbcat_syntaxonnames.csv')
     sbbcat = _pd.read_csv(srcfile, encoding='latin-1')
     sbbcat = sbbcat.set_index('sbbcat_code').sort_index()
 
@@ -41,7 +42,7 @@ def sbbcat_characteristic():
     This table has been developed by Piet Schipper.
         
     """
-    srcfile = (_resources.files(_sbb_data) / 'beheertypen_kenmerkendheid.csv')
+    srcfile = (_resources.files(_data_sbb_intern) / 'beheertypen_kenmerkendheid.csv')
     return _pd.read_csv(srcfile, encoding='latin-1')
 
 
@@ -60,7 +61,3 @@ def management_types():
     tbl.name = 'management_types'
     return tbl
 
-def cmsi_vegtypes():
-    """Return table of vegetation types (syntaxa) used in CMSi database."""
-    srcfile = (_resources.files(_cmsi_vegtables) / 'CMSiVegetationTypes.csv')
-    return _pd.read_csv(srcfile, encoding='utf-8') #latin-1')

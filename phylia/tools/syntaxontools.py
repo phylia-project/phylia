@@ -2,7 +2,6 @@
 
 import re as _re
 import pandas as _pd
-#from logging import getLogger as _getlogger
 import logging as _logging
 _logger = _logging.getLogger(__name__)
 
@@ -25,10 +24,10 @@ VVN_PATTERNS = {
     'klasse' : r'(^r?)([0-4]?[0-9]$)', # '(r)(05)'
     'orde' : r'(^r?)([0-4]?[0-9])([A-Za-z]$)', # '(r)(05)(A)'
     'verbond' : r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Za-z]$)', # '(r)(05)(A)(a)'
-    'associatie': r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Za-z])([0-9]?[0-9]$)', # '(r)(05)(A)(a)(1)'
-    'subassociatie': r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Za-z])([0-9]?[0-9])([A-Za-z]$)', # '(r)(05)(A)(a)(1)(a)'
-    'romp': r'(^r?)([0-4]?[0-9])(RG)([0-9]?[0-9]$)', # '(r)(05)(RG)(01)'
-    'derivaat': r'(^r?)([0-4]?[0-9])(DG)([0-9]?[0-9]$)', # '(r)(05)(DG)(01)'
+    'associatie': r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Fa-f])([0-9]?[0-9]$)', # '(r)(05)(A)(a)(1)'
+    'subassociatie': r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Fa-f])([0-9]?[0-9])([A-Za-z]$)', # '(r)(05)(A)(a)(1)(a)'
+    'romp': r'(^r?)([0-4]?[0-9])([Rr][Gg])([0-9]?[0-9]$)', # '(r)(05)(RG)(01)'
+    'derivaat': r'(^r?)([0-4]?[0-9])([Dd][Gg])([0-9]?[0-9]$)', # '(r)(05)(DG)(01)'
     }
 
 SBB_TESTCODES = ['05', '05-a', '05/a', '05%a', '05A', '05A-a', 
@@ -111,7 +110,7 @@ def syntaxon_validate(code):
     newtext = None
     for syntaxlevel, pattern in SBB_PATTERNS.items():
 
-        if _re.search(pattern, code):
+        if _re.search(pattern, code, flags=_re.IGNORECASE):
 
             if syntaxlevel=='klasse':
                 callback = lambda pat: pat.group(1).zfill(2)
@@ -138,44 +137,62 @@ def syntaxon_validate(code):
 
     for syntaxlevel, pattern in VVN_PATTERNS.items():
 
-        match = _re.search(pattern, code)
-        if match:
+        if _re.search(pattern, code):
+
             if syntaxlevel=='klasse':
                 callback = (lambda pat: pat.group(1).lower()
                     +pat.group(2).zfill(2)
                     )
             if syntaxlevel=='orde':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
                     )
             if syntaxlevel=='verbond':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
                     +pat.group(4).lower()
                     )
             if syntaxlevel=='associatie':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
-                    +pat.group(4).lower()+pat.group(5)
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
+                    +pat.group(4).lower()
+                    +pat.group(5)
                     )
             if syntaxlevel=='subassociatie':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
-                    +pat.group(4).lower()+pat.group(5)+pat.group(6).lower()
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
+                    +pat.group(4).lower()
+                    +pat.group(5)
+                    +pat.group(6).lower()
                     )
             if syntaxlevel=='romp':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
                     +pat.group(4).zfill(2)
                     )
             if syntaxlevel=='derivaat':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)+pat.group(3).upper()
+                    +pat.group(2).zfill(2)
+                    +pat.group(3).upper()
                     +pat.group(4).zfill(2)
                     )
-            newtext = _re.sub(pattern, callback, code)
 
-    _logger.error(f'No matching syntaxon found for "{code}".')
+            #reg = _re.search(pattern, code, flags=_re.IGNORECASE)
+            #res = ', '.join([x.upper() for x in reg.groups()])
+            #_logger.error(f'{syntaxlevel} : {res}')
+            
+            newtext = _re.sub(pattern, callback, code) #, flags=_re.IGNORECASE)
+            return newtext # pattern from VVN recognised, return result
+
+    if not newtext:
+        _logger.error(f'No matching pattern found for "{code}"')
+
+
     return newtext
 
 
