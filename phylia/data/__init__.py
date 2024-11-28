@@ -9,3 +9,4 @@ from . import cmsi
 from . import synbiosys
 from . import turboveg2
 from . import vegmaps
+from . import synbiosys_sbbweb
