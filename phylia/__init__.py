@@ -23,7 +23,7 @@ from ._core._releve import Releve
 from .sbb._maptables import MapTables
 from .sbb._mapelements import MapElements
 from .sbb._mapdata import MapData
-from .data.cmsi import CmsiVegtypes
+from .data.cmsi import CmsiSyntaxonTable
 from .read._shapefile import ShapeFile
 from .read._mdb import Mdb
 from .read._tv2db import Tv2Db

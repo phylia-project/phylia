@@ -2,34 +2,51 @@
 
 from pandas import Series, DataFrame
 import pandas as _pd
+from importlib import resources as _resources
+
+import logging as _logging
+_logger = _logging.getLogger(__name__)
 
 from . import _data_cmsi
+from ..tools import syntaxontools
 
-def cmsi_vegtypes(typology='sbb'):
-    """Return table of vegetation types used in CMSi.
+def vegetationtypes(typology='sbbcat', current_only=True, verbose=False):
+    """Return list of vegetation type names and codes for given
+    typology.
     
     Parameters
     ----------
-    typology : {'sbb','rvvn','vvn'}, default 'sbb'
-        Reference typology system.
+    typology : {'sbb','rvvn','vvn'}, default 'sbbcat'
+        Name of vegetation typology system.
+
+    current_only : boollean, default True
+        Return only vegetation types not deprecated.
+
+    verbose : bool, default False
+        Show minimal number of columns (False) or all columns (True).
 
     Returns
     -------
     DataFrame
-        Table of vegetation types for chosen reference system.
         
     """
-    cmsi = CmsiVegtypes()
-    return cmsi.vegetation_types(typology=typology)
+    cst = CmsiSyntaxonTable()
+    return cst.vegetation_types(typology=typology, 
+        current_only=current_only, verbose=verbose)
 
 
-class CmsiVegtypes:
+class CmsiSyntaxonTable:
 
     TYPOLOGIES = {
         'VVN Nationale Vegetatie typologie':'vvn',
-        'TBO Nationale Vegetatie typologie':'sbb',
+        'TBO Nationale Vegetatie typologie':'sbbcat',
         'RVVN Nationale Vegetatie typologie':'rvvn',
         }
+
+    SYNTAXON_ORDER = ['klasse', 'orde', 'verbond', 'associatie', 
+        'subassociatie', 'klasseromp', 'verbondsromp', 'romp',
+        'klassederivaat', 'verbondsderivaat', 'derivaat',
+         ]
 
     COLNAMES_VEGTYPES = [
         'VegClas',
@@ -72,50 +89,54 @@ class CmsiVegtypes:
         ]
 
     VEGTYPECOLS_MINIMAL = ['Code', 'ShortScientificName', 'ShortCommonName',
-        'Created']
+        'Created', 'IsCurrent', 'SynLevel', 'SynClass', 'IsLowest',]
 
 
     def __init__(self):
 
         # get table of cmsi vegetation types from package data
         srcfile = (_resources.files(_data_cmsi) / 'CMSiVegetationTypes.csv')
-        return _pd.read_csv(srcfile, encoding='utf-8') #latin-1')
-
+        self.syntaxa = _pd.read_csv(srcfile, encoding='utf-8')
 
         # convert datetime columns
         for colname in ['Created','Modified']:
-            self._cmsi_vegtypes[colname] = _ .to_datetime(
-                self._cmsi_vegtypes[colname], format='ISO8601')
+            self.syntaxa[colname] = _pd.to_datetime(
+                self.syntaxa[colname], format='ISO8601')
 
         # check for presence of all three typologies
-        if not all([(x for x in self._cmsi_vegtypes['VegClas'].unique() 
+        if not all([(x for x in self.syntaxa['VegClas'].unique() 
             if x in self.TYPOLOGIES.keys())]):
                 raise inputerror('Unknown typology code in cmsi_vegtypes table.')
 
         # check for duplicates
         columns = ['VegClas','Code','IsCurrent']
-        duplicates = self._cmsi_vegtypes[self._cmsi_vegtypes.duplicated(
+        duplicates = self.syntaxa[self.syntaxa.duplicated(
             subset=columns, keep=False)]
         if not duplicates.empty:
             raise ValueError((f'Vegetation type codes for current '
                 f'vegetation types not unique:'
                 f'{duplicates.sort_values(by=columns)}'))
 
+        # correct typo
+        if not self.syntaxa.loc[self.syntaxa['Code']=='r43AA01b',:].empty:
+            self.syntaxa.loc[self.syntaxa['Code']=='r43AA01b','Code'] = 'r43Aa01b'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init can be removed.')            
 
     def __repr__(self):
         return f'CMSI Vegetationtypes (n={len(self)})'
 
     def __len__(self):
-        return len(self._cmsi_vegtypes)
+        return len(self.syntaxa)
 
 
-    def vegetation_types(self, typology='sbb', current_only=True, verbose=False):
+    def vegetation_types(self, typology='sbbcat', current_only=True, verbose=False):
         """Return list of vegetation type names and codes for given
         typology.
         
         Parameters
         ----------
-        typology : {'sbb','rvvn','vvn'}, default 'sbbcat'
+        typology : {'sbbcat','rvvn','vvn'}, default 'sbbcat'
             Name of vegetation typology system.
 
         current_only : boollean, default True
@@ -129,32 +150,77 @@ class CmsiVegtypes:
         DataFrame
             
         """
-        typology_name = self.typology_name(typology)
-        mask_typology = self._cmsi_vegtypes['VegClas']==typology_name
-        vegtypes = self._cmsi_vegtypes[mask_typology].copy()
+        # table of syntaxa for chosen typology
+        mask = self.syntaxa['VegClas']==self.typology_name(typology)
+        vegtypes = self.syntaxa[mask].copy()
+
+        # set syntaxcode as index
+        vegtypes = vegtypes.set_index('Code', drop=True, 
+            verify_integrity=True).sort_index(ascending=True)
+
+        # add columns with syntaxlevel
+        vegtypes['SynLevel'] = _pd.Categorical(
+            values = vegtypes.index.to_series().apply(
+                syntaxontools.syntaxonlevel, reference=typology),
+            categories = self.SYNTAXON_ORDER,
+            ordered=True,
+            )
+
+        # add column with class number
+        vegtypes['SynClass'] = vegtypes.index.to_series().apply(
+            syntaxontools.syntaxonclass)
+
+        # add column indicating if syntaxon is at the lowest level or not
+        never_lowest = ['klasse','orde','verbond','nvt']
+        idx = vegtypes[vegtypes['SynLevel'].isin(never_lowest)].index.values
+        vegtypes.loc[idx,'IsLowest']='Nee'
+
+        allways_lowest = ['klasseromp','klassederivaat','verbondsromp',
+            'verbondsderivaat','subassociatie','romp','derivaat',]
+        idx = vegtypes[vegtypes['SynLevel'].isin(allways_lowest)].index.values
+        vegtypes.loc[idx,'IsLowest']='Ja'
+
+        # get list of labels for associaties without subassociatie
+        # and set lowest to Ja
+        mask = vegtypes['SynLevel']=='associatie'
+        associaties = vegtypes[mask].index.values
+
+        mask = vegtypes['SynLevel']=='subassociatie'
+        associaties_with_sub = vegtypes[mask].index.to_series().str[:-1].unique()
+
+        associaties_without_sub = list(set(associaties)-set(associaties_with_sub))
+
+        vegtypes.loc[associaties_without_sub,'IsLowest'] = 'Ja'
+        vegtypes.loc[associaties_with_sub,'IsLowest'] = 'Nee'
+
+        # make IsLowest categorical column
+        vegtypes['IsLowest'] = _pd.Categorical(
+            values = vegtypes['IsLowest'],
+            categories = ['Ja', 'Nee'],
+            ordered=True,
+            )
 
         if current_only:
-            vegtypes = vegtypes[vegtypes['IsCurrent']=='Yes'].copy()
+            vegtypes = vegtypes[vegtypes['IsCurrent']=='Ja'].copy()
 
         if not verbose:
-            vegtypes = vegtypes[self.VEGTYPECOLS_MINIMAL].copy()
+            #colnames = [x for x in vegtypes.columns if x in self.VEGTYPECOLS_MINIMAL]
+            colnames = [x for x in self.VEGTYPECOLS_MINIMAL if x!='Code']
+            vegtypes = vegtypes[colnames].copy()
 
         # turn date into year
         for colname in ['Created', 'Modified']:
             if colname in list(vegtypes):
                 vegtypes[colname] = vegtypes[colname].dt.year.copy()
 
-        # set vegetation type code as index and sort index
-        vegtypes = vegtypes.set_index('Code', drop=True, verify_integrity=True)
-        return vegtypes.sort_index(ascending=True)
+        return vegtypes
 
-
-    def typology_name(self, typology='sbb'):
+    def typology_name(self, typology='sbbcat'):
         """Return name of typology for given tyopology code.
         
         Parameters
         ----------
-        typology : {'sbb','rvvn','vvn'}, default 'sbb'
+        typology : {'sbbcat','rvvn','vvn'}, default 'sbbcat'
             Code for typology system.
 
         Returns
@@ -172,13 +238,13 @@ class CmsiVegtypes:
 
         return typology_name
 
-    def changes_by_year(self, typology='sbb'):
+    def changes_by_year(self, typology='sbbcat'):
         """Return table of Creations and Modifications by year for all 
         vegetation types in CMSi.
         
         Parameters
         ----------
-        typology : {'sbb','rvvn','vvn'}, default 'sbb'
+        typology : {'sbbcat','rvvn','vvn'}, default 'sbbcat'
             Code for typology system.
 
         Returns

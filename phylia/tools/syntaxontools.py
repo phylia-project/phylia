@@ -1,12 +1,13 @@
 """Module with functions for validating and inspecting syntaxon codes."""
 
 import re as _re
+import numpy as _np
 import pandas as _pd
 import logging as _logging
 _logger = _logging.getLogger(__name__)
 
 
-SUPPORTED_REFERENCE_SYSTEMS = ['sbbcat', 'vvn']
+SUPPORTED_REFERENCE_SYSTEMS = ['sbbcat', 'vvn', 'rvvn']
 
 SBB_PATTERNS = {
     'klasse': r'(^[0-4]?[0-9]$)', # '(05)'
@@ -28,15 +29,25 @@ VVN_PATTERNS = {
     'subassociatie': r'(^r?)([0-4]?[0-9])([A-Za-z])([A-Fa-f])([0-9]?[0-9])([A-Za-z]$)', # '(r)(05)(A)(a)(1)(a)'
     'romp': r'(^r?)([0-4]?[0-9])([Rr][Gg])([0-9]?[0-9]$)', # '(r)(05)(RG)(01)'
     'derivaat': r'(^r?)([0-4]?[0-9])([Dd][Gg])([0-9]?[0-9]$)', # '(r)(05)(DG)(01)'
+    'nvt' : r'(^r?)(50[A-Z]|400|300|200|100)$', #'(r)(50A)' | '(r)(100)'
     }
+
+
+SYNTAXON_ORDER = ['klasse', 'orde', 'verbond', 'associatie', 
+    'subassociatie', 'klasseromp', 'verbondsromp', 'romp',
+    'klassederivaat', 'verbondsderivaat', 'derivaat',
+     ]
 
 SBB_TESTCODES = ['05', '05-a', '05/a', '05%a', '05A', '05A-a', 
     '05A/a', '05A%a', '05A1', '05A1a','5','5-A','5/A','5%A',
-    '5a', '5a-A', '5a/A', '5a%A', '5a1', '5a1A',]
+    '5a', '5a-A', '5a/A', '5a%A', '5a1', '5a1A', '50A', '200',]
 
 VVN_TESTCODES = ['r05', 'r05A', 'r05Aa', 'r05Aa1', 'r05Aa1a',
+    'r50A', 'r200',
     '05', '05A', '05Aa', '05Aa1', '05Aa1a', 'r5', 'r5a', 
-    'r5aA1', 'r5aA1A', 'rubbish']
+    '50A', '200',
+    'r5aA1', 'r5aA1A', 'rubbish',]
+
 
 
 def reference_patterns(reference='sbbcat'):
@@ -45,7 +56,7 @@ def reference_patterns(reference='sbbcat'):
     
     Parameters
     ----------
-    reference : {'sbbcat', 'vvn'}, default 'sbbcat'
+    reference : {'sbbcat', 'rvvn', 'vvn'}, default 'sbbcat'
         Reference system for syntaxonomical units.
 
     Returns
@@ -56,7 +67,7 @@ def reference_patterns(reference='sbbcat'):
     """
     if reference=='sbbcat':
         return SBB_PATTERNS
-    elif reference=='vvn':
+    elif reference in ['vvn', 'rvvn']:
         return VVN_PATTERNS
     else:
         _logger.error(f'Reference system "{reference}" is not supported.')
@@ -68,7 +79,7 @@ def reference_levels(reference='sbbcat'):
 
     Parameters
     ----------    
-    reference : {'sbbcat', 'vvn'}, default 'sbbcat'
+    reference : {'sbbcat', 'rvvn', 'vvn'}, default 'sbbcat'
         Syntaxonomic reference system.
 
     Returns
@@ -79,35 +90,20 @@ def reference_levels(reference='sbbcat'):
     """
     if reference=='sbbcat':
         return list(SBB_PATTERNS.keys())
-    elif reference=='vvn':
+    elif reference in ['vvn','rvvn']:
         return list(VVN_PATTERNS.keys())
     else:
         _logger.error(f'Reference system "{reference}" is not supported.')
     return None
 
-def syntaxon_validate(code):
-    """Return validated syntaxoncode.
-    
-    Parameters
-    ----------
-    code : str
-        Syntaxoncode text.
 
-    Returns
-    -------
-    str | None
-        Valid syntaxon code.
+def _syntaxon_validate_string(code):
+    """Validate string as syntaxoncode and return valid syntaxon 
+    code. This is a helper function for syntaxon_validate() method."""
 
-    Notes
-    -----
-    Any text that resembles a valid syntaxon code in either the 
-    Staatsbosbeheer Catalogus reference system of the Vegetatie 
-    van Nederland reference system will be returned as a valid 
-    syntaxon code. When no match is found, the result will be None.
-        
-    """
+    newtext = None # if no match is found, None will be the returned result
 
-    newtext = None
+    # First, test for sbbcat patterns
     for syntaxlevel, pattern in SBB_PATTERNS.items():
 
         if _re.search(pattern, code, flags=_re.IGNORECASE):
@@ -134,7 +130,7 @@ def syntaxon_validate(code):
             newtext = _re.sub(pattern, callback, code)
             return newtext # pattern from SbbCat recognised, return result
 
-
+    # Second, no match was found to sbbcat, test for rvvn patterns
     for syntaxlevel, pattern in VVN_PATTERNS.items():
 
         if _re.search(pattern, code):
@@ -181,19 +177,94 @@ def syntaxon_validate(code):
                     +pat.group(3).upper()
                     +pat.group(4).zfill(2)
                     )
+            if syntaxlevel=='nvt':
+                callback = (lambda pat: pat.group(1).lower()
+                    +pat.group(2)
+                    )
 
-            #reg = _re.search(pattern, code, flags=_re.IGNORECASE)
-            #res = ', '.join([x.upper() for x in reg.groups()])
-            #_logger.error(f'{syntaxlevel} : {res}')
-            
-            newtext = _re.sub(pattern, callback, code) #, flags=_re.IGNORECASE)
+            newtext = _re.sub(pattern, callback, code)
             return newtext # pattern from VVN recognised, return result
 
-    if not newtext:
-        _logger.error(f'No matching pattern found for "{code}"')
-
-
+    # Third, no match was found at all, return None
     return newtext
+
+
+def syntaxon_validate(code):
+    """Return validated syntaxoncode.
+    
+    Parameters
+    ----------
+    code : pandas.Series | list | str
+        Syntaxoncode text.
+
+    Returns
+    -------
+    pd.Series | str | np.nan
+        Valid syntaxon code.
+
+    Notes
+    -----
+    Any text that resembles a valid syntaxon code in either the 
+    Staatsbosbeheer Catalogus reference system of the Vegetatie 
+    van Nederland reference system will be returned as a valid 
+    syntaxon code. When no match is found, the result will be None.
+        
+    """
+
+    if isinstance(code, _pd.Series):
+        validated = code.apply(_syntaxon_validate_string)
+        return validated
+
+    if isinstance(code, list):
+        if all(isinstance(item, str) for item in code):
+            validated = [_syntaxon_validate_string(x) for x in code]
+            return validated
+        else:
+            raise ValueError((f'Not all syntaxoncodes are of type '
+                f'string: "{code}".'))
+
+    if _pd.isnull(code):
+        _logger.error((f'Input "{code}" of type {type(code)} is no valid '
+            f'syntaxon input'))
+        return None
+
+    if isinstance(code, int):
+        code = str(code)
+
+    if isinstance(code, float):
+        code = str(code)
+
+    if isinstance(code, str):
+        validated = _syntaxon_validate_string(code)
+        if not validated:
+            _logger.error(f'No matching pattern found for "{code}"')      
+        return validated
+
+    raise ValueError((f'Unknown type for syntaxon code: {type(code)}'))
+
+
+def _syntaxonclass_string(code):
+    """Return number of syntaxonomical class given a valid syntaxon code.
+    This is a helper function for syntaxonclass()."""
+
+    for syntaxlevel, pattern in SBB_PATTERNS.items():
+        match = _re.search(pattern, code)
+        if match:
+            if syntaxlevel=='nvt':
+                return _np.nan
+            else:
+                return match.group(1).zfill(2)
+
+    for syntaxlevel, pattern in VVN_PATTERNS.items():
+        match = _re.search(pattern, code)
+        if match:
+            if syntaxlevel=='nvt':
+                return _np.nan
+            else:
+                return match.group(2).zfill(2)
+
+    _logger.error(f'No matching syntaxon class found for "{code}".')
+    return None
 
 
 def syntaxonclass(code):
@@ -206,23 +277,57 @@ def syntaxonclass(code):
 
     Returns
     -------
-    str or None
+    str or numpy.nan
         class code of syntaxon
     """
-    for syntaxlevel, pattern in SBB_PATTERNS.items():
-        match = _re.search(pattern, code)
-        if match:
-            return match.group(1)
 
-    for syntaxlevel, pattern in VVN_PATTERNS.items():
-        match = _re.search(pattern, code)
-        if match:
-            if match.group(1)=='r':
-                return match.group(2)
+    if isinstance(code, _pd.Series):
+        synclass = code.apply(_syntaxonclass_string)
+        return synclass
+
+    if isinstance(code, list):
+        if all(isinstance(item, str) for item in code):
+            synclass = [_syntaxonclass_string(x) for x in code]
+            return synclass
+        else:
+            raise ValueError((f'Not all syntaxoncodes are of type '
+                f'string: "{code}".'))
+
+    if isinstance(code, str):
+        synclass = _syntaxonclass_string(code)
+        if not synclass:
+            _logger.error(f'No matching pattern found for "{code}"')      
+        return synclass
+
+    if _pd.isnull(code):
+        _logger.error((f'Input "{code}" of type {type(code)} is no valid '
+            f'syntaxon input.'))
+        return None
+
+    raise ValueError((f'Unknown type for syntaxon code: {type(code)}'))
+    ##return None
+
+
+def _syntaxonlevel_string(code, reference=None):
+    """Return syntaxonomical level of syntaxon 'code'."""
+
+    # get regex patterns
+    if reference=='sbbcat':
+        PATTERNS = SBB_PATTERNS
+    elif reference in ['rvvn','vvn']:
+        PATTERNS = VVN_PATTERNS
+
+    # match patterns to code
+    for syntaxlevel, pattern in PATTERNS.items():
+        if _re.search(pattern, code):
+            if syntaxlevel=='nvt':
+                return _np.nan
             else:
-                return match.group(1)
+                return syntaxlevel
 
-    _logger.error(f'No matching syntaxon class found for "{code}".')
+    # return None if no match was found
+    _logger.error((f'No matching syntaxon level found for "{code}" '
+        f'in reference system "{reference}".'))
     return None
 
 
@@ -251,21 +356,27 @@ def syntaxonlevel(code, reference='sbbcat'):
     order level in the "Vegetatie van Nederland" (e.g. "5A").
               
     """
-    if reference=='sbbcat':
-        PATTERNS = SBB_PATTERNS
-    elif reference=='vvn':
-        PATTERNS = VVN_PATTERNS
-    else:
-        _logger.error(f'Invalid reference system "{reference}".')
-        return None
-    
-    for syntaxlevel, pattern in PATTERNS.items():
-        if _re.search(pattern, code):
-            return syntaxlevel
 
-    _logger.error((f'No matching syntaxon level found for "{code}" '
-        f'in reference system "{reference}".'))
-    return None
+    if reference not in SUPPORTED_REFERENCE_SYSTEMS:
+        raise ValueError(f'Invalid reference system "{reference}".')
+
+    if isinstance(code, _pd.Series):        
+        syntaxlevel =  _pd.Categorical(
+            values = code.apply(_syntaxonlevel_string, reference=reference),
+            categories = SYNTAXON_ORDER,
+            ordered=True,
+            )
+        return syntaxlevel
+
+    elif isinstance(code, str):
+        syntaxlevel =  _syntaxonlevel_string(code, reference=reference)
+        return syntaxlevel
+
+    elif _pd.isnull(code):
+        return _np.nan
+
+    _logger.error((f'Unknown type for syntaxon code: {type(code)}'))
+    return None #_np.nan
 
 
 def syntaxon_codetest(code=None, reference='sbbcat'):
@@ -276,7 +387,7 @@ def syntaxon_codetest(code=None, reference='sbbcat'):
     ----------
     code : string | list of strings
         Syntaxon code(s) to be tested.
-    reference : {'sbbcat', 'vvn'}, defaul 'sbbcat'
+    reference : {'sbbcat', 'vvn'}, default 'sbbcat'
         Syntaxonomical reference system.
 
     Returns
@@ -297,26 +408,31 @@ def syntaxon_codetest(code=None, reference='sbbcat'):
     if not code:
         if reference=='sbbcat':
             code = SBB_TESTCODES
-        elif reference=='vvn':
+        elif reference in ['vvn', 'rvvn']:
             code = VVN_TESTCODES
         else:
             _logger.error(f'Reference system "{reference}" is not supported.')
             return _pd.DataFrame()
 
-    if isinstance(code,str):
+    # checking for NaN, numbers and string
+    if isinstance(code, float):
+        return _np.nan
+    if isinstance(code, str):
         code = [code]
 
     tested = []
     for syncode in code:
         validated = syntaxon_validate(syncode)
+        corrected = 'Nee' if syncode==validated else 'Ja'
         level = syntaxonlevel(validated, reference=reference) if validated else None
-        corrected = 'No' if syncode==validated else 'Yes'
+        synclass = syntaxonclass(syncode)
 
         tested.append({
             'code' : syncode,
             'validated' : validated,
-            'syntaxlevel' : level,
             'corrected' : corrected,
+            'syntaxlevel' : level,
+            'syntaxclass' : synclass,
             })
 
     return _pd.DataFrame(tested)
