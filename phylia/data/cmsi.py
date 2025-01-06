@@ -31,7 +31,7 @@ def vegetationtypes(typology='sbbcat', current_only=True, verbose=False):
         
     """
     cst = CmsiSyntaxonTable()
-    return cst.vegetation_types(typology=typology, 
+    return cst.vegetationtypes(typology=typology, 
         current_only=current_only, verbose=verbose)
 
 
@@ -130,7 +130,7 @@ class CmsiSyntaxonTable:
         return len(self.syntaxa)
 
 
-    def vegetation_types(self, typology='sbbcat', current_only=True, verbose=False):
+    def vegetationtypes(self, typology='sbbcat', current_only=True, verbose=False):
         """Return list of vegetation type names and codes for given
         typology.
         
@@ -150,6 +150,7 @@ class CmsiSyntaxonTable:
         DataFrame
             
         """
+
         # table of syntaxa for chosen typology
         mask = self.syntaxa['VegClas']==self.typology_name(typology)
         vegtypes = self.syntaxa[mask].copy()
@@ -173,12 +174,12 @@ class CmsiSyntaxonTable:
         # add column indicating if syntaxon is at the lowest level or not
         never_lowest = ['klasse','orde','verbond','nvt']
         idx = vegtypes[vegtypes['SynLevel'].isin(never_lowest)].index.values
-        vegtypes.loc[idx,'IsLowest']='Nee'
+        vegtypes.loc[idx,'IsLowest']='No'
 
         allways_lowest = ['klasseromp','klassederivaat','verbondsromp',
             'verbondsderivaat','subassociatie','romp','derivaat',]
         idx = vegtypes[vegtypes['SynLevel'].isin(allways_lowest)].index.values
-        vegtypes.loc[idx,'IsLowest']='Ja'
+        vegtypes.loc[idx,'IsLowest']='Yes'
 
         # get list of labels for associaties without subassociatie
         # and set lowest to Ja
@@ -190,18 +191,18 @@ class CmsiSyntaxonTable:
 
         associaties_without_sub = list(set(associaties)-set(associaties_with_sub))
 
-        vegtypes.loc[associaties_without_sub,'IsLowest'] = 'Ja'
-        vegtypes.loc[associaties_with_sub,'IsLowest'] = 'Nee'
+        vegtypes.loc[associaties_without_sub,'IsLowest'] = 'Yes'
+        vegtypes.loc[associaties_with_sub,'IsLowest'] = 'No'
 
         # make IsLowest categorical column
         vegtypes['IsLowest'] = _pd.Categorical(
             values = vegtypes['IsLowest'],
-            categories = ['Ja', 'Nee'],
+            categories = ['Yes', 'No'],
             ordered=True,
             )
 
         if current_only:
-            vegtypes = vegtypes[vegtypes['IsCurrent']=='Ja'].copy()
+            vegtypes = vegtypes[vegtypes['IsCurrent']=='Yes'].copy()
 
         if not verbose:
             #colnames = [x for x in vegtypes.columns if x in self.VEGTYPECOLS_MINIMAL]
@@ -259,7 +260,7 @@ class CmsiSyntaxonTable:
         It is not a table of changes in de typology system itself.
             
         """
-        vegtypes = self.vegetation_types(typology=typology, 
+        vegtypes = self.vegetationtypes(typology=typology, 
             current_only=False, verbose=True)
         actions = vegtypes[['Created','Modified']].stack().reset_index()
         actions = actions.set_axis(['Code','Action','Year'], axis=1)

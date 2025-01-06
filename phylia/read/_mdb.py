@@ -78,7 +78,7 @@ class Mdb:
                 'errmsg':repr(self._err),
                 'fpath':self._mdbpath,
                 }
-            logger.warnings((f'Could not open .mdb file {self._mdbpath} '
+            logger.warning((f'Could not open .mdb file {self._mdbpath} '
              f'because of an {self._mdbopen_error["errtype"]} error. '
              f'Full error message: {self._mdbopen_error["errmsg"]}.'))
 

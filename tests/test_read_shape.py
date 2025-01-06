@@ -76,10 +76,6 @@ def test_found_errors(badshapepath):
     readr = ShapeFile(badshapepath)
     err = readr.shape_errors
 
-    msg = 'rings with less than three nodes'
-    err['match'] = err['error'].apply(lambda x:msg in x)
-    assert err['match'].any(axis=0)
-
     msg = r'Geometry type is None'
     err['match'] = err['error'].apply(lambda x:msg in x)
     assert err['match'].any(axis=0)

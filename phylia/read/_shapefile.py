@@ -82,7 +82,7 @@ class ShapeFile:
         # read shapefile with geopandas
         try:
             gdf = gpd.read_file(fpath)
-            gdf.index.name = 'fid' #geopandas sets shapefile fid as index
+            gdf.index.name = 'fid' # geopandas sets shapefile fid as index
 
         except Exception as e:
 
@@ -93,7 +93,13 @@ class ShapeFile:
                 }
 
             # try to fix geometry errors with fiona
-            gdf, shperr = self.read_with_fiona(fpath,shperr)
+            try:
+                gdf, shperr = self.read_with_fiona(fpath, shperr)
+            except ValueError as a:
+                logger.error((f'Shapefile contains topological errors '
+                    f'and can not be read, empty geodataframe will be '
+                    f' returned: {fpath}'))
+                gdf = gpd.GeoDataFrame()
 
         else:
             self._gpd_read_err = None
@@ -113,7 +119,7 @@ class ShapeFile:
                 gdf = gdf[gdf.geom_type.notnull()].copy()
 
         if gdf.empty:
-            logger.warning((f'Empty shapefile: {self._fpath}.'))
+            logger.warning((f'Shapefile contents can not be read: {self._fpath}.'))
 
         return gdf, shperr
 
