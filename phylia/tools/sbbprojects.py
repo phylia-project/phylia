@@ -79,12 +79,12 @@ class SbbProjects:
         repaths : boolean, default True
             Return relative filepaths.
         """
-        if not isinstance(root,str):
+        if not isinstance(root, str):
             raise TypeError((f'root must be of type string '
                 f'not {type(root)}'))
 
         if not _os.path.isdir(root):
-            raise TypeError(f'{root} is not a valid directory name.')
+            raise ValueError(f'{root} is not a valid directory name.')
 
         self._root = root
         self._projects = self._projectfolders(self._root)
@@ -309,9 +309,9 @@ class SbbProjects:
                 _logger.error((f'"{colname}" not in filetbl columns: '
                     f'{list(filetbl)}. Counts for all columns will be '
                     f'returned.'))
-            colname = None
+                colname = None
 
-        grp = filetbl.groupby(by=[INDEX_COL1, INDEX_COL2])
+        grp = filetbl.groupby(by=[self.INDEXCOL1, self.INDEXCOL2])
         filecounts = grp.count()
         if colname is not None:
             filecounts = filecounts[colname].copy()
@@ -408,7 +408,7 @@ class SbbProjects:
         when multiple files are present.
             
         """
-        filetbl = self.get_allfiles(filetype='mdb', relpaths=True)
+        filetbl = self.get_filetype(filetype='mdb', relpaths=True)
 
         if use_discard_tags:
             discard_tags = self.DEFAULT_DISCARDTAGS
@@ -532,7 +532,7 @@ class SbbProjects:
         # indicate folders that have been copied or discarded (like in 
         # get_mdbfiles()
 
-        filetbl = self.get_allfiles(filetype='shp', relpaths=True)
+        filetbl = self.get_filetype(filetype='shp', relpaths=True)
 
         # masks for filename contains keyword
         if shapetype=='polygon':
@@ -671,7 +671,9 @@ class SbbProjects:
 
 
     def get_tv2duplicates(self, relpaths=True):
-        """Return folder names for projects with multiple TV2 databases.
+        """Return path names for all Turboveg2 databases in projects with 
+        multiple databases (includes projects where a single database could
+        be selected).
 
         Parameters
         ----------
@@ -683,18 +685,22 @@ class SbbProjects:
         pandas DataFrame
         
         """
+
+        # table of projects with multiple tv2 databases
         tvdir = self._tv2_mark_selected_folders()
-        mask = tvdir['criterion']!='single directory'
-        dups = tvdir[mask][[self.INDEXCOL1,self.INDEXCOL2,'tvdir']].reset_index(drop=True)
+        mask1 = tvdir['criterion']!='single directory'
+        mask2 = tvdir.duplicated(subset=['provincie','project'], keep=False)
+        tvdir = tvdir[mask1&mask2].copy()
 
         if relpaths: #remove root from paths
-            dups['tvdir'] = _filetools.relativepath(dups['tvdir'])
+            tvdir['tvdir'] = _filetools.relativepath(tvdir['tvdir'], 
+                rootdir=self.get_rootfolder())
 
-        return dups
+        return tvdir
 
 
     def get_tv2ambiguous(self, relpaths=True):
-        """Return turboveg2 folder names for projects with no best folder.
+        """Return turboveg2 folder names for projects where no single folder could be selected.
 
         Parameters
         ----------
@@ -867,7 +873,7 @@ class SbbProjects:
             discardtags = taglist
 
         # find mdb files
-        mdblist = self.get_allfiles(filetype='mdb')
+        #mdblist = self.get_filetype(filetype='mdb')
         mdbsel, ambigous = self.get_mdbfiles( 
             use_discard_tags=use_discard_tags,
             taglist=discardtags, 
@@ -887,7 +893,7 @@ class SbbProjects:
         ##shp = self.list_allfiles(filetype='shp')
         
         # find polygon shapefiles
-        polysel,ambigous = self.get_shapefiles(shapetype='polygon',
+        polysel, ambigous = self.get_shapefiles(shapetype='polygon',
             priority_filepaths=polygonpaths)
         polysel = polysel.set_index(
                 keys=[self.INDEXCOL1,self.INDEXCOL2],verify_integrity=True)
@@ -913,21 +919,23 @@ class SbbProjects:
                 f'files.'))
 
         # list of TV2 directories
-        tvdir, tvambi = self.filter_tv2()
+        tvambi = self.get_tv2ambiguous()
         if not tvambi.empty:
             _logger.warning((f'{ambiprj} projects with multiple TV2 directories '
-                f'found. Use '
-                f'method filter_tv2 to get a table of candidate '
+                f'found. Call get_tv2ambiguous '
+                f'to get a table of ambiguous '
                 f'files.'))
-        tvsel = tvdir[tvdir['selected']==True].set_index([self.INDEXCOL1,self.INDEXCOL2])
-        tvsel = tvsel[['tvdir']].copy()
-        if relpaths: #remove root from paths
-            tvsel['tvdir'] = _filetools.relativepath(tvsel['tvdir'])
-            #tvambi['tvdir'] = _filetools.relativepath(tvambi['tvdir'])
+
+        ##tvsel = tvdir[tvdir['selected']==True].set_index([self.INDEXCOL1,self.INDEXCOL2])
+        ##tvsel = tvsel[['tvdir']].copy()
+        ##if relpaths: #remove root from paths
+        ##    tvsel['tvdir'] = _filetools.relativepath(tvsel['tvdir'], rootdir=self.get_rootfolder())
+        tvsel = self.get_tv2folders(relpaths=True)
 
         # merge file tables with base project table
-        baseprj = self.get_projectfolders()
-        baseprj = baseprj[['year']].copy()
+        ##baseprj = self.get_projectfolders()
+        ##baseprj = baseprj[['year']].copy()
+        baseprj = self.split_projectnames()['year'].to_frame()
 
         prj = _pd.merge(baseprj,mdbsel,left_index=True,right_index=True,
             how='left',suffixes=[None,'_from_mdb'],validate='one_to_one')
@@ -948,7 +956,7 @@ class SbbProjects:
         if not relpaths:
             pathcols = [x for x in prj.columns if 'path' in x]
             for col in pathcols:
-                prj[col]=_filetools.absolutepath(prj[col])
+                prj[col]=_filetools.absolutepath(prj[col], rootdir=self.get_rootfolder())
 
         return prj
 
