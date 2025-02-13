@@ -619,8 +619,9 @@ class SbbProjects:
         return shpsel, ambiguous
 
 
-    def get_tv2folders(self, relpaths=True):
-        """Return names of folders with TV2 files.
+    def get_tv2(self, relpaths=True):
+        """
+        Return table of projects and the path to the Turboveg2 data folder.
 
         Parameters
         ----------
@@ -629,8 +630,8 @@ class SbbProjects:
 
         Returns
         -------
-        pandas DataFrame
-            
+        Series
+
         Notes
         -----
         A table with all projectfolders is returned. When at least one 
@@ -643,33 +644,80 @@ class SbbProjects:
         When no folder with TV2 files is present or when multiple 
         possible folders remain, the path tot the TV2 folder is left 
         empty.
-                    
-        - Call 'get_tv2ambiguous' method to get a list of projects with 
-          multiple ambiguous Turboveg2 folders.
-        - Call 'get_tv2dupllicates' method to get a complete list of 
-          projects with multiple Turboveg2 folders.
             
         """
 
-        # list of unique projectfolders
+        # selected tvfolders to series
+        tvdir = self.get_tv2folders(relpaths=relpaths, include='selected')
+        tvdir = tvdir.set_index([self.INDEXCOL1,self.INDEXCOL2], 
+            verify_integrity=True)
+
+        # merge with projects table
         prjtbl = self.get_projectfolders()
-
-        # list of selected tv2folders
-        tv2dir = self._tv2_mark_selected_folders()
-        selected = tv2dir['selected']==True
-        tvdir = tv2dir[selected].set_index(
-            [self.INDEXCOL1,self.INDEXCOL2], verify_integrity=True)
-
-        # merge both tables
-        tvdir = _pd.merge(prjtbl,tvdir, left_index=True, right_index=True, how='left')
-        tvdir = tvdir['tvdir'].squeeze()
-
-        if relpaths: #remove root from paths
-            tvdir = _filetools.relativepath(abspath=tvdir, rootdir=self.get_rootfolder())
+        tvdir = _pd.merge(prjtbl,tvdir, left_index=True, right_index=True, 
+            how='left').squeeze()
 
         return tvdir
 
 
+    def get_tv2folders(self, include='all', relpaths=True):
+        """Return names of folders with TV2 files.
+
+        Parameters
+        ----------
+        include : {'selected', 'ambiguous', 'duplicates', 'all'}, default 'all'
+            selected : only folders with a TV2 dataset that has been 
+                selected as best data source for a project are returned.
+            ambiguous : all folders for projects where selection of a 
+                best possible tv2 datasource was not possible are returned.
+            duplicates : all folders for projects with more than one 
+                tv2 dataset are returned.
+            all : all folders with a tv2 dataset are returned.
+        relpaths : bool, default True
+            Return directory paths relative to root folder.
+
+        Returns
+        -------
+        pandas DataFrame
+            
+            
+        """
+
+        # list of selected tv2folders
+        tvdir = self._tv2_mark_selected_folders()
+
+        if include=='selected':
+
+            selected = tvdir['selected']==True
+            tvdir = tvdir[selected]
+
+
+        elif include=='duplicates':
+
+            mask1 = tvdir['criterion']!='single directory'
+            mask2 = tvdir.duplicated(subset=['provincie','project'], keep=False)
+            tvdir = tvdir[mask1&mask2].copy()
+
+
+        elif include=='ambiguous':
+
+            mask1 = tvdir['selected']==False
+            mask2 = tvdir['rejected']==False
+            tvdir = tvdir[mask1&mask2].copy()
+
+        elif include=='all':
+            pass
+
+        else:
+            raise ValueError(f'Invalid value "{include}".')
+
+        if relpaths: #remove root from paths
+            tvdir['tvdir'] = _filetools.relativepath(tvdir['tvdir'], 
+                rootdir=self.get_rootfolder())
+            
+        return tvdir
+
+    
     def get_tv2duplicates(self, relpaths=True):
         """Return path names for all Turboveg2 databases in projects with 
         multiple databases (includes projects where a single database could
@@ -724,7 +772,7 @@ class SbbProjects:
         return tvdir
 
 
-    def _tv2_get_folders(self):
+    def _tv2_find_all_folders(self):
         """Return table with directory paths for all drectories with 
         Turboveg2 project files under root.
         
@@ -733,6 +781,11 @@ class SbbProjects:
         The criterium for being a Turboveg2 project folder is the 
         presence of a file called 'tvhabita.dbf'.
         """
+
+        # finding all turboveg2 folders takes a lot of time
+        # this is done only once for an object
+        if '_tv2folders' in self.__dict__.keys():
+            return self._tv2folders
 
         # get table of project directories
         prjtbl = self._projects
@@ -758,14 +811,15 @@ class SbbProjects:
 
                     tvdirs.append(rec.copy())
 
-        return _pd.DataFrame(tvdirs)
+        self._tv2folders = _pd.DataFrame(tvdirs)
+        return self._tv2folders
 
 
     def _tv2_mark_selected_folders(self):
         """Return table of TV2 folders and best directory. """
 
         # get all tv2 folders under root
-        tvdir = self._tv2_get_folders()
+        tvdir = self._tv2_find_all_folders()
 
         tvdir['path_depth'] = tvdir['tvdir'].apply(
             lambda x:len(_os.path.normpath(x).split(_os.sep)))
@@ -815,8 +869,7 @@ class SbbProjects:
                 continue
 
                 _logger.warning((f'No single best directory with Turboveg '
-                    f'files found for {prv} {prj}. Use X to get a list of '
-                    f'projects with multiple directories.'))
+                    f'files found for {prv} {prj}.'))
 
             # mark alll records of current project as rejected
             tvdir.loc[tbl.index.values,'rejected'] = True
@@ -919,18 +972,18 @@ class SbbProjects:
                 f'files.'))
 
         # list of TV2 directories
-        tvambi = self.get_tv2ambiguous()
-        if not tvambi.empty:
-            _logger.warning((f'{ambiprj} projects with multiple TV2 directories '
-                f'found. Call get_tv2ambiguous '
-                f'to get a table of ambiguous '
-                f'files.'))
+        #tvambi = self.get_tv2ambiguous()
+        #if not tvambi.empty:
+        #    _logger.warning((f'{ambiprj} projects with multiple TV2 directories '
+        #        f'found. Call get_tv2ambiguous '
+        #        f'to get a table of ambiguous '
+        #        f'files.'))
 
         ##tvsel = tvdir[tvdir['selected']==True].set_index([self.INDEXCOL1,self.INDEXCOL2])
         ##tvsel = tvsel[['tvdir']].copy()
         ##if relpaths: #remove root from paths
         ##    tvsel['tvdir'] = _filetools.relativepath(tvsel['tvdir'], rootdir=self.get_rootfolder())
-        tvsel = self.get_tv2folders(relpaths=True)
+        tvsel = self.get_tv2(relpaths=True)
 
         # merge file tables with base project table
         ##baseprj = self.get_projectfolders()

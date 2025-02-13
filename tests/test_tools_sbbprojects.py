@@ -10,6 +10,7 @@ import phylia
 
 root = r'.\data\sbbprojects\\'
 
+
 def test_class_sbbprojects(root=root):
     # Test creating SbbProjects instance
 
@@ -17,6 +18,7 @@ def test_class_sbbprojects(root=root):
     assert isinstance(sbbprj, phylia.SbbProjects)
     assert len(sbbprj)>0
     assert isinstance(str(sbbprj), str)
+
 
 def test_count_projectfiles(root=root):
 
@@ -83,28 +85,28 @@ def test_get_shapefiles(root=root):
     assert isinstance(df2, pd.DataFrame)
 
 
-def test_get_tv2ambiguous():
-
-    sbbprj = SbbProjects(root)
-    df = sbbprj.get_tv2ambiguous()
-    assert isinstance(df, pd.DataFrame)
-    assert not df.empty
-
-
-def get_tv2duplicates():
-
-    sbbprj = SbbProjects(root)
-    df = sbbprj.get_tv2duplicates()
-    assert isinstance(df, pd.DataFrame)
-    assert not df.empty
-
-
 def test_get_tv2folders(root=root):
 
     sbbprj = SbbProjects(root)
-    sr = sbbprj.get_tv2folders()
-    assert isinstance(sr, Series)
-    assert not sr.empty
+
+    df = sbbprj.get_tv2folders(relpaths=True, include='selected')
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+    df = sbbprj.get_tv2folders(relpaths=True, include='ambiguous')
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+    df = sbbprj.get_tv2folders(relpaths=True, include='duplicates')
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+    df = sbbprj.get_tv2folders(relpaths=True, include='all')
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+    #assert isinstance(sr, Series)
+    #assert not sr.empty
 
 
 def test_split_projectnames(root=root):
