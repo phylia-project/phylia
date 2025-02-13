@@ -7,7 +7,7 @@ from phylia.sbb import MapTables
 
 @pytest.fixture
 def db():
-    srcdir = r'.\data\DSprojects\Drenthe\Dr 0469_Hijken_2001\\'
+    srcdir = r'.\data\sbbprojects\Drenthe\Dr 0469_Hijken_2001\\'
     mdbpath = f'{srcdir}469_Hijken.mdb'
     return MapTables.from_mdb(mdbpath)
 

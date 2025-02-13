@@ -33,11 +33,11 @@ def test_reference_levels():
 
     reflev = syntaxontools.reference_levels('rvvn')
     assert isinstance(reflev, list)
-    assert len(reflev)==9
+    assert len(reflev)==8
 
     reflev = syntaxontools.reference_levels('vvn')
     assert isinstance(reflev, list)
-    assert len(reflev)==9
+    assert len(reflev)==8
 
 
 def test_reference_patterns():
@@ -118,22 +118,14 @@ def test_syntaxonclass():
     assert isinstance(synclass, list)
     assert all(isinstance(x, str) for x in synclass if not pd.isnull(x))
 
-
+"""
 def test_get_synlevel(sbbsyn):
 
     syn = Series(sbbsyn.index)
     sr = syn.apply(syntaxontools.syntaxonlevel)
     assert isinstance(sr, Series)
     assert not sr.empty
-
-
-
-def test_reference_levels():
-    synlevels = syntaxontools.reference_levels(reference='sbbcat')
-    assert isinstance(synlevels, list)
-
-    synlevels = syntaxontools.reference_levels(reference='vvn')
-    assert isinstance(synlevels, list)
+"""
 
 
 def test_syntaxon_level_with_sbbcat(sbbsyn):

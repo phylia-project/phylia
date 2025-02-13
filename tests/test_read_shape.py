@@ -7,7 +7,7 @@ from phylia.read import ShapeFile
 
 @pytest.fixture
 def root():
-    return r'.\data\DSprojects\\'
+    return r'.\data\sbbprojects\\'
 
 @pytest.fixture
 def goodshapepath(root):

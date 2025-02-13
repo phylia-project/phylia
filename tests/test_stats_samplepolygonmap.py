@@ -8,7 +8,7 @@ from phylia.sample import SamplePolygonMap
 
 @pytest.fixture
 def root():
-    return r'.\data\DSprojects\\'
+    return r'.\data\sbbprojects\\'
 
 @pytest.fixture
 def polyshape(root):

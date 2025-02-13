@@ -101,6 +101,9 @@ def _syntaxon_validate_string(code):
     """Validate string as syntaxoncode and return valid syntaxon 
     code. This is a helper function for syntaxon_validate() method."""
 
+    if _pd.isnull(code):
+        return np.nan
+
     newtext = None # if no match is found, None will be the returned result
 
     # First, test for sbbcat patterns

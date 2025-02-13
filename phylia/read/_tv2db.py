@@ -139,7 +139,7 @@ class Tv2Db:
             if not fpath.is_file():
                 continue
 
-            gdf = gpd.read_file(fpath)
+            gdf = gpd.read_file(fpath, engine='fiona')
             #table = DataFrame(gdf.drop(columns=['geometry']))
             table = gdf.copy()
 

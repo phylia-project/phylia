@@ -9,7 +9,7 @@ from phylia.read import Tv2Db
 
 @pytest.fixture
 def db():
-    folder = r'.\data\DSprojects\Drenthe\Dr 0007_Hijken_1989\TV_7\\'
+    folder = r'.\data\sbbprojects\Drenthe\Dr 0007_Hijken_1989\TV_7\\'
     db = Tv2Db(folder, prjname='Hijken 1989')
     assert isinstance(db, Tv2Db)
     return db

@@ -7,7 +7,7 @@ from phylia.sbb import MapData
 
 @pytest.fixture
 def mpd():
-    srcdir = r'.\data\DSprojects\Drenthe\Dr 0469_Hijken_2001\\'
+    srcdir = r'.\data\sbbprojects\Drenthe\Dr 0469_Hijken_2001\\'
     mdbpath = f'{srcdir}469_Hijken.mdb'
     polypath = f'{srcdir}vlakken.shp'
     linepath = f'{srcdir}lijnen.shp'

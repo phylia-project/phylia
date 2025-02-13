@@ -30,6 +30,7 @@ from .read._tv2db import Tv2Db
 from .read._tvxml import TvXml
 from .sample._samplepolygonmap import SamplePolygonMap
 from .plot._sankey_two_maps import SankeyTwoMaps
+from .tools.sbbprojects import SbbProjects
 
 import logging
 logger = logging.getLogger(__name__)

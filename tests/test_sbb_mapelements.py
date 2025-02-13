@@ -9,7 +9,7 @@ from phylia.sbb import MapElements
 
 @pytest.fixture
 def poly():
-    srcdir = r'.\data\DSprojects\Drenthe\Dr 0469_Hijken_2001\\'
+    srcdir = r'.\data\sbbprojects\Drenthe\Dr 0469_Hijken_2001\\'
     polypath = f'{srcdir}vlakken.shp'
     poly = MapElements.from_shapefile(polypath)
     assert isinstance(poly,MapElements)
@@ -17,7 +17,7 @@ def poly():
 
 @pytest.fixture
 def line():
-    srcdir = r'.\data\DSprojects\Drenthe\Dr 0469_Hijken_2001\\'
+    srcdir = r'.\data\sbbprojects\Drenthe\Dr 0469_Hijken_2001\\'
     linepath = f'{srcdir}lijnen.shp'
     line = MapElements.from_shapefile(linepath)
     assert isinstance(line,MapElements)

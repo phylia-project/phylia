@@ -8,7 +8,7 @@ import logging as _logging
 _logger = _logging.getLogger(__name__)
 
 from . import _data_cmsi
-from ..tools import syntaxontools
+from ..tools import syntaxontools as _syntaxontools
 
 def vegetationtypes(typology='sbbcat', current_only=True, verbose=False):
     """Return list of vegetation type names and codes for given
@@ -16,7 +16,7 @@ def vegetationtypes(typology='sbbcat', current_only=True, verbose=False):
     
     Parameters
     ----------
-    typology : {'sbb','rvvn','vvn'}, default 'sbbcat'
+    typology : {'sbbcat','rvvn','vvn'}, default 'sbbcat'
         Name of vegetation typology system.
 
     current_only : boollean, default True
@@ -33,6 +33,30 @@ def vegetationtypes(typology='sbbcat', current_only=True, verbose=False):
     cst = CmsiSyntaxonTable()
     return cst.vegetationtypes(typology=typology, 
         current_only=current_only, verbose=verbose)
+
+
+def changes_by_year(typology='sbbcat'):
+    """Return table of Creations and Modifications by year for all 
+    vegetation types in CMSi.
+    
+    Parameters
+    ----------
+    typology : {'sbbcat','rvvn','vvn'}, default 'sbbcat'
+        Code for typology system.
+
+    Returns
+    -------
+    DataFrame
+        Table of changes by year.
+
+    Notes
+    -----
+    The result shows changes in de list of vegetation types in CMSi. 
+    It is not a table of changes in de typology system itself.
+        
+    """
+    cst = CmsiSyntaxonTable()
+    return cst.changes_by_year(typology=typology)
 
 
 class CmsiSyntaxonTable:
@@ -96,38 +120,57 @@ class CmsiSyntaxonTable:
 
         # get table of cmsi vegetation types from package data
         srcfile = (_resources.files(_data_cmsi) / 'CMSiVegetationTypes.csv')
-        self.syntaxa = _pd.read_csv(srcfile, encoding='utf-8')
+        self._syntaxa = _pd.read_csv(srcfile, encoding='utf-8')
 
         # convert datetime columns
         for colname in ['Created','Modified']:
-            self.syntaxa[colname] = _pd.to_datetime(
-                self.syntaxa[colname], format='ISO8601')
+            self._syntaxa[colname] = _pd.to_datetime(
+                self._syntaxa[colname], format='ISO8601')
+
+        # make field IsCurrent Categoricall
+        self._syntaxa['IsCurrent'] = _pd.Categorical(
+            values = self._syntaxa['IsCurrent'], 
+            categories=['Yes','No'], 
+            ordered=True,
+            )
 
         # check for presence of all three typologies
-        if not all([(x for x in self.syntaxa['VegClas'].unique() 
+        if not all([(x for x in self._syntaxa['VegClas'].unique()
             if x in self.TYPOLOGIES.keys())]):
                 raise inputerror('Unknown typology code in cmsi_vegtypes table.')
 
         # check for duplicates
         columns = ['VegClas','Code','IsCurrent']
-        duplicates = self.syntaxa[self.syntaxa.duplicated(
+        duplicates = self._syntaxa[self._syntaxa.duplicated(
             subset=columns, keep=False)]
         if not duplicates.empty:
             raise ValueError((f'Vegetation type codes for current '
                 f'vegetation types not unique:'
                 f'{duplicates.sort_values(by=columns)}'))
 
-        # correct typo
-        if not self.syntaxa.loc[self.syntaxa['Code']=='r43AA01b',:].empty:
-            self.syntaxa.loc[self.syntaxa['Code']=='r43AA01b','Code'] = 'r43Aa01b'
+        # correct typos
+        # -------------
+        
+        # r43AA01b
+        if not self._syntaxa.loc[self._syntaxa['Code']=='r43AA01b',:].empty:
+            self._syntaxa.loc[self._syntaxa['Code']=='r43AA01b','Code'] = 'r43Aa01b'
         else:
-            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init can be removed.')            
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for r43AA01b can be removed.')            
+
+        # 43C1g
+        idx = self._syntaxa[self._syntaxa['Code']=='43C1g'].index.values[0]
+        if self._syntaxa.loc[idx,'IsCurrent']=='Yes':
+            self._syntaxa.loc[idx,'IsCurrent']='No'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for 43C1g can be removed.')            
+
 
     def __repr__(self):
         return f'CMSI Vegetationtypes (n={len(self)})'
 
+
     def __len__(self):
-        return len(self.syntaxa)
+        return len(self._syntaxa)
 
 
     def vegetationtypes(self, typology='sbbcat', current_only=True, verbose=False):
@@ -152,8 +195,8 @@ class CmsiSyntaxonTable:
         """
 
         # table of syntaxa for chosen typology
-        mask = self.syntaxa['VegClas']==self.typology_name(typology)
-        vegtypes = self.syntaxa[mask].copy()
+        mask = self._syntaxa['VegClas']==self.typology_longname(typology)
+        vegtypes = self._syntaxa[mask].copy()
 
         # set syntaxcode as index
         vegtypes = vegtypes.set_index('Code', drop=True, 
@@ -162,14 +205,14 @@ class CmsiSyntaxonTable:
         # add columns with syntaxlevel
         vegtypes['SynLevel'] = _pd.Categorical(
             values = vegtypes.index.to_series().apply(
-                syntaxontools.syntaxonlevel, reference=typology),
+                _syntaxontools.syntaxonlevel, reference=typology),
             categories = self.SYNTAXON_ORDER,
             ordered=True,
             )
 
         # add column with class number
         vegtypes['SynClass'] = vegtypes.index.to_series().apply(
-            syntaxontools.syntaxonclass)
+            _syntaxontools.syntaxonclass)
 
         # add column indicating if syntaxon is at the lowest level or not
         never_lowest = ['klasse','orde','verbond','nvt']
@@ -182,7 +225,7 @@ class CmsiSyntaxonTable:
         vegtypes.loc[idx,'IsLowest']='Yes'
 
         # get list of labels for associaties without subassociatie
-        # and set lowest to Ja
+        # and set lowest to 'Yes'
         mask = vegtypes['SynLevel']=='associatie'
         associaties = vegtypes[mask].index.values
 
@@ -216,7 +259,7 @@ class CmsiSyntaxonTable:
 
         return vegtypes
 
-    def typology_name(self, typology='sbbcat'):
+    def typology_longname(self, typology='sbbcat'):
         """Return name of typology for given tyopology code.
         
         Parameters
@@ -231,13 +274,13 @@ class CmsiSyntaxonTable:
             
         """
         try:
-            typology_name = list(filter(lambda x: self.TYPOLOGIES[x] == typology, 
+            typology_longname = list(filter(lambda x: self.TYPOLOGIES[x] == typology, 
                 self.TYPOLOGIES))[0]
         except IndexError as e:
             raise ValueError((f"Unknown typology code '{typology}'. "
                 f"Value must be in {list(self.TYPOLOGIES.values())}."))
 
-        return typology_name
+        return typology_longname
 
     def changes_by_year(self, typology='sbbcat'):
         """Return table of Creations and Modifications by year for all 
@@ -268,22 +311,3 @@ class CmsiSyntaxonTable:
             columns='Action', aggfunc='count')
         return pivot
 
-    """
-    def relations(self, to_typology='rvvn'):
-
-        typology_name = self.get_typology_name(to_typology)
-
-        mask1 = self._cmsi_relations['FROM_VegClas']=='TBO Nationale Vegetatie typologie'
-        mask2 = self._cmsi_relations['TO_VegClas']==typology_name
-        relations = cmsi._cmsi_relations[mask1&mask2]
-
-        for colname in ['Created', 'Modified']:
-            if colname in list(relations):
-                relations[colname] = relations[colname].dt.year
-
-        colnames = ['FROM_Code','FROM_ShortScientificName',
-            'FROM_LongScientificName','TO_Code','TO_ShortScientificName',
-            'TO_LongScientificName','Modified'] #'Created',
-
-        return relations[colnames].set_index('FROM_Code').sort_index()
-    """
