@@ -10,3 +10,4 @@ from . import synbiosys
 from . import turboveg2
 from . import vegmaps
 from . import synbiosys_sbbweb
+from ._sbb_revision_2019 import SbbRevision2019
