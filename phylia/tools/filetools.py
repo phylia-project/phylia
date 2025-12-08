@@ -56,7 +56,7 @@ def absolutepath(relpath, rootdir):
     """
     if isinstance(relpath,Series):
 
-        if not abspath.empty:
+        if not relpath.empty:
             abspath = relpath.apply(
                     lambda x:_os.path.join(rootdir,x.lstrip('..\\'))
                     if not _pd.isnull(x) else _np.nan

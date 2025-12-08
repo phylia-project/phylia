@@ -1,7 +1,7 @@
 
 import pandas as _pd
 from importlib import resources as _resources
-from ..sbb._mapdata import MapData
+from ..io._mapdata import MapData
 
 from ._data_vegmaps import Zieuwent_Neede_2022
 from ._data_vegmaps import Ruinen_1987

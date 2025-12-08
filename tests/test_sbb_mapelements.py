@@ -4,7 +4,7 @@ import pytest
 from pandas import Series, DataFrame
 import pandas as pd
 from geopandas import GeoSeries, GeoDataFrame
-from phylia.sbb import MapElements
+from phylia.io import MapElements
 
 
 @pytest.fixture

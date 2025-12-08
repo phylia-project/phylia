@@ -5,7 +5,7 @@ from pandas import DataFrame
 from geopandas import GeoDataFrame
 import pandas as pd
 
-from phylia.read import Tv2Db
+from phylia.io import Tv2Db
 
 @pytest.fixture
 def db():

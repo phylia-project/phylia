@@ -18,13 +18,20 @@ _logger = _logging.getLogger(__name__)
 
 class SbbProjects:
     """
-    Find filepaths to ESRI shapefiles and Microsoft Acces database files 
-    for each projectfolder under a given root directory.
+    Create table of filepaths for sourcefiles with data for vegetation 
+    mapping projects.
 
-    The method list_projectfiles() returns a table with all projects 
-    and the corresponding shapefile and access mdbfile, if they were 
-    found. This table is the main result for this class, all the other 
-    methods are merely preparations and checks.
+    Mapping projects are stored in a file structure named "digitale 
+    standaard staatsbosbeheer". A complete projects contains a Microsoft 
+    Access database file, ESRI shapefiles for polygons and lines and a 
+    Turboveg2 database folder with releves. The challenge for creating 
+    the best possible source files are the many copies that have been 
+    made over the years by various users with different styles and 
+    workflows.
+
+    The method "get_projectfiles" tries to create a complete list of the 
+    best possible sourcefiles for each mapping project. The other 
+    methods are used for checks and preparations.
 
     Methods
     -------
@@ -32,6 +39,11 @@ class SbbProjects:
         Return table with all projects and filepaths found.
     get_projectfolders
         Return table of project directories under root.
+    get_rootfolder
+        Return the name of the root folder.
+    def get_projectfiles_count
+        Return table of filecounts by project.
+
     get_filetype
         Return table with all files of given filetype under root.
     get_mdbfiles
@@ -39,16 +51,17 @@ class SbbProjects:
     get_shapefiles
         Return table with project shapefiles.
 
-    get_rootfolder
-        Return the name of the root folder.
-    split_projectnames
-        Return table of seperate elements of project folder name.
+    get_tv2projects
+        Return table of the most likely best Turboveg2 sourcefolder 
+        for each mapping project.
+    get_tv2folders
+        Return table with all available Turboveg2 database folders.
+        The parameter "include" determines which folders are returned:
+        "all", "duplicates", "ambiguous" of "selected".
 
-    list_tv2
-        Return table with all Turboveg2 project files
-        under a project folder.
-    count_projectfiles
-        Return table of file counts by project for given filtetype.
+    def get_projectfolders_elements
+        Return table with seperate elements of project foldernames.
+
 
     Notes
     -----
@@ -278,10 +291,9 @@ class SbbProjects:
         return tbl.reset_index(drop=True)
 
 
-    def count_projectfiles(self, colname=None, 
-        fill_missing=True):
+    def get_projectfiles_count(self, colname=None, fill_missing=True):
         """
-        Return table of filecounts by project for given filtetype
+        Return table of filecounts by project for given filetype
 
         Parameters
         ----------
@@ -363,22 +375,19 @@ class SbbProjects:
         return ambiguous
 
 
-    def get_mdbfiles(self, use_discard_tags=False, taglist=None,
-        priority_filepaths=None):
+    def get_mdbfiles(self, discard_tags=False, priority_filepaths=None):
         """
         Return table with mdbfiles by project and table with projects 
         for which no single mdb-file could be selected.
 
         Parameters
         ----------
-        use_discard_tags : bool, default False
-            Use default list of tags to discard projectfolders with 
-            names that indicate copies or discarded data. The list
-            of default tags is named DEFAULT_DISCARD_TAGS.
-        taglist : list of strings
-            Folders with these words in their folderpath will be 
-            discarded as possible projectfolders. Value of 
-            use_discard_tags will be ignored if a list is given.
+        discard_tags : {False, True, list of tags}
+            True: Use default list of tags to discard projectfolders 
+            with names that indicate copies or discarded data.
+            List of strings: Discard projectfolders with any of the
+            strings in their filepath.
+            False: Do not us tags at all (default)
         priority_filepaths : list of string, optional
             Mdb filepaths in this list are selected as projectfiles.
             Other candidate projectfiles will be ignored.
@@ -410,15 +419,15 @@ class SbbProjects:
         """
         filetbl = self.get_filetype(filetype='mdb', relpaths=True)
 
-        if use_discard_tags:
-            discard_tags = self.DEFAULT_DISCARDTAGS
-        else:
+        # set variable "discard_tags"
+        if not discard_tags:
             discard_tags = []
-
-        if taglist:
-            if not isinstance(taglist, list):
-                _logger.error(f'Input argument pathtags with invalid '
-                    f'value {discard_tags} will be ignored.')
+        else:
+             if isinstance(discard_tags, list):
+                if not all([isinstance(item, str) for item in discard_tags]):
+                    raise ValueError((f'Not al given tags are strings '
+                        f'in {discard_tags}.'))
+             else:
                 discard_tags = self.DEFAULT_DISCARDTAGS
 
         # mask for mdbfile in project directory
@@ -435,7 +444,7 @@ class SbbProjects:
                 lambda x: any([tag.lower() in str(x).lower() for tag in discard_tags]))
             
             sumfpath = sum(mask_fpath)
-            _logger.warning((f'{sumfpath} rows with mdb-files have been '
+            _logger.info((f'{sumfpath} rows with mdb-files have been '
                 f'marked as copies based on given tags.'))
         else:
             mask_fpath = _pd.Series(data=False,index=filetbl.index)
@@ -448,11 +457,20 @@ class SbbProjects:
         masktbl['maskprj'] = mask_prjdir
         masktbl['maskfpath'] = ~mask_fpath
         masktbl['masksel'] = False
+        if priority_filepaths:
+            masktbl['isin_priority_filepaths'] = masktbl['mdbpath'].isin(priority_filepaths)
+        else:
+            masktbl['isin_priority_filepaths'] = False
 
         # step-wise select most probable mdb projectfile
         for (provincie, project), tbl in masktbl.groupby([self.INDEXCOL1, self.INDEXCOL2]):
 
-            if len(tbl)==1:
+            ##mask = tbl['mdbpath'].isin(priority_filepaths)
+            if not tbl[tbl['isin_priority_filepaths']==True].empty:
+                # at least one mdb path is in list of preferred mdbs,
+                # choose that filepath
+                idx = tbl[tbl['isin_priority_filepaths']].index[0]
+            elif len(tbl)==1:
                 # just one mdb in entire project tree structure
                 idx = tbl.index[0]
             elif len(tbl[tbl['maskprj']])==1:
@@ -468,16 +486,6 @@ class SbbProjects:
                 idx = tbl[tbl['maskprj']&tbl['maskfpath']].index[0]
             else:
                 idx = None
-
-            if (not idx) and priority_filepaths:
-            # At this point, idx is still None. An mdb-projectfile has
-            # not been choosen based on automated selection.
-            # Parameter priority_filepaths contains a list of filepaths
-            # of mdb-projects. If any of these filepaths is present in 
-            # column mdbpath, this file will be selected.
-                mask = tbl['mdbpath'].isin(priority_filepaths)
-                if len(tbl[mask])==1:
-                    idx = tbl[mask].index[0]
 
             if idx is not None:
                 # mark chosen file as selected
@@ -619,14 +627,20 @@ class SbbProjects:
         return shpsel, ambiguous
 
 
-    def get_tv2(self, relpaths=True):
+    def get_tv2projects(self, relpaths=True, verbose=True, preferred=[]):
         """
-        Return table of projects and the path to the Turboveg2 data folder.
+        Return table of projects and the path to the most likely best 
+        possible Turboveg2 database source folder.
 
         Parameters
         ----------
         relpaths : bool, default True
             Return directory paths relative to root folder.
+        verbose : bool, default True
+            Result includes columns with information about the selection 
+            process.
+        preferred : list, optional
+            Folders in this list will be set as preferred folder.
 
         Returns
         -------
@@ -647,17 +661,36 @@ class SbbProjects:
             
         """
 
-        # selected tvfolders to series
+        # get project table
+        prjtbl = self.get_projectfolders()
+
+        # get selected tvfolders
         tvdir = self.get_tv2folders(relpaths=relpaths, include='selected')
         tvdir = tvdir.set_index([self.INDEXCOL1,self.INDEXCOL2], 
             verify_integrity=True)
 
-        # merge with projects table
-        prjtbl = self.get_projectfolders()
-        tvdir = _pd.merge(prjtbl,tvdir, left_index=True, right_index=True, 
-            how='left').squeeze()
+        # merge projects with selected folders
+        tvprj = _pd.merge(prjtbl, tvdir, left_index=True, right_index=True, 
+            how='left')
 
-        return tvdir
+        # mark project folders without TV2 dataset
+        tvdir = self.get_tv2folders(include='all')
+        for (prv,prj), row in tvprj[tvprj['tvdir'].isna()].iterrows():
+            if tvdir[(tvdir['provincie']==prv)&(tvdir['project']==prj)].empty:
+                tvprj.loc[(prv, prj),'criterion'] = 'no releves'
+
+        # set user preferred folders
+        if preferred:
+            ##tvfolders = pjt.get_tv2folders(include='all')
+            preferred = tvdir[tvdir['tvdir'].isin(preferred)].copy()
+            preferred = preferred.set_index(['provincie','project'])['tvdir'].squeeze()
+            for (prv,prj), folder in preferred.items():
+                tvprj.loc[(prv, prj), 'tvdir'] = folder
+                tvprj.loc[(prv, prj), 'criterion'] = 'user preferred folder'
+
+        if not verbose:
+            tvprj = tvprj[['tvdir']]
+        return tvprj
 
 
     def get_tv2folders(self, include='all', relpaths=True):
@@ -665,20 +698,31 @@ class SbbProjects:
 
         Parameters
         ----------
-        include : {'selected', 'ambiguous', 'duplicates', 'all'}, default 'all'
-            selected : only folders with a TV2 dataset that has been 
-                selected as best data source for a project are returned.
-            ambiguous : all folders for projects where selection of a 
-                best possible tv2 datasource was not possible are returned.
-            duplicates : all folders for projects with more than one 
-                tv2 dataset are returned.
-            all : all folders with a tv2 dataset are returned.
+        include : {'all', 'selected', 'ambiguous', 'duplicates'}
+
         relpaths : bool, default True
             Return directory paths relative to root folder.
 
         Returns
         -------
         pandas DataFrame
+
+        Notes
+        -----
+        Parameter "include" determines which Turboveg2 database folders 
+        are returned. Options are:
+
+        all: 
+            all folders with a tv2 dataset are returned.
+        selected: 
+            only folders with a TV2 dataset that has been 
+            selected as best data source for a project are returned.
+        ambiguous:
+            all folders for projects where selection of a 
+            best possible tv2 datasource was not possible are returned.
+        duplicates: 
+            all folders for projects with more than one tv2 dataset 
+            are returned.
             
             
         """
@@ -688,9 +732,8 @@ class SbbProjects:
 
         if include=='selected':
 
-            selected = tvdir['selected']==True
-            tvdir = tvdir[selected]
-
+            selected = tvdir['best_source']==True
+            tvdir = tvdir[selected].copy()
 
         elif include=='duplicates':
 
@@ -698,12 +741,11 @@ class SbbProjects:
             mask2 = tvdir.duplicated(subset=['provincie','project'], keep=False)
             tvdir = tvdir[mask1&mask2].copy()
 
-
         elif include=='ambiguous':
 
-            mask1 = tvdir['selected']==False
-            mask2 = tvdir['rejected']==False
-            tvdir = tvdir[mask1&mask2].copy()
+            mask1 = tvdir['best_source'].isna()
+            ##mask2 = tvdir['rejected']==False
+            tvdir = tvdir[mask1].copy()
 
         elif include=='all':
             pass
@@ -711,64 +753,11 @@ class SbbProjects:
         else:
             raise ValueError(f'Invalid value "{include}".')
 
+
         if relpaths: #remove root from paths
             tvdir['tvdir'] = _filetools.relativepath(tvdir['tvdir'], 
                 rootdir=self.get_rootfolder())
             
-        return tvdir
-
-    
-    def get_tv2duplicates(self, relpaths=True):
-        """Return path names for all Turboveg2 databases in projects with 
-        multiple databases (includes projects where a single database could
-        be selected).
-
-        Parameters
-        ----------
-        relpaths : bool, default True
-            Return directory paths relative to root folder.
-
-        Returns
-        -------
-        pandas DataFrame
-        
-        """
-
-        # table of projects with multiple tv2 databases
-        tvdir = self._tv2_mark_selected_folders()
-        mask1 = tvdir['criterion']!='single directory'
-        mask2 = tvdir.duplicated(subset=['provincie','project'], keep=False)
-        tvdir = tvdir[mask1&mask2].copy()
-
-        if relpaths: #remove root from paths
-            tvdir['tvdir'] = _filetools.relativepath(tvdir['tvdir'], 
-                rootdir=self.get_rootfolder())
-
-        return tvdir
-
-
-    def get_tv2ambiguous(self, relpaths=True):
-        """Return turboveg2 folder names for projects where no single folder could be selected.
-
-        Parameters
-        ----------
-        relpaths : bool, default True
-            Return directory paths relative to root folder.
-
-        Returns
-        -------
-        pandas DataFrame
-        
-        """
-        tvdir = self._tv2_mark_selected_folders()
-        mask1 = tvdir['selected']==False
-        mask2 = tvdir['rejected']==False
-        tvdir = tvdir[mask1&mask2].copy()
-
-        if relpaths: #remove root from paths
-            tvdir['tvdir'] = _filetools.relativepath(abspath=tvdir['tvdir'], 
-                rootdir=self.get_rootfolder())
-
         return tvdir
 
 
@@ -780,12 +769,13 @@ class SbbProjects:
         -----
         The criterium for being a Turboveg2 project folder is the 
         presence of a file called 'tvhabita.dbf'.
+            
         """
 
         # finding all turboveg2 folders takes a lot of time
         # this is done only once for an object
         if '_tv2folders' in self.__dict__.keys():
-            return self._tv2folders
+            return self._tv2folders.copy()
 
         # get table of project directories
         prjtbl = self._projects
@@ -812,32 +802,54 @@ class SbbProjects:
                     tvdirs.append(rec.copy())
 
         self._tv2folders = _pd.DataFrame(tvdirs)
-        return self._tv2folders
+        return self._tv2folders.copy()
 
 
-    def _tv2_mark_selected_folders(self):
+    def _tv2_mark_selected_folders(self, preferred_folders=[]):
         """Return table of TV2 folders and best directory. """
+
+        # relpaths to abspaths
+        if all(x.startswith('..\\') for x in preferred_folders):
+            root = rootdir=self.get_rootfolder()
+            preferred_folders = [_filetools.absolutepath(x, root) for x in preferred_folders]
 
         # get all tv2 folders under root
         tvdir = self._tv2_find_all_folders()
 
-        tvdir['path_depth'] = tvdir['tvdir'].apply(
-            lambda x:len(_os.path.normpath(x).split(_os.sep)))
+        # default values before marking best folders
+        #tvdir['selected']=False
+        #tvdir['rejected']=False
+        tvdir['best_source'] = None
+        tvdir['criterion'] = None
 
-        # default start values
-        # in the foloo
-        tvdir['selected']=False
-        tvdir['rejected']=False
-        tvdir['criterion'] = 'ambiguous'
 
+        # find best folder for each maping project
         for (prv,prj), tbl in tvdir.groupby(by=[self.INDEXCOL1,self.INDEXCOL2]):
 
-            # mask for directories at the highest level in the tree
-            is_highest_level = tbl['path_depth']==tbl['path_depth'].min()
+            # column with tvdir path depth position
+            tbl['path_depth'] = tbl['tvdir'].apply(
+                lambda x:len(_os.path.normpath(x).split(_os.sep))
+                )
 
-            # mark best directories as selected and the others as rejected
-            if len(tbl)==1: 
-                # easy: just one tv2 directory
+            # masks
+            mask_preferred = tbl['tvdir'].isin(preferred_folders)
+            mask_highest_level = tbl['path_depth']==tbl['path_depth'].min()
+            
+            if not tbl[mask_preferred].empty:
+
+                # at least one TV2 source folder is given by the user as "preferred"
+                icol = tbl[mask_preferred].columns.get_loc('tvdir')
+                seldir = tbl[mask_preferred].iloc[0, icol]
+                criterion = 'user preferred'
+
+                if len(tbl[mask_preferred])>1:
+                    _logger.warning((f'{len(tbl[mask_preferred])} TV2 '
+                        f'sourcefolders given as preferred by user for '
+                        f'{prv}, {prj}'))
+
+            elif len(tbl)==1: 
+ 
+                # easy: there is just one tv2 directory
                 icol = tbl.columns.get_loc('tvdir')
                 seldir = tbl.iloc[0,icol]
                 criterion = 'single directory'
@@ -858,34 +870,41 @@ class SbbProjects:
                     icol = tbl.columns.get_loc('tvdir')
                     seldir = tbl[tbl['mask_tv']&~tbl['mask_tag']].iloc[0,icol]
                 """
-            elif len(tbl[is_highest_level])==1:
+            elif len(tbl[mask_highest_level])==1:
+
                 # a single one directory is on the highest level in the tree
-                icol = tbl.columns.get_loc('tvdir')
-                seldir = tbl[is_highest_level].iloc[0,icol]
+                icol = tbl[mask_highest_level].columns.get_loc('tvdir')
+                seldir = tbl[mask_highest_level].iloc[0,icol]
                 criterion = 'upper directory'
 
             else:
+
                 # no "best" directory has been found
                 continue
 
                 _logger.warning((f'No single best directory with Turboveg '
                     f'files found for {prv} {prj}.'))
 
-            # mark alll records of current project as rejected
-            tvdir.loc[tbl.index.values,'rejected'] = True
+            # set selection criterion
             tvdir.loc[tbl.index.values,'criterion'] = criterion
+            tvdir.loc[tbl.index.values,'best_source'] = False # mark all as rejected
 
-            # mark only selected project as not rejected
+            # mark records of current project as rejected or selected
+            """
+            tvdir.loc[tbl.index.values,'rejected'] = True # mark all as rejected
             idx_selected = tvdir[tvdir['tvdir']==seldir].index.values[0]
             tvdir.loc[idx_selected,'rejected']=False
             tvdir.loc[idx_selected,'selected']=True
+            """
+            idx_selected = tvdir[tvdir['tvdir']==seldir].index.values[0]
+            tvdir.loc[idx_selected,'best_source']=True
 
         return tvdir
 
 
-    def get_projectfiles(self, relpaths=True, use_discard_tags=False, 
-        taglist=None, mdbpaths=None, polygonpaths=None,
-        linepaths=None, pointpaths=None):
+    def get_projectfiles(self, relpaths=True, discard_tags=False, 
+        mdbpaths=None, polygonpaths=None, linepaths=None, 
+        pointpaths=None, tv2folders=[]):
         """
         Return table with all projects and filepaths found
 
@@ -893,18 +912,15 @@ class SbbProjects:
         ----------
         relpaths : bool, default True
             Filepaths relative to root directory.
-
-        use_discard_tags : bool, default True
-            Use default list of tags to discard projectfolders with 
-            names that indicate copies or discarded data. The list
-            of default tags is named DEFAULT_DISCARD_TAGS.
-        taglist : list of strings
-            Folders with these words in their folderpath will be 
-            discarded as possible projectfolders. Value of 
-            use_discard_tags will be ignored if a list is given.
+        discard_tags : {False, True, list of tags}
+            True: Use default list of tags to discard projectfolders 
+            with names that indicate copies or discarded data.
+            List of strings: Discard projectfolders with any of the
+            strings in their filepath.
+            False: Do not us tags at all (default)
         mdbpaths : list of string, optional
-            Filepaths in this list will be selected as projectfiles.
-            Other project filepaths will be ignored.
+            Mdb filepaths in this list are selected as projectfiles.
+            Other candidate projectfiles will be ignored.
         polygonpaths : list of strings, optional
             Filepaths in this list will be selected as projectfiles.
             Other project filepaths will be ignored.
@@ -914,49 +930,43 @@ class SbbProjects:
         pointpaths : list of strings, optional
             Filepaths in this list will be selected as projectfiles.
             Other project filepaths will be ignored.
-           
+        tv2folders : list of strings, optional
+            Folderpaths in this list will be set as best Turboveg2
+            datasource folder.
+            
         """
 
-        if use_discard_tags:
-            discardtags = self.DEFAULT_DISCARDTAGS
-        else:
-            discardtags = []
-
-        if taglist:
-            discardtags = taglist
-
         # find mdb files
-        #mdblist = self.get_filetype(filetype='mdb')
         mdbsel, ambigous = self.get_mdbfiles( 
-            use_discard_tags=use_discard_tags,
-            taglist=discardtags, 
+            discard_tags=discard_tags,
             priority_filepaths=mdbpaths
             )
         mdbsel = mdbsel.set_index(keys=[self.INDEXCOL1,self.INDEXCOL2],
             verify_integrity=True)
 
+        """
         ambiprj = len(set(ambigous[self.INDEXCOL2].values))
         if ambiprj!=0:
-            _logger.warning((f'{ambiprj} projects with multiple mdb-files '
-                f'have been dropped from projectstable. Use '
-                f'method get_mdbfiles to get a table of candidate '
-                f'files.'))
+            _logger.info((f'{ambiprj} projects with multiple mdb-files '
+                f'where no best source file was chosen. Mdb filepath '
+                f'has been set to Nan. Call "get_mdbfiles()" '
+                f'for a table of possible sourcefiles.'))
+        """
 
-        # table of all available shapefiles
-        ##shp = self.list_allfiles(filetype='shp')
-        
         # find polygon shapefiles
         polysel, ambigous = self.get_shapefiles(shapetype='polygon',
             priority_filepaths=polygonpaths)
         polysel = polysel.set_index(
                 keys=[self.INDEXCOL1,self.INDEXCOL2],verify_integrity=True)
 
+        """
         ambiprj = len(set(ambigous[self.INDEXCOL2].values))
         if ambiprj!=0:
             _logger.warning((f'{ambiprj} projects with multiple polygonfiles '
-                f'have been dropped from projectstable. Use '
-                f'method filter_shpfiles to get a table of candidate '
-                f'files.'))
+                f'where no best source file was chosen. Vlakkenshape filepath '
+                f'has been set to Nan. Call "get_shapefiles()" '
+                f'for a table of possible sourcefiles.'))
+        """
 
         # find line shapefiles
         linesel,ambigous = self.get_shapefiles(shapetype='line',
@@ -964,40 +974,44 @@ class SbbProjects:
         linesel = linesel.set_index(
                 keys=[self.INDEXCOL1, self.INDEXCOL2], verify_integrity=True)
 
+        """
         ambiprj = len(set(ambigous[self.INDEXCOL2].values))
         if ambiprj!=0:
-            _logger.warning((f'{ambiprj} projects with multiple linefiles '
-                f'have been dropped from projectstable. Use '
-                f'method filter_shpfiles to get a table of candidate '
-                f'files.'))
-
+            _logger.warning((f'{ambiprj} projects found with multiple '
+                f'linefiles. Filepath is set to NaN. '
+                f'Call "get_shpfiles()" for a table of '
+                f'possible sourcefiles.'))
+        """
+        
+        
         # list of TV2 directories
-        #tvambi = self.get_tv2ambiguous()
-        #if not tvambi.empty:
-        #    _logger.warning((f'{ambiprj} projects with multiple TV2 directories '
-        #        f'found. Call get_tv2ambiguous '
-        #        f'to get a table of ambiguous '
-        #        f'files.'))
+        tvambi = self.get_tv2folders(include='ambiguous')
 
-        ##tvsel = tvdir[tvdir['selected']==True].set_index([self.INDEXCOL1,self.INDEXCOL2])
-        ##tvsel = tvsel[['tvdir']].copy()
-        ##if relpaths: #remove root from paths
-        ##    tvsel['tvdir'] = _filetools.relativepath(tvsel['tvdir'], rootdir=self.get_rootfolder())
-        tvsel = self.get_tv2(relpaths=True)
+        """
+        if not tvambi.empty:
+            _logger.warning((f'{tvambi} projects with multiple TV2 directories '
+                f'found. Call "get_tv2ambiguous()" '
+                f'for a table of ambiguous '
+                f'files.'))
+        """
 
-        # merge file tables with base project table
-        ##baseprj = self.get_projectfolders()
-        ##baseprj = baseprj[['year']].copy()
-        baseprj = self.split_projectnames()['year'].to_frame()
+        # table of tv2 database folders
+        tvsel = self.get_tv2projects(relpaths=True, verbose=False, preferred=tv2folders)
 
-        prj = _pd.merge(baseprj,mdbsel,left_index=True,right_index=True,
-            how='left',suffixes=[None,'_from_mdb'],validate='one_to_one')
-        prj = _pd.merge(prj,polysel,left_index=True,right_index=True,
-            how='left',suffixes=[None,'_from_poly'],validate='one_to_one')
-        prj = _pd.merge(prj,linesel,left_index=True,right_index=True,
-            how='left',suffixes=[None,'_from_line'],validate='one_to_one')
-        prj = _pd.merge(prj,tvsel,left_index=True,right_index=True,
-            how='left',suffixes=[None,'_from_tv2'],validate='one_to_one')
+
+        # create base table with al projects and project year
+        # ---------------------------------------------------
+        baseprj = self.get_projectfolders_elements()['year'].to_frame()
+
+        # merge previously found file tables with base project table
+        prj = _pd.merge(baseprj, mdbsel, left_index=True, right_index=True,
+            how='left', suffixes=[None,'_from_mdb'], validate='one_to_one')
+        prj = _pd.merge(prj, polysel, left_index=True, right_index=True,
+            how='left', suffixes=[None,'_from_poly'], validate='one_to_one')
+        prj = _pd.merge(prj, linesel, left_index=True, right_index=True,
+            how='left', suffixes=[None,'_from_line'], validate='one_to_one')
+        prj = _pd.merge(prj, tvsel, left_index=True, right_index=True,
+            how='left', suffixes=[None,'_from_tv2'], validate='one_to_one')
 
         # drop duplicaste columns names
         colnames = []
@@ -1014,7 +1028,7 @@ class SbbProjects:
         return prj
 
 
-    def split_projectnames(self):
+    def get_projectfolders_elements(self):
         """Return table with seperate elements of projectnames 
         (project code, project name, project year).
 
@@ -1027,11 +1041,18 @@ class SbbProjects:
         The column "match" gives information about the regular 
         expression that matched the specific folder name. Rows without 
         a match have the value NaN.
+
+        Parameters
+        ----------
+        projectfiles : DataFrame, optional
+            Table of projectfiles as returned by class method 
+            "get_projectfiles()"
             
         """
+        # get table of projectfiles
+        df = _pd.DataFrame(self.get_projectfolders(relpaths=True))
 
         # split folder names in seperate elements
-        df = _pd.DataFrame(self.get_projectfolders(relpaths=True))
         df['prjcode'] = df.index.get_level_values(1)
         df['prjname'] = df.index.get_level_values(1)
         df['year'] = df.index.get_level_values(1)
@@ -1041,8 +1062,10 @@ class SbbProjects:
         # try to match elements to information using regular expressions
         patterns = [
             r'^[A-Za-z]{2,3}[ _](\d{3,4})[ _](.*)[ _](\d{4}$)', # prv (prjcode) (naam) (jaar)
+            r'^[A-Za-z]{2,3}[ _]()[ _](.*)[ _]\d{4}-(\d{4}$)', # prv (empty) (naam) jaar-(jaar)
             r'^[A-Za-z]{2,3}[ _]()(.*)[ _](\d{4}$)', # prv (empty) (naam) (jaar)
             r'^(\d{3,6})[ _](.*)[ _](\d{4}$)', # (prjcode) (naam) (jaar)
+            r'^(\d{3,6})[ _](.*)[ _]\d{4}-(\d{4}$)', # (prjcode) (naam) jaar-(jaar)
             r'^(\d{3,4})[ _](.*)()$', # (prjcode) (naam) (empty)
             r'^()(.*)[ _](\d{4}$)', # (empty) (naam) (jaar)
             ]
@@ -1058,6 +1081,15 @@ class SbbProjects:
                 lambda x: f'pat_{str(i)}' if _re.search(pattern, x) else x)
 
         # mark rows without match
-        df.loc[~df['match'].str.startswith('pat_'),'match']=_np.nan
+        mask = ~df['match'].str.startswith('pat_')
+        for col in ['prjcode','prjname','year','match']:
+            df.loc[mask, col]=_np.nan
+
+        # set missing years to NaN
+        df.loc[df['year']=='','year']=_np.nan
+
+        # set missing projecdoes to NaN
+        df.loc[df['prjcode']=='','prjcode']=_np.nan
+        df['prjcode'] = df['prjcode'].str.zfill(4)
 
         return df

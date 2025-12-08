@@ -40,24 +40,6 @@ def test_taxa():
     assert isinstance(df, DataFrame)
     assert not df.empty
 
-def test_turboveg():
-
-    df = data.turboveg2.tvabund_definition()
-    assert isinstance(df, DataFrame)
-    assert not df.empty
-
-    df = data.turboveg2.tvhabita_definition()
-    assert isinstance(df, DataFrame)
-    assert not df.empty
-
-    df = data.turboveg2.tvremarks_definition()
-    assert isinstance(df, DataFrame)
-    assert not df.empty
-
-    rec = data.turboveg2.tvabund_fieldtypes()
-    assert isinstance(rec, dict)
-    assert len(rec.keys())==4
-    assert len(rec.values())==4
 
 def test_vegmap():
 

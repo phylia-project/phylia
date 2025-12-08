@@ -21,6 +21,6 @@ filetools
 from .conversions import year_from_string
 ##from ._filetools import relativepath, absolutepath
 from . import filetools
-##from .sbbprojects import ProjectsTable
 from . import syntaxontools
+from .sbbprojects import SbbProjects
 from ._write_excel import write_to_excel

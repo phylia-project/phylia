@@ -96,25 +96,17 @@ def reference_levels(reference='sbbcat'):
         _logger.error(f'Reference system "{reference}" is not supported.')
     return None
 
+def _validate_sbb_pattern(code):
 
-def _syntaxon_validate_string(code):
-    """Validate string as syntaxoncode and return valid syntaxon 
-    code. This is a helper function for syntaxon_validate() method."""
-
-    if _pd.isnull(code):
-        return np.nan
-
-    newtext = None # if no match is found, None will be the returned result
-
-    # First, test for sbbcat patterns
     for syntaxlevel, pattern in SBB_PATTERNS.items():
 
-        if _re.search(pattern, code, flags=_re.IGNORECASE):
+        if _re.search(pattern, str(code), flags=_re.IGNORECASE):
+            # pattern from SbbCat recognised, return validated code
 
             if syntaxlevel=='klasse':
                 callback = lambda pat: pat.group(1).zfill(2)
             if syntaxlevel=='klasseromp':
-                callback = lambda pat: pat.group(1).zfill(2)+pat.group(2)+pat.group(3).lower()
+                callback = lambda pat: pat.group(1)+pat.group(2)+pat.group(3).lower()
             if syntaxlevel=='klassederivaat':
                 callback = lambda pat: pat.group(1).zfill(2)+pat.group(2)+pat.group(3).lower()
             if syntaxlevel=='verbond':
@@ -124,61 +116,69 @@ def _syntaxon_validate_string(code):
             if syntaxlevel=='verbondsderivaat':
                 callback = lambda pat: pat.group(1).zfill(2)+pat.group(2).upper()+pat.group(3)+pat.group(4).lower()
             if syntaxlevel=='associatie':
-                callback = lambda pat: pat.group(1).zfill(2)+pat.group(2).upper()+pat.group(3)
+                callback = lambda pat: pat.group(1).zfill(2)+pat.group(2).upper()+pat.group(3).lstrip('0').zfill(1)
             if syntaxlevel=='subassociatie':
-                callback = (lambda pat: pat.group(1).zfill(2)+pat.group(2).upper()+pat.group(3)+pat.group(4).lower())
+                callback = (lambda pat: pat.group(1).zfill(2)+pat.group(2).upper()+pat.group(3).lstrip('0').zfill(1)+pat.group(4).lower())
             if syntaxlevel=='nvt':
                 callback = (lambda pat: pat.group(1))
 
-            newtext = _re.sub(pattern, callback, code)
-            return newtext # pattern from SbbCat recognised, return result
+            validated = _re.sub(pattern, callback, code)
+            return str(validated)
 
-    # Second, no match was found to sbbcat, test for rvvn patterns
+    # no match found
+    return None
+
+def _validate_vvn_pattern(code, zeros=True):
+
+    # set zfill to zeros 1 or 2
+    zeros = 2 if zeros else 1
+
     for syntaxlevel, pattern in VVN_PATTERNS.items():
+        # match fount with VVN patterns, return validated code
 
         if _re.search(pattern, code):
 
             if syntaxlevel=='klasse':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     )
             if syntaxlevel=='orde':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
                     )
             if syntaxlevel=='verbond':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
                     +pat.group(4).lower()
                     )
             if syntaxlevel=='associatie':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
                     +pat.group(4).lower()
-                    +pat.group(5)
+                    +pat.group(5).lstrip('0').zfill(zeros)
                     )
             if syntaxlevel=='subassociatie':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
                     +pat.group(4).lower()
-                    +pat.group(5)
+                    +pat.group(5).lstrip('0').zfill(zeros)
                     +pat.group(6).lower()
                     )
             if syntaxlevel=='romp':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
-                    +pat.group(4).zfill(2)
+                    +pat.group(4).lstrip('0').zfill(zeros)
                     )
             if syntaxlevel=='derivaat':
                 callback = (lambda pat: pat.group(1).lower()
-                    +pat.group(2).zfill(2)
+                    +pat.group(2).lstrip('0').zfill(zeros)
                     +pat.group(3).upper()
-                    +pat.group(4).zfill(2)
+                    +pat.group(4).lstrip('0').zfill(zeros)
                     )
             if syntaxlevel=='nvt':
                 callback = (lambda pat: pat.group(1).lower()
@@ -186,10 +186,28 @@ def _syntaxon_validate_string(code):
                     )
 
             newtext = _re.sub(pattern, callback, code)
-            return newtext # pattern from VVN recognised, return result
+            return str(newtext) # pattern from VVN recognised, return result
 
-    # Third, no match was found at all, return None
-    return newtext
+    # No match found
+    return None
+
+
+def _syntaxon_validate_string(code):
+    """Validate string as syntaxoncode and return valid syntaxon 
+    code. This is a helper function for syntaxon_validate() method."""
+
+    if _pd.isnull(code):
+        return None ##_np.nan
+
+    sbbcode = _validate_sbb_pattern(code)
+    if sbbcode: # match with sbbcde
+        return str(sbbcode)
+    
+    vvncode = _validate_vvn_pattern(code)
+    if vvncode: # match with rvvncode
+        return str(vvncode)
+
+    return None # no match fount
 
 
 def syntaxon_validate(code):
@@ -243,7 +261,7 @@ def syntaxon_validate(code):
             _logger.error(f'No matching pattern found for "{code}"')      
         return validated
 
-    raise ValueError((f'Unknown type for syntaxon code: {type(code)}'))
+    raise ValueError((f'Unknown type for syntaxon code: {code}'))
 
 
 def _syntaxonclass_string(code):
@@ -296,18 +314,19 @@ def syntaxonclass(code):
             raise ValueError((f'Not all syntaxoncodes are of type '
                 f'string: "{code}".'))
 
-    if isinstance(code, str):
-        synclass = _syntaxonclass_string(code)
-        if not synclass:
-            _logger.error(f'No matching pattern found for "{code}"')      
-        return synclass
-
     if _pd.isnull(code):
         _logger.error((f'Input "{code}" of type {type(code)} is no valid '
             f'syntaxon input.'))
         return None
 
-    raise ValueError((f'Unknown type for syntaxon code: {type(code)}'))
+    #if isinstance(code, str):
+    synclass = _syntaxonclass_string(str(code))
+    if not synclass:
+        _logger.error(f'No matching pattern found for "{code}"')      
+    return synclass
+
+    # LAST RESORT
+    raise ValueError((f'Unknown syntaxon code: {code} of type {type(code)}'))
     ##return None
 
 
@@ -371,12 +390,14 @@ def syntaxonlevel(code, reference='sbbcat'):
             )
         return syntaxlevel
 
-    elif isinstance(code, str):
-        syntaxlevel =  _syntaxonlevel_string(code, reference=reference)
-        return syntaxlevel
 
     elif _pd.isnull(code):
         return _np.nan
+
+    #elif isinstance(code, str):
+    syntaxlevel =  _syntaxonlevel_string(str(code), reference=reference)
+    return syntaxlevel
+
 
     _logger.error((f'Unknown type for syntaxon code: {type(code)}'))
     return None #_np.nan

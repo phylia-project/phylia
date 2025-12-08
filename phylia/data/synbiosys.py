@@ -6,6 +6,7 @@ import numpy as _np
 import pandas as _pd
 from importlib import resources as _resources
 from . import _data_synbiosys
+from ..tools.syntaxontools import syntaxon_validate
 
 def rvvn_syntables():
     """Presence and fidelity of species in syntaxa within the rvvn system.
@@ -101,3 +102,35 @@ def species_2017():
 
     return spec
 
+def species_ecology():
+    """Return table of ecological indicator values of species."""
+    srcfile = (_resources.files(_data_synbiosys) / 'synbiosys_soorten_ecodbase.csv')
+    ecospec = _pd.read_csv(srcfile, encoding='latin-1', dtype=object, low_memory=False)
+    ecospec.columns = map(str.lower,ecospec.columns)
+    ecospec.set_index('species_nr', verify_integrity=True)    
+    return ecospec
+
+
+def syntaxa_vvn():
+    """Return table of syntaxa in de Vegetatie van Nederland."""
+    
+    # read source file
+    srcfile = (_resources.files(_data_synbiosys) / 'synbiosys_syntaxa_vvn.csv')
+    table = _pd.read_csv(srcfile, encoding='latin-1', dtype=object, low_memory=False)
+    table.columns = map(str.lower, table.columns)
+
+    # validate syntaxon codes
+    table['code'] = syntaxon_validate(table['code'])
+    #table['parent'] = syntaxon_validate(table['parent'])
+
+    # reorder columns
+    colnames = ['code', 'wetnaam', 'nednaam', 'nednaam_alt', 'isparent', 'hoofdgroep', 'parent']
+    newcols = [name for name in colnames if name not in table.columns]
+    if newcols:
+        raise ValueError((f'Unexpected columns in "synbiosys_syntaxa_vvn": {newcols}'))
+    table = table.reindex(columns=colnames)
+
+    # set code as (unique) index
+    table = table.set_index('code', verify_integrity=True)
+
+    return table

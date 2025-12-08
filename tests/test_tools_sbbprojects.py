@@ -20,19 +20,6 @@ def test_class_sbbprojects(root=root):
     assert isinstance(str(sbbprj), str)
 
 
-def test_count_projectfiles(root=root):
-
-    sbbprj = SbbProjects(root)
-
-    df = sbbprj.count_projectfiles()
-    assert isinstance(df, pd.DataFrame)
-    assert not df.empty
-
-    sr = sbbprj.count_projectfiles('tvdir')
-    assert isinstance(sr, pd.Series)
-    assert not sr.empty
-    
-
 def test_get_filetype(root=root):
 
     sbbprj = SbbProjects(root)
@@ -57,6 +44,19 @@ def test_get_projectfiles(root=root):
     assert not df.empty
 
 
+def test_projectfiles_count(root=root):
+
+    sbbprj = SbbProjects(root)
+
+    df = sbbprj.get_projectfiles_count()
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
+
+    sr = sbbprj.get_projectfiles_count('tvdir')
+    assert isinstance(sr, pd.Series)
+    assert not sr.empty
+    
+
 def test_get_projectfolders(root=root):
 
     sbbprj = SbbProjects(root)
@@ -67,6 +67,14 @@ def test_get_projectfolders(root=root):
 
     df = sbbprj.get_projectfolders(relpaths=False)
     assert isinstance(df, pd.Series)
+    assert not df.empty
+
+
+def test_projectfolders_elements(root=root):
+
+    sbbprj = SbbProjects(root)
+    df = sbbprj.get_projectfolders_elements()
+    assert isinstance(df, pd.DataFrame)
     assert not df.empty
 
 
@@ -83,6 +91,14 @@ def test_get_shapefiles(root=root):
 
     assert not df1.empty
     assert isinstance(df2, pd.DataFrame)
+
+
+def get_tv2projects(root=root):
+
+    sbbprj = SbbProjects(root)
+    df = sbbprj.get_tv2projects()
+    assert isinstance(df, pd.DataFrame)
+    assert not df.empty
 
 
 def test_get_tv2folders(root=root):
@@ -107,13 +123,5 @@ def test_get_tv2folders(root=root):
 
     #assert isinstance(sr, Series)
     #assert not sr.empty
-
-
-def test_split_projectnames(root=root):
-
-    sbbprj = SbbProjects(root)
-    df = sbbprj.split_projectnames()
-    assert isinstance(df, pd.DataFrame)
-    assert not df.empty
 
 

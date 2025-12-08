@@ -3,7 +3,7 @@ import pytest
 import pandas as pd
 import pathlib
 
-from phylia.read import ShapeFile
+from phylia.io import ShapeFile
 
 @pytest.fixture
 def root():

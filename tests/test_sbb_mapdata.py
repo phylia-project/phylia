@@ -3,7 +3,7 @@ import pytest
 from pandas import Series, DataFrame
 import pandas as pd
 from geopandas import GeoSeries, GeoDataFrame
-from phylia.sbb import MapData
+from phylia.io import MapData
 
 @pytest.fixture
 def mpd():

@@ -11,28 +11,31 @@ Functionality includes:
 
         
 """
+import logging as _logging
 
-from . import sbb
-from . import read
-from . import plot
-from . import sample
+from . import io
+from . import plots
+from . import sampling
 from . import tools
 from . import data
 
 from ._core._releve import Releve
-from .sbb._maptables import MapTables
-from .sbb._mapelements import MapElements
-from .sbb._mapdata import MapData
 from .data.cmsi import CmsiSyntaxonTable
-from .read._shapefile import ShapeFile
-from .read._mdb import Mdb
-from .read._tv2db import Tv2Db
-from .read._tvxml import TvXml
-from .sample._samplepolygonmap import SamplePolygonMap
-from .plot._sankey_two_maps import SankeyTwoMaps
+from .io._shapefile import ShapeFile
+from .io._mdb import Mdb
+from .io._tv2db import Tv2Db
+from .io._tvxml import TvXml
+from .io._maptables import MapTables
+from .io._mapelements import MapElements
+from .io._mapdata import MapData
+from .sampling._samplepolygonmap import SamplePolygonMap
+from .plots._sankey_two_maps import SankeyTwoMaps
 from .tools.sbbprojects import SbbProjects
 
-import logging
-logger = logging.getLogger(__name__)
+_logger = _logging.getLogger(__name__)
 #logger.addHandler(logging.NullHandler())
-
+_formatter = _logging.Formatter('%(levelname)s %(message)s')
+_console_handler = _logging.StreamHandler()
+_console_handler.setLevel(_logging.INFO)  # set log level for console output
+_console_handler.setFormatter(_formatter)
+_logger.addHandler(_console_handler)

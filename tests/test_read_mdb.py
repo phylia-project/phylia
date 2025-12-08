@@ -4,7 +4,7 @@ from collections import OrderedDict
 from pandas import DataFrame
 import pandas as pd
 
-from phylia.read import Mdb
+from phylia.io import Mdb
 
 @pytest.fixture
 def root():

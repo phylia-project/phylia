@@ -3,7 +3,7 @@
 import pytest
 from pandas import Series, DataFrame
 import pandas as pd
-from phylia.sbb import MapTables
+from phylia.io import MapTables
 
 @pytest.fixture
 def db():
@@ -14,6 +14,12 @@ def db():
 @pytest.fixture
 def empty_db():
     return MapTables()
+
+@pytest.fixture
+def db_invalid_format():
+    srcdir = r'.\data\badfiles\\'
+    mdbpath = f'{srcdir}valid_file_but_not_ds_format.mdb'
+    return MapTables.from_mdb(mdbpath)
 
 def test_empty_maptables():
     assert isinstance(MapTables(), MapTables)
@@ -31,6 +37,9 @@ def test_filepath(db):
 def test_from_mdb_badfilepath():
     with pytest.raises(Exception) as e_info:
         MapTables.from_mdb('badpath.mdb')
+
+def test_invalid_mdb_format(db_invalid_format):
+    assert not db_invalid_format.is_valid
 
 def test_get_abiotiek(db):
     assert isinstance(db.get_abiotiek(), DataFrame)

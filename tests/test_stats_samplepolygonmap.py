@@ -4,7 +4,7 @@ from geopandas import GeoSeries, GeoDataFrame
 import geopandas as gpd
 import matplotlib
 
-from phylia.sample import SamplePolygonMap
+from phylia.sampling import SamplePolygonMap
 
 @pytest.fixture
 def root():

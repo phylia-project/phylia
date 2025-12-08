@@ -70,8 +70,19 @@ def test_vegetationtypes(typologies):
 
     cst = CmsiSyntaxonTable()
     for typology in typologies:
-        df = cst.vegetationtypes(typology=typology, current_only=False, verbose=True)
+        df = cst.vegetationtypes(typology=typology, current_only=False, 
+            include_mapcodes=True, verbose=True)
         assert isinstance(df, DataFrame)
         assert not df.empty
 
 
+def test_mapcodes(typologies):
+    
+    cst = CmsiSyntaxonTable()
+    for typology in typologies:
+        sr = cst.mapcodes(typology)
+        assert isinstance(sr, Series)
+        if typology=='vvn':
+            assert sr.empty
+        else:
+            assert not sr.empty

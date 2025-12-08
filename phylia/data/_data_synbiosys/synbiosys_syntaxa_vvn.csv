@@ -1,0 +1,833 @@
+HOOFDGROEP,PARENT,CODE,WETNAAM,NEDNAAM,ISPARENT,NEDNAAM_ALT
+,,01,Lemnetea minoris,Eendekroos-klasse,1,Eendekroos-klasse
+,01,01A,Lemnetalia minoris,Eendekroos-orde,1,Eendekroos-orde
+,01A,01AA,Lemnion minoris,Bultkroos-verbond,1,Bultkroos-verbond
+1.0,01AA,01AA01,Wolffio-Lemnetum gibbae,Associatie van Bultkroos en Wortelloos kroos,1,"Bultkroos en Wortelloos kroos, Associatie van"
+,01AA01,01AA01A,Wolffio-Lemnetum typicum,Ass. van Bultkroos en Wortelloos kroos; typische subass.,0,Ass. van Bultkroos en Wortelloos kroos; typische subass.
+,01AA01,01AA01B,Wolffio-Lemnetum azolletosum filiculoides,Ass. van Bultkroos en Wortelloos kroos; subass. met Grote kroosvaren,0,Ass. van Bultkroos en Wortelloos kroos; subass. met Grote kroosvaren
+1.0,01AA,01AA02,Lemno-Spirodeletum polyrhizae,Associatie van Veelwortelig kroos,1,"Veelwortelig kroos, Associatie van"
+,01AA02,01AA02A,Lemno-Spirodeletum typicum,Ass. van Veelwortelig kroos; typische subass.,0,Ass. van Veelwortelig kroos; typische subass.
+,01AA02,01AA02B,Lemno-Spirodeletum azolletosum carolinianae,Ass. van Veelwortelig kroos; subass. met Kleine kroosvaren,0,Ass. van Veelwortelig kroos; subass. met Kleine kroosvaren
+,01A,01AB,Lemnion trisulcae,Puntkroos-verbond,1,Puntkroos-verbond
+1.0,01AB,01AB01,Riccietum fluitantis,Watervorkjes-associatie,1,Watervorkjes-associatie
+,01AB01,01AB01A,Riccietum fluitantis typicum,Watervorkjes-ass.; typische subass.,0,Watervorkjes-ass.; typische subass.
+,01AB01,01AB01B,Riccietum fluitantis ricciocarpetosum,Watervorkjes-ass.; subass. met Kroosmos,0,Watervorkjes-ass.; subass. met Kroosmos
+,01RG,01RG01,RG Lemna minor-[Lemnetea minoris],Rompgemeenschap van Klein kroos,0,Rompgemeenschap van Klein kroos
+,01RG,01RG02,RG Lemna trisulca-[Lemnion trisulcae],Rompgemeenschap van Puntkroos,0,Rompgemeenschap van Puntkroos
+,,02,Ruppietea,Ruppia-klasse,1,Ruppia-klasse
+,02,02A,Zannichellio-Ruppietalia,Ruppia-orde,1,Ruppia-orde
+,02A,02AA,Ruppion maritimae,Ruppia-verbond,1,Ruppia-verbond
+1.0,02AA,02AA01,Ruppietum maritimae,Associatie van Snavelruppia,0,"Snavelruppia, Associatie van"
+1.0,02AA,02AA02,Ruppietum cirrhosae,Associatie van Spiraalruppia,0,"Spiraalruppia, Associatie van"
+,,03,Zosteretea,Zeegras-klasse,1,Zeegras-klasse
+,03,03A,Zosteretalia,Zeegras-orde,1,Zeegras-orde
+,03A,03AA,Zosterion,Zeegras-verbond,1,Zeegras-verbond
+1.0,03AA,03AA01,Zosteretum noltii,Associatie van Klein zeegras,0,"Klein zeegras, Associatie van"
+1.0,03AA,03AA02,Zosteretum marinae,Associatie van Groot zeegras,0,"Groot zeegras, Associatie van"
+,,04,Charetea fragilis,Kranswieren-klasse,1,Kranswieren-klasse
+,04,04A,Nitelletalia flexilis,Glanswier-orde,1,Glanswier-orde
+,04A,04AA,Nitellion flexilis,Glanswier-verbond,1,Glanswier-verbond
+1.0,04AA,04AA01,Nitelletum translucentis,Associatie van Doorschijnend glanswier,0,"Doorschijnend glanswier, Associatie van"
+,04,04B,Charetalia hispidae,Kransblad-orde,1,Kransblad-orde
+,04B,04BA,Charion fragilis,Verbond van Stekelharig kransblad,1,Verbond van Stekelharig kransblad
+1.0,04BA,04BA01,Nitellopsidetum obtusae,Associatie van Sterkranswier,0,"Sterkranswier, Associatie van"
+1.0,04BA,04BA02,Charetum hispidae,Associatie van Stekelharig kransblad,0,"Stekelharig kransblad, Associatie van"
+1.0,04BA,04BA03,Charetum asperae,Associatie van Ruw kransblad,0,"Ruw kransblad, Associatie van"
+,04B,04BB,Charion vulgaris,Verbond van Gewoon kransblad,1,Verbond van Gewoon kransblad
+1.0,04BB,04BB01,Charetum vulgaris,Associatie van Gewoon kransblad,0,"Gewoon kransblad, Associatie van"
+1.0,04BB,04BB02,Lemno-Nitelletum capillaris,Associatie van Kleinhoofdig glanswier,0,"Kleinhoofdig glanswier, Associatie van"
+1.0,04BB,04BB03,Tolypelletum proliferae,Associatie van Groot boomglanswier,0,"Groot boomglanswier, Associatie van"
+,04,04C,Lamprothamnietalia papulosi,Orde van Brakwater-kransblad,1,Orde van Brakwater-kransblad
+,04C,04CA,Charion canescentis,Verbond van Brakwater-kransblad,1,Verbond van Brakwater-kransblad
+1.0,04CA,04CA01,Charetum canescentis,Associatie van Brakwater-kransblad,0,"Brakwater-kransblad, Associatie van"
+,04RG,04RG01,RG Chara globularis-[Charetea fragilis],Rompgemeenschap van Breekbaar kransblad,0,Rompgemeenschap van Breekbaar kransblad
+,,05,Potametea,Fonteinkruiden-klasse,1,Fonteinkruiden-klasse
+,05,05A,Zannichellietalia pedicellatae,Orde van Gesteelde zannichellia,1,Orde van Gesteelde zannichellia
+,05A,05AA,Zannichellion pedicellatae,Verbond van Gesteelde zannichellia,1,Verbond van Gesteelde zannichellia
+1.0,05AA,05AA01,Ceratophylletum submersi,Associatie van Fijn hoornblad,0,"Fijn hoornblad, Associatie van"
+1.0,05AA,05AA02,Ranunculetum baudotii,Associatie van Zilte waterranonkel,0,"Zilte waterranonkel, Associatie van"
+1.0,05AA,05AA03,Najadetum marinae,Associatie van Groot nimfkruid,1,"Groot nimfkruid, Associatie van"
+,05AA03,05AA03A,Najadetum marinae zannichellietosum,Ass. van Groot nimfkruid; subass. met Zannichellia,0,Ass. van Groot nimfkruid; subass. met Zannichellia
+,05AA03,05AA03B,Najadetum marinae nitellopsidetosum,Ass. van Groot nimfkruid; subass. met Sterkranswier,0,Ass. van Groot nimfkruid; subass. met Sterkranswier
+,05,05B,Nupharo-Potametalia,Orde der Fonteinkruiden en Waterlelies,1,Orde der Fonteinkruiden en Waterlelies
+,05B,05BA,Nymphaeion,Waterlelie-verbond,1,Waterlelie-verbond
+1.0,05BA,05BA01,Ranunculo fluitantis-Potametum perfoliati,Associatie van Doorgroeid fonteinkruid,0,"Doorgroeid fonteinkruid, Associatie van"
+1.0,05BA,05BA02,Potametum lucentis,Associatie van Glanzig fonteinkruid,0,"Glanzig fonteinkruid, Associatie van"
+1.0,05BA,05BA03,Myriophyllo-Nupharetum,Associatie van Witte waterlelie en Gele plomp,0,"Witte waterlelie en Gele plomp, Associatie van"
+1.0,05BA,05BA04,Potameto-Nymphoidetum,Watergentiaan-associatie,0,Watergentiaan-associatie
+,05B,05BB,Hydrocharition morsus-ranae,Kikkerbeet-verbond,1,Kikkerbeet-verbond
+1.0,05BB,05BB01,Stratiotetum,Krabbescheer-associatie,0,Krabbescheer-associatie
+1.0,05BB,05BB02,Utricularietum vulgaris,Associatie van Groot blaasjeskruid,0,"Groot blaasjeskruid, Associatie van"
+,05B,05BC,Parvopotamion,Verbond der kleine fonteinkruiden,1,Verbond der kleine fonteinkruiden
+1.0,05BC,05BC01,Potametum berchtoldii,Associatie van Klein fonteinkruid,0,"Klein fonteinkruid, Associatie van"
+1.0,05BC,05BC02,Groenlandietum,Associatie van Paarbladig fonteinkruid,0,"Paarbladig fonteinkruid, Associatie van"
+1.0,05BC,05BC03,Ranunculetum circinati,Associatie van Stijve waterranonkel,0,"Stijve waterranonkel, Associatie van"
+1.0,05BC,05BC04,Potametum obtusifolii,Associatie van Stomp fonteinkruid,0,"Stomp fonteinkruid, Associatie van"
+1.0,05BC,05BC05,Myriophyllo verticillati-Hottonietum,Associatie van Waterviolier en Kransvederkruid,0,"Waterviolier en Kransvederkruid, Associatie van"
+,05,05C,Callitricho-Potametalia,Orde van Haaksterrenkroos en Grote waterranonkel,1,Orde van Haaksterrenkroos en Grote waterranonkel
+,05C,05CA,Ranunculion peltati,Verbond van Grote waterranonkel,1,Verbond van Grote waterranonkel
+1.0,05CA,05CA01,Callitricho-Hottonietum,Associatie van Waterviolier en Sterrenkroos,0,"Waterviolier en Sterrenkroos, Associatie van"
+1.0,05CA,05CA02,Ranunculetum hederacei,Associatie van Klimopwaterranonkel,0,"Klimopwaterranonkel, Associatie van"
+1.0,05CA,05CA03,Callitricho-Myriophylletum alterniflori,Associatie van Teer vederkruid,0,"Teer vederkruid, Associatie van"
+1.0,05CA,05CA04,Callitricho hamulatae-Ranunculetum fluitantis,Associatie van Vlottende waterranonkel,0,"Vlottende waterranonkel, Associatie van"
+,05RG,05RG01,RG Myriophyllum spicatum-[Potametea],Rompgemeenschap van Aarvederkruid,0,Rompgemeenschap van Aarvederkruid
+,05RG,05RG02,RG Potamogeton crispus-[Potametea],Rompgemeenschap van Gekroesd fonteinkruid,0,Rompgemeenschap van Gekroesd fonteinkruid
+,05RG,05RG03,RG Potamogeton pect. en Zannich. pal. ssp. ped. -[Zannichellietalia pedic.],Rompgemeenschap van Schedefonteinkruid en Gesteelde zannichellia,0,Rompgemeenschap van Schedefonteinkruid en Gesteelde zannichellia
+,05RG,05RG04,RG Ceratophyllum demersum-[Nupharo-Potametalia],Rompgemeenschap van Grof hoornblad,0,Rompgemeenschap van Grof hoornblad
+,05RG,05RG05,RG Potamogeton pusillus en Elodea nuttallii-[Parvopotamion],Rompgemeenschap van Tenger fonteinkruid en Smalle waterpest,0,Rompgemeenschap van Tenger fonteinkruid en Smalle waterpest
+,05RG,05RG06,RG Elodea canadensis-[Parvopotamion],Rompgemeenschap van Brede waterpest,0,Rompgemeenschap van Brede waterpest
+,05RG,05RG07,RG Potamogeton trichoides-[Parvopotamion],Rompgemeenschap van Haarfonteinkruid,0,Rompgemeenschap van Haarfonteinkruid
+,05RG,05RG08,RG Callitriche platycarpa-[Callitricho-Potametalia],Rompgemeenschap van Gewoon sterrenkroos,0,Rompgemeenschap van Gewoon sterrenkroos
+,,06,Littorelletea,Oeverkruid-klasse,1,Oeverkruid-klasse
+,06,06A,Littorelletalia,Oeverkruid-orde,1,Oeverkruid-orde
+,06A,06AA,Littorellion uniflorae,Oeverkruid-verbond,1,Oeverkruid-verbond
+1.0,06AA,06AA01,Isoeto-Lobelietum,Associatie van Biesvaren en Waterlobelia,1,"Biesvaren en Waterlobelia, Associatie van"
+,06AA01,06AA01A,Isoeto-Lobelietum isoetetosum,Ass. van Biesvaren en Waterlobelia; subass. met Biesvaren,0,Ass. van Biesvaren en Waterlobelia; subass. met Biesvaren
+,06AA01,06AA01B,Isoeto-Lobelietum eleocharitetosum multicaulis,Ass. van Biesvaren en Waterlobelia; subass. met Veelstengelige waterbies,0,Ass. van Biesvaren en Waterlobelia; subass. met Veelstengelige waterbies
+,06AA01,06AA01C,Isoeto-Lobelietum sphagnetosum,Ass. van Biesvaren en Waterlobelia; subass. met Veenmos,0,Ass. van Biesvaren en Waterlobelia; subass. met Veenmos
+,06AA01,06AA01D,Isoeto-Lobelietum inops,Ass. van Biesvaren en Waterlobelia; arme subass.,0,Ass. van Biesvaren en Waterlobelia; arme subass.
+,06A,06AB,Potamion graminei,Verbond van Ongelijkbladig fonteinkruid,1,Verbond van Ongelijkbladig fonteinkruid
+1.0,06AB,06AB01,Echinodoro-Potametum graminei,Associatie van Ongelijkbladig fonteinkruid,0,"Ongelijkbladig fonteinkruid, Associatie van"
+1.0,06AB,06AB02,Sparganietum minimi,Associatie van Kleinste egelskop,0,"Kleinste egelskop, Associatie van"
+,06A,06AC,Hydrocotylo-Baldellion,Verbond van Waternavel en Stijve moerasweegbree,1,Verbond van Waternavel en Stijve moerasweegbree
+1.0,06AC,06AC01,Pilularietum globuliferae,Pilvaren-associatie,0,Pilvaren-associatie
+1.0,06AC,06AC02,Scirpetum fluitantis,Associatie van Vlottende bies,0,"Vlottende bies, Associatie van"
+1.0,06AC,06AC03,Eleocharitetum multicaulis,Associatie van Veelstengelige waterbies,0,"Veelstengelige waterbies, Associatie van"
+1.0,06AC,06AC04,Samolo-Littorelletum,Associatie van Waterpunge en Oeverkruid,0,"Waterpunge en Oeverkruid, Associatie van"
+,06A,06AD,Eleocharition acicularis,Naaldwaterbies-verbond,1,Naaldwaterbies-verbond
+1.0,06AD,06AD01,Littorello-Eleocharitetum acicularis,Naaldwaterbies-associatie,0,Naaldwaterbies-associatie
+,06RG,06RG01,RG Littorella uniflora-[Littorelletea],Rompgemeenschap van Oeverkruid,0,Rompgemeenschap van Oeverkruid
+,06RG,06RG02,RG Potamogeton polygonifolius-[Littorelletea],Rompgemeenschap van Duizendknoopfonteinkruid,0,Rompgemeenschap van Duizendknoopfonteinkruid
+,06RG,06RG03,RG Eleocharis multicaulis-Sphagnum-[Littorelletea/Scheuchzerietea],Rompgemeenschap van Veelstengelige waterbies en Veenmos,0,Rompgemeenschap van Veelstengelige waterbies en Veenmos
+,06RG,06RG04,RG Juncus bulbosus-Sphagnum-[Littorelletea/Scheuchzerietea],Rompgemeenschap van Knolrus en Veenmos,0,Rompgemeenschap van Knolrus en Veenmos
+,,07,Montio-Cardaminetea,Klasse der bronbeekgemeenschappen,1,Klasse der bronbeekgemeenschappen
+,07,07A,Montio-Cardaminetalia,Orde der bron- en bronbeekgemeenschappen,1,Orde der bron- en bronbeekgemeenschappen
+,07A,07AA,Cardamino-Montion,Verbond van Bittere veldkers en Bronkruid,1,Verbond van Bittere veldkers en Bronkruid
+4.0,07AA,07AA01,Philonotido fontanae-Montietum,Bronkruid-associatie,1,Bronkruid-associatie
+,07AA01,07AA01A,Philonotido fontanae-Montietum batrachietosum,Bronkruid-ass.; subass. met Fijne waterranonkel,0,Bronkruid-ass.; subass. met Fijne waterranonkel
+,07AA01,07AA01B,Philonotido fontanae-Montietum veronicetosum,Bronkruid-ass.; subass. met Beekpunge,0,Bronkruid-ass.; subass. met Beekpunge
+,07AA01,07AA01C,Philonotido fontanae-Montietum peplidetosum,Bronkruid-ass.; subass. met Waterpostelein,0,Bronkruid-ass.; subass. met Waterpostelein
+,07AA01,07AA01D,Philonotido fontanae-Montietum inops,Bronkruid-ass.; arme subass.,0,Bronkruid-ass.; arme subass.
+4.0,07AA,07AA02,Pellio epiphyllae-Chrysosplenietum oppositifolii,Associatie van Paarbladig goudveil,1,"Paarbladig goudveil, Associatie van"
+,07AA02,07AA02A,Pellio epiphyllae-Chrysosplenietum inops,Ass. van Paarbladig goudveil; arme subass.,0,Ass. van Paarbladig goudveil; arme subass.
+,07AA02,07AA02B,Pellio epiphyllae-Chrysosplenietum pellietosum,Ass. van Paarbladig goudveil; subass. met Gewone pellia,0,Ass. van Paarbladig goudveil; subass. met Gewone pellia
+,07AA02,07AA02C,Pellio epiphyllae-Chrysosplenietum cratoneuretosum,Ass. van Paarbladig goudveil; subass. met Gewoon diknerfmos,0,Ass. van Paarbladig goudveil; subass. met Gewoon diknerfmos
+4.0,07AA,07AA03,Pellio-Conocephaletum,Kegelmos-associatie,1,Kegelmos-associatie
+,07AA03,07AA03A,Pellio-Conocephaletum pellietosum epiphyllae,Kegelmos-ass.; subass. met Gewone pellia,0,Kegelmos-ass.; subass. met Gewone pellia
+,07AA03,07AA03B,Pellio-Conocephaletum mnietosum marginati,Kegelmos-ass.; subass. met Rood sterremos,0,Kegelmos-ass.; subass. met Rood sterremos
+,07AA03,07AA03C,Pellio-Conocephaletum inops,Kegelmos-ass.; arme subass.,0,Kegelmos-ass.; arme subass.
+,,08,Phragmitetea,Riet-klasse,1,Riet-klasse
+,08,08A,Nasturtio-Glycerietalia,Vlotgras-orde,1,Vlotgras-orde
+,08A,08AA,Sparganio-Glycerion,Vlotgras-verbond,1,Vlotgras-verbond
+2.0,08AA,08AA01,Eleocharito palustris-Hippuridetum,Lidsteng-associatie,0,Lidsteng-associatie
+2.0,08AA,08AA02,Polygono-Veronicetum anagallidis-aquaticae,Associatie van Blauwe waterereprijs en Waterpeper,0,"Blauwe waterereprijs en Waterpeper, Associatie van"
+2.0,08AA,08AA03,Apietum nodiflori,Associatie van Groot moerasscherm,0,"Groot moerasscherm, Associatie van"
+2.0,08AA,08AA04,Glycerietum plicatae,Associatie van Stomp vlotgras,0,"Stomp vlotgras, Associatie van"
+,08A,08AB,Oenanthion aquaticae,Watertorkruid-verbond,1,Watertorkruid-verbond
+2.0,08AB,08AB01,Rorippo-Oenanthetum aquaticae,Watertorkruid-associatie,0,Watertorkruid-associatie
+2.0,08AB,08AB02,Sagittario-Sparganietum,Associatie van Egelskop en Pijlkruid,0,"Egelskop en Pijlkruid, Associatie van"
+,08,08B,Phragmitetalia,Riet-orde,1,Riet-orde
+,08B,08BA,Cicution virosae,Waterscheerling-verbond,1,Waterscheerling-verbond
+2.0,08BA,08BA01,Cicuto-Calletum,Associatie van Slangewortel en Waterscheerling,0,"Slangewortel en Waterscheerling, Associatie van"
+2.0,08BA,08BA02,Cicuto-Caricetum pseudocyperi,Associatie van Waterscheerling en Hoge cyperzegge,1,"Waterscheerling en Hoge cyperzegge, Associatie van"
+,08BA02,08BA02A,Cicuto-Caricetum typicum,Ass. van Waterscheerling en Hoge cyperzegge; typische subass.,0,Ass. van Waterscheerling en Hoge cyperzegge; typische subass.
+,08BA02,08BA02B,Cicuto-Caricetum menyanthetosum,Ass. van Waterscheerling en Hoge cyperzegge; subass. met Waterdrieblad,0,Ass. van Waterscheerling en Hoge cyperzegge; subass. met Waterdrieblad
+,08B,08BB,Phragmition australis,Riet-verbond,1,Riet-verbond
+2.0,08BB,08BB01,Scirpetum lacustris,Mattenbies-associatie,1,Mattenbies-associatie
+,08BB01,08BB01A,Scirpetum lacustris typicum,Mattenbies-ass.; typische subass.,0,Mattenbies-ass.; typische subass.
+,08BB01,08BB01B,Scirpetum lacustris rumicetosum,Mattenbies-ass.; subass. met Waterzuring,0,Mattenbies-ass.; subass. met Waterzuring
+2.0,08BB,08BB02,Scirpetum tabernaemontani,Associatie van Ruwe bies,0,"Ruwe bies, Associatie van"
+2.0,08BB,08BB03,Alismato-Scirpetum maritimi,Associatie van Heen en Grote waterweegbree,1,"Heen en Grote waterweegbree, Associatie van"
+,08BB03,08BB03A,Alismato-Scirpetum scirpetosum triquetri,Ass. van Heen en Grote waterweegbree; subass. met Driekantige bies,0,Ass. van Heen en Grote waterweegbree; subass. met Driekantige bies
+,08BB03,08BB03B,Alismato-Scirpetum calthetosum,Ass. van Heen en Grote waterweegbree; subass. met Spindotterbloem,0,Ass. van Heen en Grote waterweegbree; subass. met Spindotterbloem
+,08BB03,08BB03C,Alismato-Scirpetum rumicetosum,Ass. van Heen en Grote waterweegbree; subass. met Waterzuring,0,Ass. van Heen en Grote waterweegbree; subass. met Waterzuring
+,08BB03,08BB03D,Alismato-Scirpetum inops,Ass. van Heen en Grote waterweegbree; arme subass.,0,Ass. van Heen en Grote waterweegbree; arme subass.
+2.0,08BB,08BB04,Typho-Phragmitetum,Riet-associatie,1,Riet-associatie
+,08BB04,08BB04A,Typho-Phragmitetum typhetosum angustifoliae,Riet-ass.; subass. met Kleine lisdodde,0,Riet-ass.; subass. met Kleine lisdodde
+,08BB04,08BB04B,Typho-Phragmitetum calthetosum,Riet-ass.; subass. met Dotterbloem,0,Riet-ass.; subass. met Dotterbloem
+,08BB04,08BB04C,Typho-Phragmitetum typicum,Riet-ass.; typische subass.,0,Riet-ass.; typische subass.
+,08BB04,08BB04D,Typho-Phragmitetum thelypteridetosum,Riet-ass.; subass. met Moerasvaren,0,Riet-ass.; subass. met Moerasvaren
+,08B,08BC,Caricion gracilis,Verbond van Scherpe zegge,1,Verbond van Scherpe zegge
+2.0,08BC,08BC01,Caricetum ripariae,Oeverzegge-associatie,0,Oeverzegge-associatie
+2.0,08BC,08BC02,Caricetum gracilis,Associatie van Scherpe zegge,1,"Scherpe zegge, Associatie van"
+,08BC02,08BC02A,Caricetum gracilis typicum,Ass. van Scherpe zegge; typische subass.,0,Ass. van Scherpe zegge; typische subass.
+,08BC02,08BC02B,Caricetum gracilis comaretosum,Ass. van Scherpe zegge; subass. met Wateraardbei,0,Ass. van Scherpe zegge; subass. met Wateraardbei
+2.0,08BC,08BC03,Caricetum vesicariae,Blaaszegge-associatie,0,Blaaszegge-associatie
+2.0,08BC,08BC04,Lysimachio-Caricetum aquatilis,Associatie van Noordse zegge,0,"Noordse zegge, Associatie van"
+,08B,08BD,Caricion elatae,Verbond van Stijve zegge,1,Verbond van Stijve zegge
+2.0,08BD,08BD01,Cladietum marisci,Galigaan-associatie,0,Galigaan-associatie
+2.0,08BD,08BD02,Caricetum paniculatae,Pluimzegge-associatie,0,Pluimzegge-associatie
+2.0,08BD,08BD03,Caricetum elatae,Associatie van Stijve zegge,0,"Stijve zegge, Associatie van"
+,08RG,08RG01,RG Glyceria maxima-[Phragmitetea],Rompgemeenschap van Liesgras,0,Rompgemeenschap van Liesgras
+,08RG,08RG02,RG Rorippa amphibia-[Phragmitetea],Rompgemeenschap van Slanke waterkers,0,Rompgemeenschap van Slanke waterkers
+,08RG,08RG03,RG Typha latifolia-[Phragmitetea],Rompgemeenschap van Grote lisdodde,0,Rompgemeenschap van Grote lisdodde
+,08RG,08RG04,RG Acorus calamus-[Phragmitetea],Rompgemeenschap van Kalmoes,0,Rompgemeenschap van Kalmoes
+,08RG,08RG05,RG Glyceria fluitans-[Nasturtio-Glycerietalia],Rompgemeenschap van Mannagras,0,Rompgemeenschap van Mannagras
+,08RG,08RG06,RG Equisetum fluviatile-[Phragmitetalia],Rompgemeenschap van Holpijp,0,Rompgemeenschap van Holpijp
+,08RG,08RG07,RG Juncus subnodulosus-[Phragmitetalia],Rompgemeenschap van Padderus,0,Rompgemeenschap van Padderus
+,08RG,08RG08,RG Carex acutiformis-[Phragmitetalia],Rompgemeenschap van Moeraszegge,0,Rompgemeenschap van Moeraszegge
+,08RG,08RG09,RG Phalaris arundinacea-[Phragmitetalia],Rompgemeenschap van Rietgras,0,Rompgemeenschap van Rietgras
+,,09,Parvocaricetea,Klasse der kleine zeggen,1,Klasse der kleine zeggen
+,09,09A,Caricetalia nigrae,Orde van Zwarte zegge,1,Orde van Zwarte zegge
+,09A,09AA,Caricion nigrae,Verbond van Zwarte zegge,1,Verbond van Zwarte zegge
+2.0,09AA,09AA01,Caricetum trinervi-nigrae,Associatie van Drienervige en Zwarte zegge,0,"Drienervige en Zwarte zegge, Associatie van"
+2.0,09AA,09AA02,Pallavicinio-Sphagnetum,Veenmosrietland,1,Veenmosrietland
+,09AA02,09AA02A,Pallavicinio-Sphagnetum typicum,Veenmosrietland; typische subass.,0,Veenmosrietland; typische subass.
+,09AA02,09AA02B,Pallavicinio-Sphagnetum molinietosum,Veenmosrietland; subass. met Pijpestrootje,0,Veenmosrietland; subass. met Pijpestrootje
+2.0,09AA,09AA03,Carici curtae-Agrostietum caninae,Associatie van Moerasstruisgras en Zompzegge,1,"Moerasstruisgras en Zompzegge, Associatie van"
+,09AA03,09AA03A,Carici curtae-Agrostietum typicum,Ass. van Moerasstruisgras en Zompzegge; typische subass.,0,Ass. van Moerasstruisgras en Zompzegge; typische subass.
+,09AA03,09AA03B,Carici curtae-Agrostietum caricetosum diandrae,Ass. van Moerasstruisgras en Zompzegge; subass. met Ronde zegge,0,Ass. van Moerasstruisgras en Zompzegge; subass. met Ronde zegge
+,09,09B,Caricetalia davallianae,Knopbies-orde,1,Knopbies-orde
+,09B,09BA,Caricion davallianae,Knopbies-verbond,1,Knopbies-verbond
+2.0,09BA,09BA01,Scorpidio-Caricetum diandrae,Associatie van Schorpioenmos en Ronde zegge,0,"Schorpioenmos en Ronde zegge, Associatie van"
+2.0,09BA,09BA02,Campylio-Caricetum dioicae,Associatie van Vetblad en Vlozegge,0,"Vetblad en Vlozegge, Associatie van"
+2.0,09BA,09BA03,Parnassio-Juncetum atricapilli,Associatie van Duinrus en Parnassia,0,"Duinrus en Parnassia, Associatie van"
+2.0,09BA,09BA04,Junco baltici-Schoenetum nigricantis,Knopbies-associatie,1,Knopbies-associatie
+,09BA04,09BA04A,Junco baltici-Schoenetum typicum,Knopbies-ass.; typische subass.,0,Knopbies-ass.; typische subass.
+,09BA04,09BA04B,Junco baltici-Schoenetum trifolietosum,Knopbies-ass.; Knopbies-arme subass.,0,Knopbies-ass.; Knopbies-arme subass.
+2.0,09BA,09BA05,Equiseto variegati-Salicetum repentis,Associatie van Bonte paardestaart en Moeraswespenorchis,0,"Bonte paardestaart en Moeraswespenorchis, Associatie van"
+,09RG,09RG01,RG Ophioglossum vulgatum-Calamagrostis epigejos-[Parvocaricetea],Rompgemeenschap van Duinriet en Addertong,0,Rompgemeenschap van Duinriet en Addertong
+,09RG,09RG02,RG Carex nigra-Agrostis canina-[Caricion nigrae],Rompgemeenschap van Zwarte zegge en Moerasstruisgras,0,Rompgemeenschap van Zwarte zegge en Moerasstruisgras
+,09RG,09RG03,RG Calamagrostis canescens-[Caricion nigrae],Rompgemeenschap van Hennegras,0,Rompgemeenschap van Hennegras
+,09RG,09RG04,RG Myrica gale-[Caricion nigrae],Rompgemeenschap van Wilde gagel,0,Rompgemeenschap van Wilde gagel
+,,10,Scheuchzerietea,Klasse van de hoogveenslenken,1,Klasse van de hoogveenslenken
+,10,10A,Scheuchzerietalia,Orde van de hoogveenslenken,1,Orde van de hoogveenslenken
+,10A,10AA,Rhynchosporion albae,Verbond van Veenmos en Snavelbies,1,Verbond van Veenmos en Snavelbies
+3.0,10AA,10AA01,Sphagnetum cuspidato-obesi,Waterveenmos-associatie,1,Waterveenmos-associatie
+,10AA01,10AA01A,Sphagnetum cuspidato-obesi typicum,Waterveenmos-ass.; typische subass.,0,Waterveenmos-ass.; typische subass.
+,10AA01,10AA01B,Sphagnetum cuspidato-obesi sparganietosum angustifolii,Waterveenmos-ass.; subass. met Drijvende egelskop,0,Waterveenmos-ass.; subass. met Drijvende egelskop
+3.0,10AA,10AA02,Sphagno-Rhynchosporetum,Associatie van Veenmos en Snavelbies,1,"Veenmos en Snavelbies, Associatie van"
+,10AA02,10AA02A,Sphagno-Rhynchosporetum sphagnetosum cuspidati,Ass. van Veenmos en Snavelbies; subass. met Waterveenmos,0,Ass. van Veenmos en Snavelbies; subass. met Waterveenmos
+,10AA02,10AA02B,Sphagno-Rhynchosporetum sphagnetosum recurvi,Ass. van Veenmos en Snavelbies; subass. met Slankveenmos,0,Ass. van Veenmos en Snavelbies; subass. met Slankveenmos
+3.0,10AA,10AA03,Caricetum limosae,Veenbloembies-associatie,0,Veenbloembies-associatie
+,10A,10AB,Caricion lasiocarpae,Draadzegge-verbond,1,Draadzegge-verbond
+3.0,10AB,10AB01,Eriophoro-Caricetum lasiocarpae,Associatie van Draadzegge en Veenpluis,0,"Draadzegge en Veenpluis, Associatie van"
+,10DG,10DG01,DG Juncus effusus-Sphagnum-[Scheuchzerietea],Derivaatgemeenschap van Pitrus en Veenmos,0,Derivaatgemeenschap van Pitrus en Veenmos
+,10DG,10DG02,DG Nymphaea alba-[Scheuchzerietea],Derivaatgemeenschap van Witte waterlelie,0,Derivaatgemeenschap van Witte waterlelie
+,10RG,10RG01,RG Sphagnum cuspidatum-[Scheuchzerietea],Rompgemeenschap van Waterveenmos,0,Rompgemeenschap van Waterveenmos
+,10RG,10RG02,RG Carex rostrata-[Scheuchzerietea],Rompgemeenschap van Snavelzegge,0,Rompgemeenschap van Snavelzegge
+,10RG,10RG03,RG Eriophorum angustifolium-Sphagnum-[Scheuchzerietea],Rompgemeenschap van Veenpluis en Veenmos,0,Rompgemeenschap van Veenpluis en Veenmos
+,10RG,10RG04,RG Molinia caerulea-Sphagnum-[Scheuchzerietea],Rompgemeenschap van Pijpestrootje en Veenmos,0,Rompgemeenschap van Pijpestrootje en Veenmos
+,,11,Oxycocco-Sphagnetea,Klasse der hoogveenbulten en natte heiden,1,Klasse der hoogveenbulten en natte heiden
+,11,11A,Ericetalia tetralicis,Dophei-orde,1,Dophei-orde
+,11A,11AA,Ericion tetralicis,Dophei-verbond,1,Dophei-verbond
+5.0,11AA,11AA01,Lycopodio-Rhynchosporetum,Associatie van Moeraswolfsklauw en Snavelbies,0,"Moeraswolfsklauw en Snavelbies, Associatie van"
+9.0,11AA,11AA02,Ericetum tetralicis,Associatie van Gewone dophei,1,"Gewone dophei, Associatie van"
+,11AA02,11AA02A,Ericetum tetralicis sphagnetosum,Ass. van Gewone dophei; subass. met Veenmos,0,Ass. van Gewone dophei; subass. met Veenmos
+,11AA02,11AA02B,Ericetum tetralicis vaccinietosum,Ass. van Gewone dophei; subass. met Bosbes,0,Ass. van Gewone dophei; subass. met Bosbes
+,11AA02,11AA02C,Ericetum tetralicis typicum,Ass. van Gewone dophei; typische subass.,0,Ass. van Gewone dophei; typische subass.
+,11AA02,11AA02D,Ericetum tetralicis cladonietosum,Ass. van Gewone dophei; subass. met korstmossen,0,Ass. van Gewone dophei; subass. met korstmossen
+,11AA02,11AA02E,Ericetum tetralicis orchietosum,Ass. van Gewone dophei; subass. met Gevlekte orchis,0,Ass. van Gewone dophei; subass. met Gevlekte orchis
+9.0,11AA,11AA03,Empetro-Ericetum,Associatie van Kraaihei en Gewone dophei,1,"Kraaihei en Gewone dophei, Associatie van"
+,11AA03,11AA03A,Empetro-Ericetum phragmitetosum,Ass. van Kraaihei en Gewone dophei; subass. met Riet,0,Ass. van Kraaihei en Gewone dophei; subass. met Riet
+,11AA03,11AA03B,Empetro-Ericetum gymnocoleetosum,Ass. van Kraaihei en Gewone dophei; subass. met Broedkelkje,0,Ass. van Kraaihei en Gewone dophei; subass. met Broedkelkje
+,11,11B,Sphagnetalia magellanici,Hoogveenmos-orde,1,Hoogveenmos-orde
+,11B,11BA,Oxycocco-Ericion,Hoogveenmos-verbond,1,Hoogveenmos-verbond
+3.0,11BA,11BA01,Erico-Sphagnetum magellanici,Associatie van Gewone dophei en Veenmos,1,"Gewone dophei en Veenmos, Associatie van"
+,11BA01,11BA01A,Erico-Sphagnetum typicum,Ass. van Gewone dophei en Veenmos; typische subass.,0,Ass. van Gewone dophei en Veenmos; typische subass.
+,11BA01,11BA01B,Erico-Sphagnetum empetretosum,Ass. van Gewone dophei en Veenmos; subass. met Kraaihei,0,Ass. van Gewone dophei en Veenmos; subass. met Kraaihei
+3.0,11BA,11BA02,Sphagno palustris-Ericetum,Moerasheide,1,Moerasheide
+,11BA02,11BA02A,Sphagno palustris-Ericetum molinietosum,Moerasheide; subass. met Pijpestrootje,0,Moerasheide; subass. met Pijpestrootje
+,11BA02,11BA02B,Sphagno palustris-Ericetum anthoxanthetosum,Moerasheide; subass. met Gewoon reukgras,0,Moerasheide; subass. met Gewoon reukgras
+,11RG,11RG01,RG Eriophorum vaginatum-[Oxycocco-Sphagnetea],Rompgemeenschap van Eenarig wollegras,0,Rompgemeenschap van Eenarig wollegras
+,11RG,11RG02,RG Molinia caerulea-[Oxycocco-Sphagnetea],Rompgemeenschap van Pijpestrootje,0,Rompgemeenschap van Pijpestrootje
+,11RG,11RG03,RG Myrica gale-[Oxycocco-Sphagnetea],Rompgemeenschap van Wilde gagel,0,Rompgemeenschap van Wilde gagel
+,,12,Plantaginetea majoris,Weegbree-klasse,1,Weegbree-klasse
+,12,12A,Plantaginetalia majoris,Weegbree-orde,1,Weegbree-orde
+,12A,12AA,Polygonion avicularis,Varkensgras-verbond,1,Varkensgras-verbond
+5.0,12AA,12AA01,Plantagini-Lolietum perennis,Associatie van Engels raaigras en Grote weegbree,1,"Engels raaigras en Grote weegbree, Associatie van"
+,12AA01,12AA01A,Plantagini-Lolietum typicum,Ass. van Engels raaigras en Grote weegbree; typische subass.,0,Ass. van Engels raaigras en Grote weegbree; typische subass.
+,12AA01,12AA01B,Plantagini-Lolietum juncetosum tenuis,Ass. van Engels raaigras en Grote weegbree; subass. met Tengere rus,0,Ass. van Engels raaigras en Grote weegbree; subass. met Tengere rus
+,12AA01,12AA01C,Plantagini-Lolietum cichorietosum,Ass. van Engels raaigras en Grote weegbree; subass. met Wilde cichorei,0,Ass. van Engels raaigras en Grote weegbree; subass. met Wilde cichorei
+,12AA01,12AA01D,Plantagini-Lolietum puccinellietosum distantis,Ass. van Engels raaigras en Grote weegbree; subass. met Stomp kweldergras,0,Ass. van Engels raaigras en Grote weegbree; subass. met Stomp kweldergras
+5.0,12AA,12AA02,Coronopodo-Matricarietum,Associatie van Varkenskers en Schijfkamille,1,"Varkenskers en Schijfkamille, Associatie van"
+,12AA02,12AA02A,Coronopodo-Matricarietum typicum,Ass. van Varkenskers en Schijfkamille; typische subass.,0,Ass. van Varkenskers en Schijfkamille; typische subass.
+,12AA02,12AA02B,Coronopodo-Matricarietum spergularietosum salinae,Ass. van Varkenskers en Schijfkamille; subass. met Zilte schijnspurrie,0,Ass. van Varkenskers en Schijfkamille; subass. met Zilte schijnspurrie
+,12AA02,12AA02C,Coronopodo-Matricarietum myosuretosum,Ass. van Varkenskers en Schijfkamille; subass. met Muizestaart,0,Ass. van Varkenskers en Schijfkamille; subass. met Muizestaart
+5.0,12AA,12AA03,Bryo-Saginetum procumbentis,Associatie van Vetmuur en Zilvermos,1,"Vetmuur en Zilvermos, Associatie van"
+,12AA03,12AA03A,Bryo-Saginetum typicum,Ass. van Vetmuur en Zilvermos; typische subass.,0,Ass. van Vetmuur en Zilvermos; typische subass.
+,12AA03,12AA03B,Bryo-Saginetum eragrostietosum,Ass. van Vetmuur en Zilvermos; subass. met Straatliefdegras,0,Ass. van Vetmuur en Zilvermos; subass. met Straatliefdegras
+,12,12B,Agrostietalia stoloniferae,Fioringras-orde,1,Fioringras-orde
+,12B,12BA,Lolio-Potentillion anserinae,Zilverschoon-verbond,1,Zilverschoon-verbond
+6.0,12BA,12BA01,Ranunculo-Alopecuretum geniculati,Associatie van Geknikte vossestaart,1,"Geknikte vossestaart, Associatie van"
+,12BA01,12BA01A,Ranunculo-Alopecuretum rorippetosum,Ass. van Geknikte vossestaart; subass. met Akkerkers,0,Ass. van Geknikte vossestaart; subass. met Akkerkers
+,12BA01,12BA01B,Ranunculo-Alopecuretum typicum,Ass. van Geknikte vossestaart; typische subass.,0,Ass. van Geknikte vossestaart; typische subass.
+,12BA01,12BA01C,Ranunculo-Alopecuretum equisetetosum palustris,Ass. van Geknikte vossestaart; subass. met Lidrus,0,Ass. van Geknikte vossestaart; subass. met Lidrus
+,12BA01,12BA01D,Ranunculo-Alopecuretum inops,Ass. van Geknikte vossestaart; arme subass.,0,Ass. van Geknikte vossestaart; arme subass.
+6.0,12BA,12BA02,Triglochino-Agrostietum stoloniferae,Associatie van Moeraszoutgras en Fioringras,1,"Moeraszoutgras en Fioringras, Associatie van"
+,12BA02,12BA02A,Triglochino-Agrostietum cardaminetosum,Ass. van Moeraszoutgras en Fioringras; subass. met Pinksterbloem,0,Ass. van Moeraszoutgras en Fioringras; subass. met Pinksterbloem
+,12BA02,12BA02B,Triglochino-Agrostietum nasturtietosum,Ass. van Moeraszoutgras en Fioringras; subass. met Slanke waterkers,0,Ass. van Moeraszoutgras en Fioringras; subass. met Slanke waterkers
+,12BA02,12BA02C,Triglochino-Agrostietum juncetosum gerardi,Ass. van Moeraszoutgras en Fioringras; subass. met Zilte rus,0,Ass. van Moeraszoutgras en Fioringras; subass. met Zilte rus
+6.0,12BA,12BA03,Trifolio fragiferi-Agrostietum stoloniferae,Associatie van Aardbeiklaver en Fioringras,1,"Aardbeiklaver en Fioringras, Associatie van"
+,12BA03,12BA03A,Trifolio fragiferi-Agrostietum lolietosum,Ass. van Aardbeiklaver en Fioringras; subass. met Engels raaigras,0,Ass. van Aardbeiklaver en Fioringras; subass. met Engels raaigras
+,12BA03,12BA03B,Trifolio fragiferi-Agrostietum centaurietosum,Ass. van Aardbeiklaver en Fioringras; subass. met Fraai duizendguldenkruid,0,Ass. van Aardbeiklaver en Fioringras; subass. met Fraai duizendguldenkruid
+6.0,12BA,12BA04,Ononido-Caricetum distantis,Associatie van Kattedoorn en Zilte zegge,1,"Kattedoorn en Zilte zegge, Associatie van"
+,12BA04,12BA04A,Ononido-Caricetum typicum,Ass. van Kattedoorn en Zilte zegge; typische subass.,0,Ass. van Kattedoorn en Zilte zegge; typische subass.
+,12BA04,12BA04B,Ononido-Caricetum armerietosum,Ass. van Kattedoorn en Zilte zegge; subass. met Engels gras,0,Ass. van Kattedoorn en Zilte zegge; subass. met Engels gras
+,12RG,12RG01,RG Poa trivialis-Lolium perenne-[Plantaginetea majoris/Cynosurion cristati],Rompgemeenschap van Ruw beemdgras en Engels raaigras,0,Rompgemeenschap van Ruw beemdgras en Engels raaigras
+,12RG,12RG02,RG Carex arenaria-Poa annua-[Plantaginetalia majoris/Koelerio-Corynephore.],Rompgemeenschap van Zandzegge en Straatgras,0,Rompgemeenschap van Zandzegge en Straatgras
+,12RG,12RG03,RG Agrostis stolonifera-[Lolio-Potentillion anserinae],Rompgemeenschap van Fioringras,0,Rompgemeenschap van Fioringras
+,12RG,12RG04,RG Festuca arundinacea-[Lolio-Potentillion anserinae],Rompgemeenschap van Rietzwenkgras,0,Rompgemeenschap van Rietzwenkgras
+,12RG,12RG05,RG Agrostis canina-Ranunculus repens-[Lolio-Poten. anserinae/Molinietalia],Rompgemeenschap van Moerasstruisgras en Kruipende boterbloem,0,Rompgemeenschap van Moerasstruisgras en Kruipende boterbloem
+,,13,Sedo-Scleranthetea,Klasse der pioniergraslanden op gruis- en steenbodems,1,Klasse der pioniergraslanden op gruis- en steenbodems
+,13,13A,Sedo-Scleranthetalia,Orde der droge graslanden op gruis- en steenbodems,1,Orde der droge graslanden op gruis- en steenbodems
+,13A,13AA,Alysso-Sedion,Verbond van Vetkruiden en Kandelaartje,1,Verbond van Vetkruiden en Kandelaartje
+5.0,13AA,13AA01,Cerastietum pumili,Associatie van Tengere veldmuur,0,"Tengere veldmuur, Associatie van"
+11.0,13AA,13AA02,Saxifrago tridactylitis-Poetum compressae,Associatie van Kandelaartje en Plat beemdgras,0,"Kandelaartje en Plat beemdgras, Associatie van"
+,,14,Koelerio-Corynephoretea,Klasse der droge graslanden op zandgrond,1,Klasse der droge graslanden op zandgrond
+,14,14A,Corynephoretalia canescentis,Buntgras-orde,1,Buntgras-orde
+,14A,14AA,Corynephorion canescentis,Buntgras-verbond,1,Buntgras-verbond
+7.0,14AA,14AA01,Spergulo-Corynephoretum,Associatie van Buntgras en Heidespurrie,1,"Buntgras en Heidespurrie, Associatie van"
+,14AA01,14AA01A,Spergulo-Corynephoretum inops,Ass. van Buntgras en Heidespurrie; arme subass.,0,Ass. van Buntgras en Heidespurrie; arme subass.
+,14AA01,14AA01B,Spergulo-Corynephoretum cladonietosum,Ass. van Buntgras en Heidespurrie; subass. met korstmossen,0,Ass. van Buntgras en Heidespurrie; subass. met korstmossen
+6.0,14AA,14AA02,Violo-Corynephoretum,Duin-Buntgras-associatie,1,Duin-Buntgras-associatie
+,14AA02,14AA02A,Violo-Corynephoretum typicum,Duin-Buntgras-ass.; typische subass.,0,Duin-Buntgras-ass.; typische subass.
+,14AA02,14AA02B,Violo-Corynephoretum koelerietosum,Duin-Buntgras-ass.; subass. met Fakkelgras,0,Duin-Buntgras-ass.; subass. met Fakkelgras
+,14,14B,Trifolio-Festucetalia ovinae,Struisgras-orde,1,Struisgras-orde
+,14B,14BA,Thero-Airion,Dwerghaver-verbond,1,Dwerghaver-verbond
+6.0,14BA,14BA01,Ornithopodo-Corynephoretum,Vogelpootjes-associatie,0,Vogelpootjes-associatie
+,14B,14BB,Plantagini-Festucion,Verbond van Gewoon struisgras,1,Verbond van Gewoon struisgras
+6.0,14BB,14BB01,Festuco-Thymetum serpylli,Associatie van Schapegras en Tijm,1,"Schapegras en Tijm, Associatie van"
+,14BB01,14BB01A,Festuco-Thymetum jasionetosum,Ass. van Schapegras en Tijm; subass. met Zandblauwtje,0,Ass. van Schapegras en Tijm; subass. met Zandblauwtje
+,14BB01,14BB01B,Festuco-Thymetum anthoxanthetosum,Ass. van Schapegras en Tijm; subass. met Gewoon reukgras,0,Ass. van Schapegras en Tijm; subass. met Gewoon reukgras
+,14BB01,14BB01C,Festuco-Thymetum violetosum calaminariae,Ass. van Schapegras en Tijm; subass. met Zinkviooltje,0,Ass. van Schapegras en Tijm; subass. met Zinkviooltje
+6.0,14BB,14BB02,Festuco-Galietum veri,Duin-Struisgras-associatie,1,Duin-Struisgras-associatie
+,14BB02,14BB02A,Festuco-Galietum typicum,Duin-Struisgras-ass.; typische subass.,0,Duin-Struisgras-ass.; typische subass.
+,14BB02,14BB02B,Festuco-Galietum trifolietosum,Duin-Struisgras-ass.; subass. met Klavertjes,0,Duin-Struisgras-ass.; subass. met Klavertjes
+,14B,14BC,Sedo-Cerastion,Verbond der droge stroomdalgraslanden,1,Verbond der droge stroomdalgraslanden
+6.0,14BC,14BC01,Sedo-Thymetum pulegioidis,Associatie van Vetkruid en Tijm,1,"Vetkruid en Tijm, Associatie van"
+,14BC01,14BC01A,Sedo-Thymetum ornithopodetosum,Ass. van Vetkruid en Tijm; subass. met Klein vogelpootje,0,Ass. van Vetkruid en Tijm; subass. met Klein vogelpootje
+,14BC01,14BC01B,Sedo-Thymetum medicaginetosum,Ass. van Vetkruid en Tijm; subass. met Sikkelklaver,0,Ass. van Vetkruid en Tijm; subass. met Sikkelklaver
+6.0,14BC,14BC02,Medicagini-Avenetum pubescentis,Associatie van Sikkelklaver en Zachte haver,1,"Sikkelklaver en Zachte haver, Associatie van"
+,14BC02,14BC02A,Medicagini-Avenetum luzuletosum,Ass. van Sikkelklaver en Zachte haver; subass. met Gewone veldbies,0,Ass. van Sikkelklaver en Zachte haver; subass. met Gewone veldbies
+,14BC02,14BC02B,Medicagini-Avenetum arrhenatheretosum,Ass. van Sikkelklaver en Zachte haver; subass. met Glanshaver,0,Ass. van Sikkelklaver en Zachte haver; subass. met Glanshaver
+,14,14C,Cladonio-Koelerietalia,Fakkelgras-orde,1,Fakkelgras-orde
+,14C,14CA,Tortulo-Koelerion,Duinsterretjes-verbond,1,Duinsterretjes-verbond
+6.0,14CA,14CA01,Phleo-Tortuletum ruraliformis,Duinsterretjes-associatie,1,Duinsterretjes-associatie
+,14CA01,14CA01A,Phleo-Tortuletum typicum,Duinsterretjes-ass.; typische subass.,0,Duinsterretjes-ass.; typische subass.
+,14CA01,14CA01B,Phleo-Tortuletum cladonietosum,Duinsterretjes-ass.; subass. met korstmossen,0,Duinsterretjes-ass.; subass. met korstmossen
+,14CA01,14CA01C,Phleo-Tortuletum brachythecietosum,Duinsterretjes-ass.; subass. met Bleek dikkopmos,0,Duinsterretjes-ass.; subass. met Bleek dikkopmos
+6.0,14CA,14CA02,Sileno-Tortuletum ruraliformis,Kegelsilene-associatie,1,Kegelsilene-associatie
+,14CA02,14CA02A,Sileno-Tortuletum corynephoretosum,Kegelsilene-ass.; subass. met Buntgras,0,Kegelsilene-ass.; subass. met Buntgras
+,14CA02,14CA02B,Sileno-Tortuletum picridetosum,Kegelsilene-ass.; subass. met Echt bitterkruid,0,Kegelsilene-ass.; subass. met Echt bitterkruid
+,14CA02,14CA02C,Sileno-Tortuletum inops,Kegelsilene-ass.; arme subass.,0,Kegelsilene-ass.; arme subass.
+6.0,14CA,14CA03,Tortello-Bryoerythrophylletum,Associatie van Oranjesteeltje en Langkapselsterretje,1,"Oranjesteeltje en Langkapselsterretje, Associatie van"
+,14CA03,14CA03A,Tortello-Bryoerythrophylletum typicum,Ass. van Oranjesteeltje en Langkapselsterretje; typische subass.,0,Ass. van Oranjesteeltje en Langkapselsterretje; typische subass.
+,14CA03,14CA03B,Tortello-Bryoerythrophylletum encalyptetosum,Ass. van Oranjesteeltje en Langkapselsterretje; subass. met Groot klokhoedje,0,Ass. van Oranjesteeltje en Langkapselsterretje; subass. met Groot klokhoedje
+,14C,14CB,Polygalo-Koelerion,"Verbond der droge, kalkrijke duingraslanden",1,"Verbond der droge, kalkrijke duingraslanden"
+6.0,14CB,14CB01,Taraxaco-Galietum veri,Duin-Paardebloem-associatie,1,Duin-Paardebloem-associatie
+,14CB01,14CB01A,Taraxaco-Galietum cladonietosum,Duin-Paardebloem-ass.; subass. met kortsmossen,0,Duin-Paardebloem-ass.; subass. met kortsmossen
+,14CB01,14CB01B,Taraxaco-Galietum typicum,Duin-Paardebloem-ass.; typische subass.,0,Duin-Paardebloem-ass.; typische subass.
+,14CB01,14CB01C,Taraxaco-Galietum fragarietosum,Duin-Paardebloem-ass.; subass. met Bosaardbei,0,Duin-Paardebloem-ass.; subass. met Bosaardbei
+,14CB01,14CB01D,Taraxaco-Galietum plantaginetosum,Duin-Paardebloem-ass.; subass. met Smalle weegbree,0,Duin-Paardebloem-ass.; subass. met Smalle weegbree
+6.0,14CB,14CB02,Anthyllido-Silenetum,Associatie van Wondklaver en Nachtsilene,1,"Wondklaver en Nachtsilene, Associatie van"
+,14CB02,14CB02A,Anthyllido-Silenetum sedetosum,Ass. van Wondklaver en Nachtsilene; subass. met Muurpeper,0,Ass. van Wondklaver en Nachtsilene; subass. met Muurpeper
+,14CB02,14CB02B,Anthyllido-Silenetum rhytidiadelphetosum,Ass. van Wondklaver en Nachtsilene; subass. met Pluimstaartmos,0,Ass. van Wondklaver en Nachtsilene; subass. met Pluimstaartmos
+,14DG,14DG01,DG Campylopus introflexus-[Koelerio-Corynephoretea],Derivaatgemeenschap van Grijs kronkelsteeltje,0,Derivaatgemeenschap van Grijs kronkelsteeltje
+,14DG,14DG02,DG Juncus squarrosus-Oligotrichum hercynicum-[Corynephorion canescentis],Derivaatgemeenschap van Trekrus en Noors mos,0,Derivaatgemeenschap van Trekrus en Noors mos
+,14RG,14RG01,RG Carex arenaria-[Koelerio-Corynephoretea],Rompgemeenschap van Zandzegge,0,Rompgemeenschap van Zandzegge
+,14RG,14RG02,RG Aira praecox-[Koelerio-Corynephoretea],Rompgemeenschap van Vroege haver,0,Rompgemeenschap van Vroege haver
+,14RG,14RG03,RG Dicranum scoparium-[Koelerio-Corynephoretea],Rompgemeenschap van Gewoon gaffeltandmos,0,Rompgemeenschap van Gewoon gaffeltandmos
+,14RG,14RG04,RG Euphorbia cyparissias-[Koelerio-Corynephoretea],Rompgemeenschap van Cipreswolfsmelk,0,Rompgemeenschap van Cipreswolfsmelk
+,14RG,14RG05,RG Holosteum umbellatum-[Koelerio-Corynephoretea/Stellarietea mediae],Rompgemeenschap van Heelbeen,0,Rompgemeenschap van Heelbeen
+,14RG,14RG06,RG Agrostis capillaris-Hypochaeris radicata-[Trifolio-Festucetalia ovinae],Rompgemeenschap van Gewoon struisgras en Gewoon biggekruid,0,Rompgemeenschap van Gewoon struisgras en Gewoon biggekruid
+,14RG,14RG07,RG Festuca ovina subsp. cinerea-[Trifolio-Festucetalia ovinae],Rompgemeenschap van Hard zwenkgras,0,Rompgemeenschap van Hard zwenkgras
+,14RG,14RG08,RG Vulpia bromoides-[Plantagini-Festucion],Rompgemeenschap van Eekhoorngras,0,Rompgemeenschap van Eekhoorngras
+,14RG,14RG09,RG Calamagrostis epigejos-[Cladonio-Koelerietalia],Rompgemeenschap van Duinriet,0,Rompgemeenschap van Duinriet
+,14RG,14RG10,RG Salix repens-[Polygalo-Koelerion],Rompgemeenschap van Kruipwilg,0,Rompgemeenschap van Kruipwilg
+,14RG,14RG11,RG Rosa pimpinellifolia-[Polygalo-Koelerion],Rompgemeenschap van Duinroosje,0,Rompgemeenschap van Duinroosje
+,,15,Festuco-Brometea,Klasse der kalkgraslanden,1,Klasse der kalkgraslanden
+,15,15A,Brometalia erecti,Orde der kalkgraslanden,1,Orde der kalkgraslanden
+,15A,15AA,Mesobromion erecti,Verbond der matig droge kalkgraslanden,1,Verbond der matig droge kalkgraslanden
+6.0,15AA,15AA01,Gentiano-Koelerietum,Kalkgrasland,0,Kalkgrasland
+,,16,Molinio-Arrhenatheretea,Klasse der matig voedselrijke graslanden,1,Klasse der matig voedselrijke graslanden
+,16,16A,Molinietalia,Pijpestrootje-orde,1,Pijpestrootje-orde
+,16A,16AA,Junco-Molinion,Verbond van Biezeknoppen en Pijpestrootje,1,Verbond van Biezeknoppen en Pijpestrootje
+6.0,16AA,16AA01,Cirsio dissecti-Molinietum,Blauwgrasland,1,Blauwgrasland
+,16AA01,16AA01A,Cirsio dissecti-Molinietum nardetosum,Blauwgrasland; subass. met Borstelgras,0,Blauwgrasland; subass. met Borstelgras
+,16AA01,16AA01B,Cirsio dissecti-Molinietum typicum,Blauwgrasland; typische subass.,0,Blauwgrasland; typische subass.
+,16AA01,16AA01C,Cirsio dissecti-Molinietum peucedanetosum,Blauwgrasland; subass. met Melkeppe,0,Blauwgrasland; subass. met Melkeppe
+,16AA01,16AA01D,Cirsio dissecti-Molinietum parnassietosum,Blauwgrasland; subass. met Parnassia,0,Blauwgrasland; subass. met Parnassia
+,16A,16AB,Calthion palustris,Dotterbloem-verbond,1,Dotterbloem-verbond
+6.0,16AB,16AB01,Crepido-Juncetum acutiflori,Veldrus-associatie,0,Veldrus-associatie
+6.0,16AB,16AB02,Rhinantho-Orchietum morionis,Associatie van Harlekijn en Ratelaar,0,"Harlekijn en Ratelaar, Associatie van"
+6.0,16AB,16AB03,Lychnido-Hypericetum tetrapteri,Associatie van Echte koekoeksbloem en Gevleugeld hertshooi,1,"Echte koekoeksbloem en Gevleugeld hertshooi, Associatie van"
+,16AB03,16AB03A,Lychnido-Hypericetum typicum,Ass. van Echte koekoeksbloem en Gevleugeld hertshooi; typische subass.,0,Ass. van Echte koekoeksbloem en Gevleugeld hertshooi; typische subass.
+,16AB03,16AB03B,Lychnido-Hypericetum orchietosum morionis,Ass. van Echte koekoeksbloem en Gevleugeld hertshooi; subass. met Harlekijn,0,Ass. van Echte koekoeksbloem en Gevleugeld hertshooi; subass. met Harlekijn
+6.0,16AB,16AB04,Ranunculo-Senecionetum aquatici,Associatie van Boterbloemen en Waterkruiskruid,1,"Boterbloemen en Waterkruiskruid, Associatie van"
+,16AB04,16AB04A,Ranunculo-Senecionetum juncetosum articulati,Ass. van Boterbloemen en Waterkruiskruid; subass. met Zomprus,0,Ass. van Boterbloemen en Waterkruiskruid; subass. met Zomprus
+,16AB04,16AB04B,Ranunculo-Senecionetum caricetosum paniceae,Ass. van Boterbloemen en Waterkruiskruid; subass. met Blauwe zegge,0,Ass. van Boterbloemen en Waterkruiskruid; subass. met Blauwe zegge
+6.0,16AB,16AB05,Scirpetum sylvatici,Bosbies-associatie,0,Bosbies-associatie
+6.0,16AB,16AB06,Angelico-Cirsietum oleracei,Associatie van Gewone engelwortel en Moeraszegge,0,"Gewone engelwortel en Moeraszegge, Associatie van"
+,16,16B,Arrhenatheretalia,Glanshaver-orde,1,Glanshaver-orde
+,16B,16BA,Alopecurion pratensis,Verbond van Grote vossestaart,1,Verbond van Grote vossestaart
+6.0,16BA,16BA01,Fritillario-Alopecuretum pratensis,Kievitsbloem-associatie,1,Kievitsbloem-associatie
+,16BA01,16BA01A,Fritillario-Alopecuretum cynosuretosum,Kievitsbloem-ass.; subass. met Kamgras,0,Kievitsbloem-ass.; subass. met Kamgras
+,16BA01,16BA01B,Fritillario-Alopecuretum typicum,Kievitsbloem-ass.; typische subass.,0,Kievitsbloem-ass.; typische subass.
+,16BA01,16BA01C,Fritillario-Alopecuretum calthetosum,Kievitsbloem-ass.; subass. met Dotterbloem,0,Kievitsbloem-ass.; subass. met Dotterbloem
+6.0,16BA,16BA02,Sanguisorbo-Silaetum,Associatie van Grote pimpernel en Weidekervel,0,"Grote pimpernel en Weidekervel, Associatie van"
+,16B,16BB,Arrhenatherion elatioris,Glanshaver-verbond,1,Glanshaver-verbond
+6.0,16BB,16BB01,Arrhenatheretum elatioris,Glanshaver-associatie,1,Glanshaver-associatie
+,16BB01,16BB01A,Arrhenatheretum typicum,Glanshaver-ass.; typische subass.,0,Glanshaver-ass.; typische subass.
+,16BB01,16BB01B,Arrhenatheretum festucetosum arundinaceae,Glanshaver-ass.; subass. met Rietzwenkgras,0,Glanshaver-ass.; subass. met Rietzwenkgras
+,16BB01,16BB01C,Arrhenatheretum luzuletosum campestris,Glanshaver-ass.; subass. met Gewone veldbies,0,Glanshaver-ass.; subass. met Gewone veldbies
+,16BB01,16BB01D,Arrhenatheretum medicaginetosum falcatae,Glanshaver-ass.; subass. met Sikkelklaver,0,Glanshaver-ass.; subass. met Sikkelklaver
+,16B,16BC,Cynosurion cristati,Kamgras-verbond,1,Kamgras-verbond
+6.0,16BC,16BC01,Lolio-Cynosuretum,Kamgrasweide,1,Kamgrasweide
+,16BC01,16BC01A,Lolio-Cynosuretum typicum,Kamgrasweide; typische subass.,0,Kamgrasweide; typische subass.
+,16BC01,16BC01B,Lolio-Cynosuretum lotetosum uliginosi,Kamgrasweide; subass. met Moerasrolklaver,0,Kamgrasweide; subass. met Moerasrolklaver
+,16BC01,16BC01C,Lolio-Cynosuretum hordeetosum,Kamgrasweide; subass. met Veldgerst,0,Kamgrasweide; subass. met Veldgerst
+,16BC01,16BC01D,Lolio-Cynosuretum plantaginetosum mediae,Kamgrasweide; subass. met Ruige weegbree,0,Kamgrasweide; subass. met Ruige weegbree
+6.0,16BC,16BC02,Galio-Trifolietum,Associatie van Ruige weegbree en Aarddistel,0,"Ruige weegbree en Aarddistel, Associatie van"
+,16RG,16RG01,RG Holcus lanatus-Lolium perenne-[Molinio-Arrhenatheretea],Rompgemeenschap van Gestreepte witbol en Engels raaigras,0,Rompgemeenschap van Gestreepte witbol en Engels raaigras
+,16RG,16RG02,RG Holcus lanatus-Lychnis flos-cuculi-[Molinietalia],Rompgemeenschap van Gestreepte witbol en Echte koekoeksbloem,0,Rompgemeenschap van Gestreepte witbol en Echte koekoeksbloem
+,16RG,16RG03,RG Festuca rubra-Lotus uliginosus-[Molinietalia],Rompgemeenschap van Rood zwenkgras en Moerasrolklaver,0,Rompgemeenschap van Rood zwenkgras en Moerasrolklaver
+,16RG,16RG04,RG Juncus effusus-[Molinietalia/Lolio-Potentillion],Rompgemeenschap van Pitrus,0,Rompgemeenschap van Pitrus
+,16RG,16RG05,RG Carex panicea-Succisa pratensis-[Junco-Molinion],Rompgemeenschap van Blauwe zegge en Blauwe knoop,0,Rompgemeenschap van Blauwe zegge en Blauwe knoop
+,16RG,16RG06,RG Carex disticha-[Calthion palustris],Rompgemeenschap van Tweerijige zegge,0,Rompgemeenschap van Tweerijige zegge
+,16RG,16RG07,RG Gagea pratensis-[Arrhenatheretalia],Rompgemeenschap van Weidegeelster,0,Rompgemeenschap van Weidegeelster
+,16RG,16RG08,RG Alopecurus pratensis-Lychnis flos-cuculi-[Alopecurion/Molinietalia],Rompgemeenschap van Grote vossestaart en Echte koekoeksbloem,0,Rompgemeenschap van Grote vossestaart en Echte koekoeksbloem
+,16RG,16RG09,RG Alopecurus pratensis-Elymus repens-[Arrhenatheretalia],Rompgemeenschap van Grote vossestaart en Kweek,0,Rompgemeenschap van Grote vossestaart en Kweek
+,16RG,16RG10,RG Alopecurus pratensis-Hordeum secalinum-[Alopecurion/Cynosurion],Rompgemeenschap van Grote vossestaart en Veldgerst,0,Rompgemeenschap van Grote vossestaart en Veldgerst
+,16RG,16RG11,RG Anthriscus sylvestris-[Arrhenatheretalia],Rompgemeenschap van Fluitekruid,0,Rompgemeenschap van Fluitekruid
+,16RG,16RG12,RG Hieracium lactucella-[Cynosurion/Plantagini-Festucion],Rompgemeenschap van Spits havikskruid,0,Rompgemeenschap van Spits havikskruid
+,,17,Trifolio-Geranietea sanguinei,Marjolein-klasse,1,Marjolein-klasse
+,17,17A,Origanetalia vulgaris,Marjolein-orde,1,Marjolein-orde
+,17A,17AA,Trifolion medii,Marjolein-verbond,1,Marjolein-verbond
+8.0,17AA,17AA01,Rubo-Origanetum,Associatie van Dauwbraam en Marjolein,1,"Dauwbraam en Marjolein, Associatie van"
+,17AA01,17AA01A,Rubo-Origanetum typicum,Ass. van Dauwbraam en Marjolein; typische subass.,0,Ass. van Dauwbraam en Marjolein; typische subass.
+,17AA01,17AA01B,Rubo-Origanetum festucetosum arundinaceae,Ass. van Dauwbraam en Marjolein; subass. met Rietzwenkgras,0,Ass. van Dauwbraam en Marjolein; subass. met Rietzwenkgras
+8.0,17AA,17AA02,Polygonato-Lithospermetum,Associatie van Parelzaad en Salomonszegel,0,"Parelzaad en Salomonszegel, Associatie van"
+,,18,Melampyro-Holcetea mollis,Klasse van Gladde witbol en Havikskruiden,1,Klasse van Gladde witbol en Havikskruiden
+,18,18A,Melampyro-Holcetalia mollis,Orde van Gladde witbol en Havikskruiden,1,Orde van Gladde witbol en Havikskruiden
+,18A,18AA,Melampyrion pratensis,Verbond van Gladde witbol en Havikskruiden,1,Verbond van Gladde witbol en Havikskruiden
+8.0,18AA,18AA01,Hyperico pulchri-Melampyretum pratensis,Associatie van Hengel en Gladde witbol,0,"Hengel en Gladde witbol, Associatie van"
+8.0,18AA,18AA02,Hieracio-Holcetum mollis,Associatie van Boshavikskruid en Gladde witbol,0,"Boshavikskruid en Gladde witbol, Associatie van"
+,18RG,18RG01,RG Pteridium aquilinum-[Melampyro-Holcetea mollis],Rompgemeenschap van Adelaarsvaren,0,Rompgemeenschap van Adelaarsvaren
+,,19,Nardetea,Klasse der heischrale graslanden,1,Klasse der heischrale graslanden
+,19,19A,Nardetalia,Orde der heischrale graslanden,1,Orde der heischrale graslanden
+,19A,19AA,Nardo-Galion saxatilis,Verbond der heischrale graslanden,1,Verbond der heischrale graslanden
+6.0,19AA,19AA01,Galio hercynici-Festucetum ovinae,Associatie van Liggend walstro en Schapegras,0,"Liggend walstro en Schapegras, Associatie van"
+6.0,19AA,19AA02,Gentiano pneumonanthes-Nardetum,Associatie van Klokjesgentiaan en Borstelgras,0,"Klokjesgentiaan en Borstelgras, Associatie van"
+6.0,19AA,19AA03,Botrychio-Polygaletum,Associatie van Maanvaren en Vleugeltjesbloem,0,"Maanvaren en Vleugeltjesbloem, Associatie van"
+6.0,19AA,19AA04,Betonico-Brachypodietum,Associatie van Betonie en Gevinde kortsteel,0,"Betonie en Gevinde kortsteel, Associatie van"
+,19RG,19RG01,RG Nardus stricta-[Nardetea],Rompgemeenschap van Borstelgras,0,Rompgemeenschap van Borstelgras
+,19RG,19RG02,RG Deschampsia flexuosa-[Nardetea/Calluno-Ulicetea],Rompgemeenschap van Bochtige smele,0,Rompgemeenschap van Bochtige smele
+,,20,Calluno-Ulicetea,Klasse der droge heiden,1,Klasse der droge heiden
+,20,20A,Calluno-Ulicetalia,Struikhei-orde,1,Struikhei-orde
+,20A,20AA,Calluno-Genistion pilosae,Verbond van Struikhei en Kruipbrem,1,Verbond van Struikhei en Kruipbrem
+9.0,20AA,20AA01,Genisto anglicae-Callunetum,Associatie van Struikhei en Stekelbrem,1,"Struikhei en Stekelbrem, Associatie van"
+,20AA01,20AA01A,Genisto anglicae-Callunetum cladonietosum,Ass. van Struikhei en Stekelbrem; subass. met korstmossen,0,Ass. van Struikhei en Stekelbrem; subass. met korstmossen
+,20AA01,20AA01B,Genisto anglicae-Callunetum typicum,Ass. van Struikhei en Stekelbrem; typische subass.,0,Ass. van Struikhei en Stekelbrem; typische subass.
+,20AA01,20AA01C,Genisto anglicae-Callunetum lophozietosum ventricosae,Ass. van Struikhei en Stekelbrem; Mosrijke subass.,0,Ass. van Struikhei en Stekelbrem; Mosrijke subass.
+,20AA01,20AA01D,Genisto anglicae-Callunetum danthonietosum,Ass. van Struikhei en Stekelbrem; subass. met Tandjesgras,0,Ass. van Struikhei en Stekelbrem; subass. met Tandjesgras
+9.0,20AA,20AA02,Vaccinio-Callunetum,Associatie van Struikhei en Bosbes,0,"Struikhei en Bosbes, Associatie van"
+,20A,20AB,Empetrion nigri,Kraaihei-verbond,1,Kraaihei-verbond
+9.0,20AB,20AB01,Carici arenariae-Empetretum,Associatie van Zandzegge en Kraaihei,0,"Zandzegge en Kraaihei, Associatie van"
+9.0,20AB,20AB02,Polypodio-Empetretum,Associatie van Eikvaren en Kraaihei,0,"Eikvaren en Kraaihei, Associatie van"
+9.0,20AB,20AB03,Salici repentis-Empetretum,Associatie van Kruipwilg en Kraaihei,0,"Kruipwilg en Kraaihei, Associatie van"
+9.0,20AB,20AB04,Pyrolo-Salicetum,Associatie van Wintergroen en Kruipwilg,0,"Wintergroen en Kruipwilg, Associatie van"
+,20RG,20RG01,RG Cytisus scoparius-[Calluno-Ulicetea/Nardetea],Rompgemeenschap van Brem,0,Rompgemeenschap van Brem
+,,21,Asplenietea trichomanis,Muurvaren-klasse,1,Muurvaren-klasse
+,21,21A,Tortulo-Cymbalarietalia,Muurleeuwebek-orde,1,Muurleeuwebek-orde
+,21A,21AA,Parietarion judaicae,Verbond van Klein glaskruid,1,Verbond van Klein glaskruid
+11.0,21AA,21AA01,Asplenio-Parietarietum judaicae,Associatie van Klein glaskruid,0,"Klein glaskruid, Associatie van"
+11.0,21AA,21AA02,Asplenio-Cheiranthetum cheiri,Muurbloem-associatie,0,Muurbloem-associatie
+,21A,21AB,Cymbalario-Asplenion,Muurleeuwebek-verbond,1,Muurleeuwebek-verbond
+11.0,21AB,21AB01,Asplenietum ruto-murario-trichomanis,Muurvaren-associatie,0,Muurvaren-associatie
+11.0,21AB,21AB02,Filici-Saginetum,Tongvaren-associatie,0,Tongvaren-associatie
+,21RG,21RG01,RG Asplenium ruta-muraria-[Tortulo-Cymbalarietalia],Rompgemeenschap van Muurvaren,0,Rompgemeenschap van Muurvaren
+,21RG,21RG02,RG Cymbalaria muralis-[Tortulo-Cymbalarietalia],Rompgemeenschap van Muurleeuwebek,0,Rompgemeenschap van Muurleeuwebek
+,21RG,21RG03,RG Pseudofumaria lutea-[Cymbalario-Asplenion],Rompgemeenschap van Gele helmbloem,0,Rompgemeenschap van Gele helmbloem
+,21RG,21RG04,RG Sagina procumbens-Tortula muralis-[Cymbalario-Asplenion],Rompgemeenschap van Liggende vetmuur en Muurmos,0,Rompgemeenschap van Liggende vetmuur en Muurmos
+,,22,Cakiletea maritimae,Klasse der vloedmerkgemeenschappen,1,Klasse der vloedmerkgemeenschappen
+,22,22A,Cakiletalia maritimae,Orde der vloedmerkgemeenschappen,1,Orde der vloedmerkgemeenschappen
+,22A,22AA,Atriplicion littoralis,Strandmelde-verbond,1,Strandmelde-verbond
+5.0,22AA,22AA01,Atriplicetum littoralis,Strandmelde-associatie,1,Strandmelde-associatie
+,22AA01,22AA01A,Atriplicetum littoralis typicum,Strandmelde-ass.; typische subass.,0,Strandmelde-ass.; typische subass.
+,22AA01,22AA01B,Atriplicetum littoralis cirsietosum,Strandmelde-ass.; subass. met Akkerdistel,0,Strandmelde-ass.; subass. met Akkerdistel
+,22A,22AB,Salsolo-Honckenyion peploides,Loogkruid-verbond,1,Loogkruid-verbond
+5.0,22AB,22AB01,Salsolo-Cakiletum maritimae,Associatie van Loogkruid en Zeeraket,1,"Loogkruid en Zeeraket, Associatie van"
+,22AB01,22AB01A,Salsolo-Cakiletum typicum,Ass. van Loogkruid en Zeeraket; typische subass.,0,Ass. van Loogkruid en Zeeraket; typische subass.
+,22AB01,22AB01B,Salsolo-Cakiletum  atriplicetosum laciniatae,Ass. van Loogkruid en Zeeraket; subass. met Gelobde melde,0,Ass. van Loogkruid en Zeeraket; subass. met Gelobde melde
+,22RG,22RG01,RG Cakile maritima-[Cakiletea maritimae],Rompgemeenschap van Zeeraket,0,Rompgemeenschap van Zeeraket
+,22RG,22RG02,RG Honckenya peploides-[Salsolo-Honckenyion/Ammophilion arenariae],Rompgemeenschap van Zeepostelein,0,Rompgemeenschap van Zeepostelein
+,,23,Ammophiletea,Helm-klasse,1,Helm-klasse
+,23,23A,Elymetalia arenarii,Helm-orde,1,Helm-orde
+,23A,23AA,Agropyro-Honckenyion peploides,Biestarwegras-verbond,1,Biestarwegras-verbond
+7.0,23AA,23AA01,Honckenyo-Agropyretum juncei,Associatie van Zandhaver en Biestarwegras,0,"Zandhaver en Biestarwegras, Associatie van"
+,23A,23AB,Ammophilion arenariae,Helm-verbond,1,Helm-verbond
+7.0,23AB,23AB01,Elymo-Ammophiletum,Associatie van Zandhaver en Helm,1,"Zandhaver en Helm, Associatie van"
+,23AB01,23AB01A,Elymo-Ammophiletum typicum,Ass. van Zandhaver en Helm; typische subass.,0,Ass. van Zandhaver en Helm; typische subass.
+,23AB01,23AB01B,Elymo-Ammophiletum festucetosum,Ass. van Zandhaver en Helm; subass. met Duinzwenkgras,0,Ass. van Zandhaver en Helm; subass. met Duinzwenkgras
+,23RG,23RG01,RG Ammophila arenaria-Carex arenaria-[Ammophiletea/Koelerio-Corynephoretea],Rompgemeenschap van Helm en Zandzegge,0,Rompgemeenschap van Helm en Zandzegge
+,,24,Spartinetea,Slijkgras-klasse,1,Slijkgras-klasse
+,24,24A,Spartinetalia,Slijkgras-orde,1,Slijkgras-orde
+,24A,24AA,Spartinion,Slijkgras-verbond,1,Slijkgras-verbond
+10.0,24AA,24AA01,Spartinetum maritimae,Associatie van Klein slijkgras,0,"Klein slijkgras, Associatie van"
+10.0,24AA,24AA02,Spartinetum townsendii,Associatie van Engels slijkgras,0,"Engels slijkgras, Associatie van"
+,,25,Thero-Salicornietea,Zeekraal-klasse,1,Zeekraal-klasse
+,25,25A,Thero-Salicornietalia,Zeekraal-orde,1,Zeekraal-orde
+,25A,25AA,Thero-Salicornion,Zeekraal-verbond,1,Zeekraal-verbond
+10.0,25AA,25AA01,Salicornietum dolichostachyae,Associatie van Langarige zeekraal,0,"Langarige zeekraal, Associatie van"
+10.0,25AA,25AA02,Salicornietum brachystachyae,Associatie van Kortarige zeekraal,0,"Kortarige zeekraal, Associatie van"
+10.0,25AA,25AA03,Suaedetum maritimae,Schorrekruid-associatie,0,Schorrekruid-associatie
+,,26,Asteretea tripolii,Zeeaster-klasse,1,Zeeaster-klasse
+,26,26A,Glauco-Puccinellietalia,Kweldergras-orde,1,Kweldergras-orde
+,26A,26AA,Puccinellion maritimae,Verbond van Gewoon kweldergras,1,Verbond van Gewoon kweldergras
+10.0,26AA,26AA01,Puccinellietum maritimae,Associatie van Gewoon kweldergras,1,"Gewoon kweldergras, Associatie van"
+,26AA01,26AA01A,Puccinellietum maritimae typicum,Ass. van Gewoon kweldergras; typische subass.,0,Ass. van Gewoon kweldergras; typische subass.
+,26AA01,26AA01B,Puccinellietum maritimae parapholidetosum,Ass. van Gewoon kweldergras; subass. met Dunstaart,0,Ass. van Gewoon kweldergras; subass. met Dunstaart
+,26AA01,26AA01C,Puccinellietum maritimae agrostietosum,Ass. van Gewoon kweldergras; subass. met Fioringras,0,Ass. van Gewoon kweldergras; subass. met Fioringras
+10.0,26AA,26AA02,Plantagini-Limonietum,Associatie van Zeeweegbree en Lamsoor,0,"Zeeweegbree en Lamsoor, Associatie van"
+10.0,26AA,26AA03,Halimionetum portulacoides,Zoutmelde-associatie,0,Zoutmelde-associatie
+,26A,26AB,Puccinellio-Spergularion salinae,Verbond van Stomp kweldergras,1,Verbond van Stomp kweldergras
+10.0,26AB,26AB01,Puccinellietum distantis,Associatie van Stomp kweldergras,1,"Stomp kweldergras, Associatie van"
+,26AB01,26AB01A,Puccinellietum distantis typicum,Ass. van Stomp kweldergras; typische subass.,0,Ass. van Stomp kweldergras; typische subass.
+,26AB01,26AB01B,Puccinellietum distantis polygonetosum,Ass. van Stomp kweldergras; subass. met Varkensgras,0,Ass. van Stomp kweldergras; subass. met Varkensgras
+10.0,26AB,26AB02,Puccinellietum fasciculatae,Associatie van Blauw kweldergras,0,"Blauw kweldergras, Associatie van"
+10.0,26AB,26AB03,Puccinellietum capillaris,Associatie van Bleek kweldergras,0,"Bleek kweldergras, Associatie van"
+10.0,26AB,26AB04,Parapholido strigosae-Hordeetum marini,Zeegerst-associatie,0,Zeegerst-associatie
+,26A,26AC,Armerion maritimae,Verbond van Engels gras,1,Verbond van Engels gras
+10.0,26AC,26AC01,Juncetum gerardi,Associatie van Zilte rus,1,"Zilte rus, Associatie van"
+,26AC01,26AC01A,Juncetum gerardi typicum,Ass. van Zilte rus; typische subass.,0,Ass. van Zilte rus; typische subass.
+,26AC01,26AC01B,Juncetum gerardi leontodontetosum,Ass. van Zilte rus; subass. met Vertakte leeuwetand,0,Ass. van Zilte rus; subass. met Vertakte leeuwetand
+10.0,26AC,26AC02,Armerio-Festucetum litoralis,Associatie van Engels gras en Rood zwenkgras,0,"Engels gras en Rood zwenkgras, Associatie van"
+10.0,26AC,26AC03,Junco-Caricetum extensae,Kwelderzegge-associatie,0,Kwelderzegge-associatie
+10.0,26AC,26AC04,Blysmetum rufi,Associatie van Rode Bies,0,"Rode Bies, Associatie van"
+10.0,26AC,26AC05,Artemisietum maritimae,Zeealsem-associatie,0,Zeealsem-associatie
+10.0,26AC,26AC06,Atriplici-Elytrigietum pungentis,Associatie van Spiesmelde en Strandkweek,0,"Spiesmelde en Strandkweek, Associatie van"
+10.0,26AC,26AC07,Oenantho lachenalii-Juncetum maritimi,Associatie van Zeerus en Zilt torkruid,0,"Zeerus en Zilt torkruid, Associatie van"
+,26RG,26RG01,RG Scirpus maritimus-[Asteretea tripolii],Rompgemeenschap van Heen,0,Rompgemeenschap van Heen
+,26RG,26RG02,RG Agrostis stolonifera-Glaux maritima-[Asteretea tripolii],Rompgemeenschap van Fioringras en Melkkruid,0,Rompgemeenschap van Fioringras en Melkkruid
+,26RG,26RG03,RG Triglochin maritima-[Asteretea tripolii],Rompgemeenschap van Schorrezoutgras,0,Rompgemeenschap van Schorrezoutgras
+,26RG,26RG04,RG Aster tripolium-[Puccinellion maritimae],Rompgemeenschap van Zulte,0,Rompgemeenschap van Zulte
+,,27,Saginetea maritimae,Zeevetmuur-klasse,1,Zeevetmuur-klasse
+,27,27A,Saginetalia maritimae,Zeevetmuur-orde,1,Zeevetmuur-orde
+,27A,27AA,Saginion maritimae,Zeevetmuur-verbond,1,Zeevetmuur-verbond
+5.0,27AA,27AA01,Sagino maritimae-Cochlearietum danicae,Associatie van Zeevetmuur en Deens lepelblad,1,"Zeevetmuur en Deens lepelblad, Associatie van"
+,27AA01,27AA01A,Sagino maritimae-Cochlearietum sedetosum,Ass. van Zeevetmuur en Deens lepelblad; subass. met Muurpeper,0,Ass. van Zeevetmuur en Deens lepelblad; subass. met Muurpeper
+,27AA01,27AA01B,Sagino maritimae-Cochlearietum juncetosum,Ass. van Zeevetmuur en Deens lepelblad; subass. met Zilte rus,0,Ass. van Zeevetmuur en Deens lepelblad; subass. met Zilte rus
+5.0,27AA,27AA02,Centaurio-Saginetum,Associatie van Strandduizendguldenkruid en Krielparnassia,1,"Strandduizendguldenkruid en Krielparnassia, Associatie van"
+,27AA02,27AA02A,Centaurio-Saginetum trifolietosum fragiferi,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Aardbeiklaver,0,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Aardbeiklaver
+,27AA02,27AA02B,Centaurio-Saginetum samoletosum,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Waterpunge,0,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Waterpunge
+,27AA02,27AA02C,Centaurio-Saginetum epilobietosum,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Viltige bastardwederik,0,Ass. van Strandduizendguldenkruid en Krielparnassia; subass. met Viltige bastardwederik
+,,28,Isoeto-Nanojuncetea,Dwergbiezen-klasse,1,Dwergbiezen-klasse
+,28,28A,Nanocyperetalia,Dwergbiezen-orde,1,Dwergbiezen-orde
+,28A,28AA,Nanocyperion flavescentis,Dwergbiezen-verbond,1,Dwergbiezen-verbond
+5.0,28AA,28AA01,Cicendietum filiformis,Draadgentiaan-associatie,1,Draadgentiaan-associatie
+,28AA01,28AA01A,Cicendietum filiformis centunculetosum,Draadgentiaan-ass.; subass. met Dwergbloem,0,Draadgentiaan-ass.; subass. met Dwergbloem
+,28AA01,28AA01B,Cicendietum filiformis juncetosum,Draadgentiaan-ass.; subass. met Knolrus,0,Draadgentiaan-ass.; subass. met Knolrus
+5.0,28AA,28AA02,Isolepido-Stellarietum uliginosae,Associatie van Borstelbies en Moerasmuur,1,"Borstelbies en Moerasmuur, Associatie van"
+,28AA02,28AA02A,Isolepido-Stellarietum montietosum,Ass. van Borstelbies en Moerasmuur; subass. met Bronkruid,0,Ass. van Borstelbies en Moerasmuur; subass. met Bronkruid
+,28AA02,28AA02B,Isolepido-Stellarietum cardaminetosum,Ass. van Borstelbies en Moerasmuur; subass. met Pinksterbloem,0,Ass. van Borstelbies en Moerasmuur; subass. met Pinksterbloem
+,28AA02,28AA02C,Isolepido-Stellarietum hypericetosum,Ass. van Borstelbies en Moerasmuur; subass. met Liggend hertshooi,0,Ass. van Borstelbies en Moerasmuur; subass. met Liggend hertshooi
+5.0,28AA,28AA03,Centunculo-Anthocerotetum punctati,Associatie van Dwergbloem en Hauwmos,0,"Dwergbloem en Hauwmos, Associatie van"
+5.0,28AA,28AA04,Digitario-Illecebretum,Grondster-associatie,1,Grondster-associatie
+,28AA04,28AA04A,Digitario-Illecebretum digitarietosum,Grondster-ass.; subass. met Glad vingergras,0,Grondster-ass.; subass. met Glad vingergras
+,28AA04,28AA04B,Digitario-Illecebretum peplidetosum,Grondster-ass.; subass. met Waterpostelein,0,Grondster-ass.; subass. met Waterpostelein
+,28RG,28RG01,RG Gnaphalium uliginosum-[Isoeto-Nanojuncetea/Bidentetea tripartitae],Rompgemeenschap van Moerasdroogbloem,0,Rompgemeenschap van Moerasdroogbloem
+,,29,Bidentetea tripartitae,Tandzaad-klasse,1,Tandzaad-klasse
+,29,29A,Bidentetalia tripartitae,Tandzaad-orde,1,Tandzaad-orde
+,29A,29AA,Bidention tripartitae,Tandzaad-verbond,1,Tandzaad-verbond
+5.0,29AA,29AA01,Polygono-Bidentetum,Associatie van Waterpeper en Tandzaad,0,"Waterpeper en Tandzaad, Associatie van"
+5.0,29AA,29AA02,Rumicetum maritimi,Associatie van Goudzuring en Moerasandijvie,1,"Goudzuring en Moerasandijvie, Associatie van"
+,29AA02,29AA02A,Rumicetum maritimi typicum,Ass. van Goudzuring en Moerasandijvie; typische subass.,0,Ass. van Goudzuring en Moerasandijvie; typische subass.
+,29AA02,29AA02B,Rumicetum maritimi chenopodietosum,Ass. van Goudzuring en Moerasandijvie; subass. met Rode ganzevoet,0,Ass. van Goudzuring en Moerasandijvie; subass. met Rode ganzevoet
+5.0,29AA,29AA03,Chenopodietum rubri,Associatie van Ganzevoet en Beklierde duizendknoop,1,"Ganzevoet en Beklierde duizendknoop, Associatie van"
+,29AA03,29AA03A,Chenopodietum rubri spergularietosum,Ass. van Ganzevoet en Beklierde duizendknoop; subass. met Zilte schijnspurrie,0,Ass. van Ganzevoet en Beklierde duizendknoop; subass. met Zilte schijnspurrie
+,29AA03,29AA03B,Chenopodietum rubri inops,Ass. van Ganzevoet en Beklierde duizendknoop; arme subass.,0,Ass. van Ganzevoet en Beklierde duizendknoop; arme subass.
+,29AA03,29AA03C,Chenopodietum rubri rorippetosum,Ass. van Ganzevoet en Beklierde duizendknoop; subass. met Akkerkers,0,Ass. van Ganzevoet en Beklierde duizendknoop; subass. met Akkerkers
+5.0,29AA,29AA04,Eleocharito acicularis-Limoselletum,Slijkgroen-associatie,0,Slijkgroen-associatie
+,29RG,29RG01,RG Ranunculus sclereratus-[Bidentetea tripartitae/Phragmitetea],Rompgemeenschap van Blaartrekkende boterbloem,0,Rompgemeenschap van Blaartrekkende boterbloem
+,29RG,29RG02,RG Catabrosa aquatica-[Bidentetea tripartitae/Phragmitetea],Rompgemeenschap van Watergras,0,Rompgemeenschap van Watergras
+,,30,Stellarietea mediae,Klasse der akkergemeenschappen,1,Klasse der akkergemeenschappen
+,30,30A,Papaveretalia rhoeadis,Orde van Grote klaproos,1,Orde van Grote klaproos
+,30A,30AA,Caucalidion platycarpi,Naaldekervel-verbond,1,Naaldekervel-verbond
+12.0,30AA,30AA01,Kickxietum spuriae,Stoppelleeuwebek-associatie,1,Stoppelleeuwebek-associatie
+,30AA01,30AA01A,Kickxietum spuriae lathyretosum tuberosi,Stoppelleeuwebek-ass.; subass. met Aardaker,0,Stoppelleeuwebek-ass.; subass. met Aardaker
+,30AA01,30AA01B,Kickxietum spuriae sherardietosum,Stoppelleeuwebek-ass.; subass. met Blauw walstro,0,Stoppelleeuwebek-ass.; subass. met Blauw walstro
+12.0,30AA,30AA02,Papaveri-Melandrietum noctiflori,Nachtkoekoeksbloem-associatie,0,Nachtkoekoeksbloem-associatie
+,30A,30AB,Fumario-Euphorbion,Verbond van Duivekervel en Kroontjeskruid,1,Verbond van Duivekervel en Kroontjeskruid
+12.0,30AB,30AB01,Veronico-Lamietum hybridi,Associatie van Grote ereprijs en Witte krodde,1,"Grote ereprijs en Witte krodde, Associatie van"
+,30AB01,30AB01A,Veronico-Lamietum typicum,Ass. van Grote ereprijs en Witte krodde; typische subass.,0,Ass. van Grote ereprijs en Witte krodde; typische subass.
+,30AB01,30AB01B,Veronico-Lamietum alopecuretosum,Ass. van Grote ereprijs en Witte krodde; subass. met Duist,0,Ass. van Grote ereprijs en Witte krodde; subass. met Duist
+12.0,30AB,30AB02,Mercurialietum annuae,Tuinbingelkruid-associatie,0,Tuinbingelkruid-associatie
+12.0,30AB,30AB03,Chenopodio-Oxalidetum fontanae,Associatie van Korrelganzevoet en Stijve klaverzuring,0,"Korrelganzevoet en Stijve klaverzuring, Associatie van"
+,30,30B,Sperguletalia arvensis,Orde van Gewone spurrie,1,Orde van Gewone spurrie
+,30B,30BA,Aperion spicae-venti,Windhalm-verbond,1,Windhalm-verbond
+12.0,30BA,30BA01,Sclerantho annui-Arnoseridetum,Korensla-associatie,1,Korensla-associatie
+,30BA01,30BA01A,Sclerantho annui-Arnoseridetum typicum,Korensla-ass.; typische subass.,0,Korensla-ass.; typische subass.
+,30BA01,30BA01B,Sclerantho annui-Arnoseridetum juncetosum bufoni,Korensla-ass.; subass. met Greppelrus,0,Korensla-ass.; subass. met Greppelrus
+12.0,30BA,30BA02,Papaveretum argemones,Associatie van Ruige klaproos,1,"Ruige klaproos, Associatie van"
+,30BA02,30BA02A,Papaveretum argemones legousietosum,Ass. van Ruige klaproos; subass. met Groot spiegelklokje,0,Ass. van Ruige klaproos; subass. met Groot spiegelklokje
+,30BA02,30BA02B,Papaveretum argemones scleranthetosum,Ass. van Ruige klaproos; subass. met Eenjarige hardbloem,0,Ass. van Ruige klaproos; subass. met Eenjarige hardbloem
+,30BA02,30BA02C,Papaveretum argemones inops,Ass. van Ruige klaproos; arme subass.,0,Ass. van Ruige klaproos; arme subass.
+,30B,30BB,Digitario-Setarion,Verbond van Vingergras en Naaldaar,1,Verbond van Vingergras en Naaldaar
+12.0,30BB,30BB01,Spergulo arvensis-Chrysanthemetum,Associatie van Gele ganzebloem,1,"Gele ganzebloem, Associatie van"
+,30BB01,30BB01A,Spergulo arvensis-Chrysanthemetum typicum,Ass. van Gele ganzebloem; typische subass.,0,Ass. van Gele ganzebloem; typische subass.
+,30BB01,30BB01B,Spergulo arvensis-Chrysanthemetum euphorbietosum,Ass. van Gele ganzebloem; subass. met Kroontjeskruid,0,Ass. van Gele ganzebloem; subass. met Kroontjeskruid
+12.0,30BB,30BB02,Echinochloo-Setarietum,Hanepoot-associatie,1,Hanepoot-associatie
+,30BB02,30BB02A,Echinochloo-Setarietum typicum,Hanepoot-ass.; typische subass.,0,Hanepoot-ass.; typische subass.
+,30BB02,30BB02B,Echinochloo-Setarietum inops,Hanepoot-ass.; arme subass.,0,Hanepoot-ass.; arme subass.
+,30RG,30RG01,RG Claytonia perfoliata-Erophila verna-[Stellarietea mediae],Rompgemeenschap van Witte winterpostelein en Vroegeling,0,Rompgemeenschap van Witte winterpostelein en Vroegeling
+,30RG,30RG02,RG Matricaria recutita-Papaver rhoeas-[Papaveretalia rhoeadis],Rompgemeenschap van Echte kamille en Grote klaproos,0,Rompgemeenschap van Echte kamille en Grote klaproos
+,30RG,30RG03,RG Matricaria recutita-Spergula arvensis-[Aperion spicae-venti],Rompgemeenschap van Echte kamille en Gewone spurrie,0,Rompgemeenschap van Echte kamille en Gewone spurrie
+,30RG,30RG04,RG Galeopsis speciosa-[Sperguletalia arvensis],Rompgemeenschap van Dauwnetel,0,Rompgemeenschap van Dauwnetel
+,30RG,30RG05,RG Scleranthus annuus-[Sperguletalia arvensis],Rompgemeenschap van Eenjarige hardbloem,0,Rompgemeenschap van Eenjarige hardbloem
+,30RG,30RG06,RG Vicia angustifolia-Vicia hirsuta-[Aperion spicae-venti],Rompgemeenschap van Smalle wikke en Ringelwikke,0,Rompgemeenschap van Smalle wikke en Ringelwikke
+,,31,Artemisietea vulgaris,Klasse der ruderale gemeenschappen,1,Klasse der ruderale gemeenschappen
+,31,31A,Chenopodio-Urticetalia,Raketten-orde,1,Raketten-orde
+,31A,31AA,Salsolion ruthenicae,Verbond van Kleverig kruiskruid,1,Verbond van Kleverig kruiskruid
+5.0,31AA,31AA01,Bromo-Corispermetum,Vlieszaad-associatie,0,Vlieszaad-associatie
+13.0,31AA,31AA02,Erigeronto-Lactucetum,Associatie van Raketten en Kompassla,1,"Raketten en Kompassla, Associatie van"
+,31AA02,31AA02A,Erigeronto-Lactucetum papaveretosum,Ass. van Raketten en Kompassla; subass. met Bleke klaproos,0,Ass. van Raketten en Kompassla; subass. met Bleke klaproos
+,31AA02,31AA02B,Erigeronto-Lactucetum erysimetosum,Ass. van Raketten en Kompassla; subass. met Gewone steenraket,0,Ass. van Raketten en Kompassla; subass. met Gewone steenraket
+,31A,31AB,Arction,Kaasjeskruid-verbond,1,Kaasjeskruid-verbond
+13.0,31AB,31AB01,Urtico-Malvetum neglectae,Associatie van Kleine brandnetel,1,"Kleine brandnetel, Associatie van"
+,31AB01,31AB01A,Urtico-Malvetum atriplicetosum,Ass. van Kleine brandnetel; subass. met Meldes,0,Ass. van Kleine brandnetel; subass. met Meldes
+,31AB01,31AB01B,Urtico-Malvetum typicum,Ass. van Kleine brandnetel; typische subass.,0,Ass. van Kleine brandnetel; typische subass.
+,31AB01,31AB01C,Urtico-Malvetum lycopsidetosum,Ass. van Kleine brandnetel; subass. met Kromhals,0,Ass. van Kleine brandnetel; subass. met Kromhals
+13.0,31AB,31AB02,Hordeetum murini,Kruipertjes-associatie,1,Kruipertjes-associatie
+,31AB02,31AB02A,Hordeetum murini inops,Kruipertjes-ass.; arme subass.,0,Kruipertjes-ass.; arme subass.
+,31AB02,31AB02B,Hordeetum murini diplotaxietosum,Kruipertjes-ass.; subass. met Grote zandkool,0,Kruipertjes-ass.; subass. met Grote zandkool
+,31AB02,31AB02C,Hordeetum murini arctietosum,Kruipertjes-ass.; subass. met KLeine klit,0,Kruipertjes-ass.; subass. met KLeine klit
+13.0,31AB,31AB03,Balloto-Arctietum,Associatie van Ballote en andere Netels,1,"Ballote en andere Netels, Associatie van"
+,31AB03,31AB03A,Balloto-Arctietum typicum,Ass. van Ballote en andere Netels; typische subass.,0,Ass. van Ballote en andere Netels; typische subass.
+,31AB03,31AB03B,Balloto-Arctietum diplotaxietosum,Ass. van Ballote en andere Netels; subass. met Grote zandkool,0,Ass. van Ballote en andere Netels; subass. met Grote zandkool
+,31AB03,31AB03C,Balloto-Arctietum verbascetosum,Ass. van Ballote en andere Netels; subass. met Kaarsen,0,Ass. van Ballote en andere Netels; subass. met Kaarsen
+,31,31B,Onopordietalia acanthii,Orde van Distels en Ruwbladigen,1,Orde van Distels en Ruwbladigen
+,31B,31BA,Onopordion acanthii,Verbond van Distels en Ruwbladigen,1,Verbond van Distels en Ruwbladigen
+13.0,31BA,31BA01,Echio-Verbascetum,Slangekruid-associatie,1,Slangekruid-associatie
+,31BA01,31BA01A,Echio-Verbascetum lycopsidetosum,Slangekruid-ass.; subass. met Kromhals,0,Slangekruid-ass.; subass. met Kromhals
+,31BA01,31BA01B,Echio-Verbascetum typicum,Slangekruid-ass.; typische subass.,0,Slangekruid-ass.; typische subass.
+,31,31C,Agropyretalia repentis,Wormkruid-orde,1,Wormkruid-orde
+,31C,31CA,Dauco-Melilotion,Wormkruid-verbond,1,Wormkruid-verbond
+13.0,31CA,31CA01,Echio-Melilotetum,Honingklaver-associatie,1,Honingklaver-associatie
+,31CA01,31CA01A,Echio-Melilotetum berteroetosum,Honingklaver-ass.; subass. met Grijskruid,0,Honingklaver-ass.; subass. met Grijskruid
+,31CA01,31CA01B,Echio-Melilotetum typicum,Honingklaver-ass.; typische subass.,0,Honingklaver-ass.; typische subass.
+13.0,31CA,31CA02,Bromo inermis-Eryngietum campestris,Kweekdravik-associatie,0,Kweekdravik-associatie
+13.0,31CA,31CA03,Tanaceto-Artemisietum,Wormkruid-associatie,1,Wormkruid-associatie
+,31CA03,31CA03A,Tanaceto-Artemisietum agrostietosum,Wormkruid-ass.; subass. met Gewoon struisgras,0,Wormkruid-ass.; subass. met Gewoon struisgras
+,31CA03,31CA03B,Tanaceto-Artemisietum typicum,Wormkruid-ass.; typische subass.,0,Wormkruid-ass.; typische subass.
+,31RG,31RG01,RG Artemisia vulgaris-[Artemisietea vulgaris],Rompgemeenschap van Bijvoet,0,Rompgemeenschap van Bijvoet
+,31RG,31RG02,RG Diplotaxis tenuifolia-[Artemisietea vulgaris],Rompgemeenschap van Grote zandkool,0,Rompgemeenschap van Grote zandkool
+,31RG,31RG03,RG Convolvulus arvensis-[Artemisietea vulgaris],Rompgemeenschap van Akkerwinde,0,Rompgemeenschap van Akkerwinde
+,31RG,31RG04,RG Elymus repens-[Artemisietea vulgaris],Rompgemeenschap van Kweek,0,Rompgemeenschap van Kweek
+,31RG,31RG05,RG Cirsium arvense-[Artemisietea vulgaris],Rompgemeenschap van Akkerdistel,0,Rompgemeenschap van Akkerdistel
+,31RG,31RG06,RG Tussilago farfara-[Artemisietea vulgaris/Convolvulo-Filipenduletea],Rompgemeenschap van Klein hoefblad,0,Rompgemeenschap van Klein hoefblad
+,31RG,31RG07,RG Xanthium orientale-Elymus repens-[Artemisietea vulg./Plantaginetea maj.],Rompgemeenschap van Oeverstekelnoot,0,Rompgemeenschap van Oeverstekelnoot
+,31RG,31RG08,RG Cichorium intybus-[Agropyretalia repentis/Arrhenatheretalia],Rompgemeenschap van Wilde cichorei,0,Rompgemeenschap van Wilde cichorei
+,31RG,31RG09,RG Dipsacus fullonum-Elymus repens-[Agropyretalia rep./Arrhenatheretalia],Rompgemeenschap van Grote kaardebol en Kweek,0,Rompgemeenschap van Grote kaardebol en Kweek
+,,32,Convolvulo-Filipenduletea,Klasse der natte strooiselruigten,1,Klasse der natte strooiselruigten
+,32,32A,Filipenduletalia,Moerasspirea-orde,1,Moerasspirea-orde
+,32A,32AA,Filipendulion,Moerasspirea-verbond,1,Moerasspirea-verbond
+14.0,32AA,32AA01,Valeriano-Filipenduletum,Associatie van Moerasspirea en Echte Valeriaan,1,"Moerasspirea en Echte Valeriaan, Associatie van"
+,32AA01,32AA01A,Valeriano-Filipenduletum calamagrostietosum,Ass. van Moerasspirea en Echte Valeriaan; subass. met Hennegras,0,Ass. van Moerasspirea en Echte Valeriaan; subass. met Hennegras
+,32AA01,32AA01B,Valeriano-Filipenduletum holcetosum,Ass. van Moerasspirea en Echte Valeriaan; subass. met Gestreepte witbol,0,Ass. van Moerasspirea en Echte Valeriaan; subass. met Gestreepte witbol
+,32AA01,32AA01C,Valeriano-Filipenduletum symphytetosum,Ass. van Moerasspirea en Echte Valeriaan; subass. met Gewone smeerwortel,0,Ass. van Moerasspirea en Echte Valeriaan; subass. met Gewone smeerwortel
+,32,32B,Convolvuletalia sepium,Orde van Harig wilgeroosje,1,Orde van Harig wilgeroosje
+,32B,32BA,Epilobion hirsuti,Verbond van Harig wilgeroosje,1,Verbond van Harig wilgeroosje
+14.0,32BA,32BA01,Valeriano-Senecionetum fluviatilis,Rivierkruiskruid-associatie,0,Rivierkruiskruid-associatie
+14.0,32BA,32BA02,Soncho-Epilobietum hirsuti,Moerasmelkdistel-associatie,1,Moerasmelkdistel-associatie
+,32BA02,32BA02A,Soncho-Epilobietum typicum,Moerasmelkdistel-ass.; typische subass.,0,Moerasmelkdistel-ass.; typische subass.
+,32BA02,32BA02B,Soncho-Epilobietum althaeetosum,Moerasmelkdistel-ass.; subass. met Echte heemst,0,Moerasmelkdistel-ass.; subass. met Echte heemst
+14.0,32BA,32BA03,Oenantho-Althaeetum,Associatie van Strandkweek en Echte heemst,0,"Strandkweek en Echte heemst, Associatie van"
+,32DG,32DG01,DG Solidago gigantea-[Epilobion hirsuti],Derivaatgemeenschap van Late guldenroede,0,Derivaatgemeenschap van Late guldenroede
+,32RG,32RG01,RG Eupatorium cannabinum-[Convolvulo-Filipenduletea],Rompgemeenschap van Koninginnekruid,0,Rompgemeenschap van Koninginnekruid
+,32RG,32RG02,RG Epilobium hirsutum-[Convolvulo-Filipenduletea],Rompgemeenschap van Harig wilgeroosje,0,Rompgemeenschap van Harig wilgeroosje
+,32RG,32RG03,RG Calystegia sepium-Phragmites australis-[Convolvulo-Filipenduletea],Rompgemeenschap van Haagwinde en Riet,0,Rompgemeenschap van Haagwinde en Riet
+,32RG,32RG04,RG Solanum dulcamara-Phragmites australis-[Convolvulo-Filipenduletea],Rompgemeenschap van Bitterzoet en Riet,0,Rompgemeenschap van Bitterzoet en Riet
+,32RG,32RG05,RG Phalaris arundinacea-[Convolvulo-Filipenduletea],Rompgemeenschap van Rietgras,0,Rompgemeenschap van Rietgras
+,32RG,32RG06,RG Urtica doicia-[Convolvulo-Filipenduletea],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
+,32RG,32RG07,RG Pulicaria dysenterica-[Convolvulo-Filipenduletea/Agrostietalia stoloniferae],Rompgemeenschap van Heelblaadjes,0,Rompgemeenschap van Heelblaadjes
+,32RG,32RG08,RG Angelica archangelica-[Epilobion hirsuti],Rompgemeenschap van Grote engelwortel,0,Rompgemeenschap van Grote engelwortel
+,,33,Galio-Urticetea,Klasse der nitrofiele zomen,1,Klasse der nitrofiele zomen
+,33,33A,Glechometalia,Orde der nitrofiele zomen,1,Orde der nitrofiele zomen
+,33A,33AA,Galio-Alliarion,Verbond van Look-zonder-look,1,Verbond van Look-zonder-look
+14.0,33AA,33AA01,Claytonio-Anthriscetum caucalidis,Associatie van Fijne kervel en Winterpostelein,0,"Fijne kervel en Winterpostelein, Associatie van"
+14.0,33AA,33AA02,Torilidetum japonicae,Heggedoornzaad-associatie,0,Heggedoornzaad-associatie
+14.0,33AA,33AA03,Urtico-Cruciatetum laevipedis,Kruisbladwalstro-associatie,1,Kruisbladwalstro-associatie
+,33AA03,33AA03A,Urtico-Cruciatetum alliarietosum,Kruisbladwalstro-ass.; subass. met Look-zonder look,0,Kruisbladwalstro-ass.; subass. met Look-zonder look
+,33AA03,33AA03B,Urtico-Cruciatetum alopecuretosum,Kruisbladwalstro-ass.; subass. met Grote vossestaart,0,Kruisbladwalstro-ass.; subass. met Grote vossestaart
+14.0,33AA,33AA04,Alliario-Chaerophylletum temuli,Associatie van Look-zonder-look en Dolle kervel,1,"Look-zonder-look en Dolle kervel, Associatie van"
+,33AA04,33AA04A,Alliario-Chaerophylletum geetosum,Ass. van Look-zonder-look en Dolle kervel; subass. met Geel nagelkruid,0,Ass. van Look-zonder-look en Dolle kervel; subass. met Geel nagelkruid
+,33AA04,33AA04B,Alliario-Chaerophylletum galeopsietosum,Ass. van Look-zonder-look en Dolle kervel; subass. met Gewone hennepnetel,0,Ass. van Look-zonder-look en Dolle kervel; subass. met Gewone hennepnetel
+,33AA04,33AA04C,Alliario-Chaerophylletum inops,Ass. van Look-zonder-look en Dolle kervel; arme subass.,0,Ass. van Look-zonder-look en Dolle kervel; arme subass.
+14.0,33AA,33AA05,Urtico-Aegopodietum,Zevenblad-associatie,1,Zevenblad-associatie
+,33AA05,33AA05A,Urtico-Aegopodietum alliarietosum,Zevenblad-ass.; subass. met Look-zonder-look,0,Zevenblad-ass.; subass. met Look-zonder-look
+,33AA05,33AA05B,Urtico-Aegopodietum holcetosum,Zevenblad-ass.; subass. met  Gestreepte witbol,0,Zevenblad-ass.; subass. met  Gestreepte witbol
+,33AA05,33AA05C,Urtico-Aegopodietum inops,Zevenblad-ass.; arme subass.,0,Zevenblad-ass.; arme subass.
+,33AA05,33AA05D,Urtico-Aegopodietum petasitetosum,Zevenblad-ass.; subass. met Groot hoefblad,0,Zevenblad-ass.; subass. met Groot hoefblad
+14.0,33AA,33AA06,Heracleo-Sambucetum ebuli,Kruidvlier-associatie,0,Kruidvlier-associatie
+,33DG,33DG01,DG Rubus armeniacus-[Galio-Urticetea],Derivaatgemeenschap van Rubus armeniacus,0,Derivaatgemeenschap van Rubus armeniacus
+,33DG,33DG02,DG Populus x canadensis-[Galio-Urticetea],Derivaatgemeenschap van Canadapopulier,0,Derivaatgemeenschap van Canadapopulier
+,33RG,33RG01,RG Urtica dioica-[Galio-Urticetea],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
+,33RG,33RG02,RG Anthriscus sylvestris-[Galio-Urticetea],Rompgemeenschap van Fluitekruid,0,Rompgemeenschap van Fluitekruid
+,33RG,33RG03,RG Petasites hybridus-[Galio-Urticetea],Rompgemeenschap van Groot hoefblad,0,Rompgemeenschap van Groot hoefblad
+,,34,Epilobietea angustifolii,Klasse der kapvlaktegemeenschappen,1,Klasse der kapvlaktegemeenschappen
+,34,34A,Atropetalia,Orde der kapvlaktegemeenschappen,1,Orde der kapvlaktegemeenschappen
+,34A,34AA,Carici piluliferae-Epilobion angustifolii,Wilgeroosjes-verbond,1,Wilgeroosjes-verbond
+15.0,34AA,34AA01,Senecioni sylvatici-Epilobietum angustifolii,Wilgeroosjes-associatie,1,Wilgeroosjes-associatie
+,34AA01,34AA01A,Senecioni-Epilobietum veronicetosum,Wilgeroosjes-ass.; subass. met Mannetjesereprijs,0,Wilgeroosjes-ass.; subass. met Mannetjesereprijs
+,34AA01,34AA01B,Senecioni-Epilobietum ceratocapnetosum,Wilgeroosjes-ass.; subass. met Rankende helmbloem,0,Wilgeroosjes-ass.; subass. met Rankende helmbloem
+,34AA01,34AA01C,Senecioni-Epilobietum inops,Wilgeroosjes-ass.; arme subass.,0,Wilgeroosjes-ass.; arme subass.
+,,35,Lonicero-Rubetea plicati,Brummel-klasse,1,Brummel-klasse
+,35,35A,Rubetalia plicati,Brummel-orde,1,Brummel-orde
+,35A,35AA,Lonicero-Rubion silvatici,Brummel-verbond,1,Brummel-verbond
+16.0,35AA,35AA01,Rubetum grati,Associatie van Bronskleurige bosbraam,0,"Bronskleurige bosbraam, Associatie van"
+16.0,35AA,35AA02,Rubetum silvatici,Associatie van Witte bosbraam,0,"Witte bosbraam, Associatie van"
+16.0,35AA,35AA03,Rubetum pedemontani,Associatie van Sierlijke woudbraam,0,"Sierlijke woudbraam, Associatie van"
+,35RG,35RG01,RG Rubus plicatus-[Lonicero-Rubetea plicatae],Rompgemeenschap van Rubus plicatus,0,Rompgemeenschap van Rubus plicatus
+,,36,Franguletea,Klasse der wilgenbroekstruwelen,1,Klasse der wilgenbroekstruwelen
+,36,36A,Salicetalia auritae,Orde der wilgenbroekstruwelen,1,Orde der wilgenbroekstruwelen
+,36A,36AA,Salicion cinereae,Verbond der wilgenbroekstruwelen,1,Verbond der wilgenbroekstruwelen
+16.0,36AA,36AA01,Salicetum auritae,Associatie van Geoorde wilg,0,"Geoorde wilg, Associatie van"
+16.0,36AA,36AA02,Salicetum cinereae,Associatie van Grauwe wilg,1,"Grauwe wilg, Associatie van"
+,36AA02,36AA02A,Salicetum calamagrostietosum canescentis,Ass. van Grauwe wilg; subass. met Hennegras,0,Ass. van Grauwe wilg; subass. met Hennegras
+,36AA02,36AA02B,Salicetum typicum,Ass. van Grauwe wilg; typische subass.,0,Ass. van Grauwe wilg; typische subass.
+,36AA02,36AA02C,Salicetum salicetosum repentis,Ass. van Grauwe wilg; subass. met Kruipwilg,0,Ass. van Grauwe wilg; subass. met Kruipwilg
+,36RG,36RG01,RG Frangula alnus-[Franguletea],Rompgemeenschap van Sporkehout,0,Rompgemeenschap van Sporkehout
+,36RG,36RG02,RG Myrica gale-[Salicion cinereae],Rompgemeenschap van Wilde gagel,0,Rompgemeenschap van Wilde gagel
+,,37,Rhamno-Prunetea,Klasse der doornstruwelen,1,Klasse der doornstruwelen
+,37,37A,Prunetalia spinosae,Sleedoorn-orde,1,Sleedoorn-orde
+,37A,37AA,Pruno-Rubion radulae,Verbond van Bramen en Sleedoorn,1,Verbond van Bramen en Sleedoorn
+16.0,37AA,37AA01,Pruno-Rubetum vestiti,Associatie van Fluweelbraam en Sleedoorn,0,"Fluweelbraam en Sleedoorn, Associatie van"
+16.0,37AA,37AA02,Pruno-Rubetum elegantispinosi,Associatie van Sleedoorn en Slankstekelige braam,0,"Sleedoorn en Slankstekelige braam, Associatie van"
+,37A,37AB,Carpino-Prunion,Verbond van Sleedoorn en Eenstijlige meidoorn,1,Verbond van Sleedoorn en Eenstijlige meidoorn
+16.0,37AB,37AB01,Pruno-Crataegetum,Associatie van Sleedoorn en Eenstijlige meidoorn,1,"Sleedoorn en Eenstijlige meidoorn, Associatie van"
+,37AB01,37AB01A,Pruno-Crataegetum typicum,Ass. van Sleedoorn en Eenstijlige meidoorn; typische subass.,0,Ass. van Sleedoorn en Eenstijlige meidoorn; typische subass.
+,37AB01,37AB01B,Pruno-Crataegetum rubetosum ulmifolii,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Koebraam,0,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Koebraam
+,37AB01,37AB01C,Pruno-Crataegetum viburnetosum opuli,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Gelderse roos,0,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Gelderse roos
+,37AB01,37AB01D,Pruno-Crataegetum clematidetosum,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Bosrank,0,Ass. van Sleedoorn en Eenstijlige meidoorn; subass. met Bosrank
+16.0,37AB,37AB02,Roso-Juniperetum,Associatie van Hondsroos en Jeneverbes,0,"Hondsroos en Jeneverbes, Associatie van"
+,37A,37AC,Berberidion vulgaris,Liguster-verbond,1,Liguster-verbond
+16.0,37AC,37AC01,Hippophao-Sambucetum,Associatie van Duindoorn en Vlier,0,"Duindoorn en Vlier, Associatie van"
+16.0,37AC,37AC02,Hippophao-Ligustretum,Associatie van Duindoorn en Liguster,1,"Duindoorn en Liguster, Associatie van"
+,37AC02,37AC02A,Hippophao-Ligustretum typicum,Ass. van Duindoorn en Liguster; typische subass.,0,Ass. van Duindoorn en Liguster; typische subass.
+,37AC02,37AC02B,Hippophao-Ligustretum eupatorietosum,Ass. van Duindoorn en Liguster; subass. met Koninginnekruid,0,Ass. van Duindoorn en Liguster; subass. met Koninginnekruid
+16.0,37AC,37AC03,Rhamno-Crataegetum,Associatie van Wegedoorn en Eenstijlige meidoorn,0,"Wegedoorn en Eenstijlige meidoorn, Associatie van"
+16.0,37AC,37AC04,Pruno spinosae-Ligustretum,Associatie van rozen en Liguster,0,"rozen en Liguster, Associatie van"
+16.0,37AC,37AC05,Orchio-Cornetum,Associatie van Hazelaar en Purperorchis,0,"Hazelaar en Purperorchis, Associatie van"
+,37RG,37RG01,RG Hippophae rhamnoides-Sonchus arvensis-[Berberidion vulgaris/Ammophilion arenariae],Rompgemeenschap van Duindoorn en Akkermelkdistel,0,Rompgemeenschap van Duindoorn en Akkermelkdistel
+,37RG,37RG02,RG Hippophae rhamnoides-Cladonia-[Berberidion vulgaris/Tortulo-Koelerion],Rompgemeenschap van Duindoorn en Cladonia,0,Rompgemeenschap van Duindoorn en Cladonia
+,37RG,37RG03,RG Hippophae rhamnoides-Calamagrostis epigejos-[Berberidion vulgaris/Polygalo-Koelerion],Rompgemeenschap van Duindoorn en Duinriet,0,Rompgemeenschap van Duindoorn en Duinriet
+,37RG,37RG04,RG Ligustrum vulgare-[Berberidion vulgaris],Rompgemeenschap van Liguster,0,Rompgemeenschap van Liguster
+,,38,Salicetea purpureae,Klasse der wilgenvloedbossen en -struwelen,1,Klasse der wilgenvloedbossen en -struwelen
+,38,38A,Salicetalia purpureae,Orde der wilgenvloedbossen en -struwelen,1,Orde der wilgenvloedbossen en -struwelen
+,38A,38AA,Salicion albae,Verbond der wilgenvloedbossen en -struwelen,1,Verbond der wilgenvloedbossen en -struwelen
+16.0,38AA,38AA01,Artemisio-Salicetum albae,Bijvoet-ooibos,1,Bijvoet-ooibos
+,38AA01,38AA01A,Artemisio-Salicetum populetosum nigrae,Bijvoet-ooibos; subass. met Zwarte populier,0,Bijvoet-ooibos; subass. met Zwarte populier
+,38AA01,38AA01B,Artemisio-Salicetum agrostietosum stoloniferae,Bijvoet-ooibos; subass. met Fioringras,0,Bijvoet-ooibos; subass. met Fioringras
+18.0,38AA,38AA02,Irido-Salicetum albae,Gele lis-ooibos,1,Gele lis-ooibos
+,38AA02,38AA02A,Irido-Salicetum menthetosum,Gele lis-ooibos; subass. met Watermunt,0,Gele lis-ooibos; subass. met Watermunt
+,38AA02,38AA02B,Irido-Salicetum alopecuretosum pratensis,Gele lis-ooibos; subass. met Grote vossestaart,0,Gele lis-ooibos; subass. met Grote vossestaart
+18.0,38AA,38AA03,Cardamino amarae-Salicetum albae,Bittere veldkers-ooibos,1,Bittere veldkers-ooibos
+,38AA03,38AA03A,Cardamino amarae-Salicetum anthriscetosum,Bittere veldkers-ooibos; subass. met Fluitekruid,0,Bittere veldkers-ooibos; subass. met Fluitekruid
+,38AA03,38AA03B,Cardamino amarae-Salicetum alismatetosum,Bittere veldkers-ooibos; subass. met Grote waterweegbree,0,Bittere veldkers-ooibos; subass. met Grote waterweegbree
+,38AA03,38AA03C,Cardamino amarae-Salicetum urticetosum,Bittere veldkers-ooibos; subass. met Grote brandnetel,0,Bittere veldkers-ooibos; subass. met Grote brandnetel
+,38AA03,38AA03D,Cardamino amarae-Salicetum inops,Bittere veldkers-ooibos; arme subass.,0,Bittere veldkers-ooibos; arme subass.
+,38DG,38DG01,DG Impatiens glandulifera-[Salicion albae/Alno-Padion],Derivaatgemeenschap van Reuzenbalsemien,0,Derivaatgemeenschap van Reuzenbalsemien
+,38RG,38RG01,RG Urtica dioica-[Salicion albae],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
+,,39,Alnetea glutinosae,Klasse der elzenbroekbossen,1,Klasse der elzenbroekbossen
+,39,39A,Alnetalia glutinosae,Orde der elzenbroekbossen,1,Orde der elzenbroekbossen
+,39A,39AA,Alnion glutinosae,Verbond der elzenbroekbossen,1,Verbond der elzenbroekbossen
+18.0,39AA,39AA01,Thelypterido-Alnetum,Moerasvaren-Elzenbroek,1,Moerasvaren-Elzenbroek
+,39AA01,39AA01A,Thelypterido-Alnetum typicum,Moerasvaren-Elzenbroek; typische subass.,0,Moerasvaren-Elzenbroek; typische subass.
+,39AA01,39AA01B,Thelypterido-Alnetum sphagnetetosum,Moerasvaren-Elzenbroek; subass. met Veenmossen,0,Moerasvaren-Elzenbroek; subass. met Veenmossen
+,39AA01,39AA01C,Thelypterido-Alnetum caricetosum ripariae,Moerasvaren-Elzenbroek; subass. met Oeverzegge,0,Moerasvaren-Elzenbroek; subass. met Oeverzegge
+18.0,39AA,39AA02,Carici elongatae-Alnetum,Elzenzegge-Elzenbroek,1,Elzenzegge-Elzenbroek
+,39AA02,39AA02A,Carici elongatae-Alnetum typicum,Elzenzegge-Elzenbroek; typische subass.,0,Elzenzegge-Elzenbroek; typische subass.
+,39AA02,39AA02B,Carici elongatae-Alnetum cardaminetosum amarae,Elzenzegge-Elzenbroek; subass. met Bittere veldkers,0,Elzenzegge-Elzenbroek; subass. met Bittere veldkers
+,39AA02,39AA02C,Carici elongatae-Alnetum ribetosum nigrae,Elzenzegge-Elzenbroek; subass. met Zwarte bes,0,Elzenzegge-Elzenbroek; subass. met Zwarte bes
+,39AA02,39AA02D,Carici elongatae-Alnetum rubetosum idaei,Elzenzegge-Elzenbroek; subass. met Framboos,0,Elzenzegge-Elzenbroek; subass. met Framboos
+,39AA02,39AA02E,Carici elongatae-Alnetum caricetosum curtae,Elzenzegge-Elzenbroek; subass. met Zompzegge,0,Elzenzegge-Elzenbroek; subass. met Zompzegge
+,39RG,39RG01,RG Calamagrostis canescens-[Alnion glutinosae],Rompgemeenschap van Hennegras,0,Rompgemeenschap van Hennegras
+,39RG,39RG02,RG Rubus fruticosus-[Alnion glutinosae],Rompgemeenschap van Gewone braam,0,Rompgemeenschap van Gewone braam
+,39RG,39RG03,RG Carex acutiformis-[Alnion glutinosae],Rompgemeenschap van Moeraszegge,0,Rompgemeenschap van Moeraszegge
+,39RG,39RG04,RG Urtica dioica-[Alnion glutinosae],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
+,,40,Vaccinio-Betuletea pubescentis,Klasse der berkenbroekbossen,1,Klasse der berkenbroekbossen
+,40,40A,Vaccinio-Betuletalia pubescentis,Orde der berkenbroekbossen,1,Orde der berkenbroekbossen
+,40A,40AA,Betulion pubescentis,Verbond der berkenbroekbossen,1,Verbond der berkenbroekbossen
+18.0,40AA,40AA01,Erico-Betuletum pubescentis,Dophei-Berkenbroek,1,Dophei-Berkenbroek
+,40AA01,40AA01A,Erico-Betuletum eriophoretosum vaginati,Dophei-Berkenbroek; subass. met Eenarig wollegras,0,Dophei-Berkenbroek; subass. met Eenarig wollegras
+,40AA01,40AA01B,Erico-Betuletum callunetosum,Dophei-Berkenbroek; subass. met Struikhei,0,Dophei-Berkenbroek; subass. met Struikhei
+,40AA01,40AA01C,Erico-Betuletum inops,Dophei-Berkenbroek; arme subass.,0,Dophei-Berkenbroek; arme subass.
+18.0,40AA,40AA02,Carici curtae-Betuletum pubescentis,Zompzegge-Berkenbroek,1,Zompzegge-Berkenbroek
+,40AA02,40AA02A,Carici curtae-Betuletum peucedanetosum,Zompzegge-Berkenbroek; subass. met Melkeppe,0,Zompzegge-Berkenbroek; subass. met Melkeppe
+,40AA02,40AA02B,Carici curtae-Betuletum typicum,Zompzegge-Berkenbroek; typische subass.,0,Zompzegge-Berkenbroek; typische subass.
+,40DG,40DG01,DG Aronia x prunifolia-[Betulion pubescentis],Derivaatgemeenschap van Zwarte appelbes,0,Derivaatgemeenschap van Zwarte appelbes
+,40RG,40RG01,RG Myrica gale-[Betulion pubescentis],Rompgemeenschap van Gagelstruwelen,0,Rompgemeenschap van Gagelstruwelen
+,40RG,40RG02,RG Molinia caerulea-[Betulion pubescentis],Rompgemeenschap van Pijpestrootje,0,Rompgemeenschap van Pijpestrootje
+,40RG,40RG03,RG Rubus fruticosus-[Betulion pubescentis],Rompgemeenschap van Gewone braam,0,Rompgemeenschap van Gewone braam
+,,41,Vaccinio-Piceetea,Klasse der naaldbossen,1,Klasse der naaldbossen
+,41,41A,Vaccinio-Piceetalia,Orde der naaldbossen,1,Orde der naaldbossen
+,41A,41AA,Dicrano-Pinion,Verbond der naaldbossen,1,Verbond der naaldbossen
+17.0,41AA,41AA01,Dicrano-Juniperetum,Gaffeltandmos-Jeneverbestruweel,1,Gaffeltandmos-Jeneverbestruweel
+,41AA01,41AA01A,Dicrano-Juniperetum cladonietosum,Gaffeltandmos-Jeneverbestruweel; subass. met Cladonia-soorten,0,Gaffeltandmos-Jeneverbestruweel; subass. met Cladonia-soorten
+,41AA01,41AA01B,Dicrano-Juniperetum deschampsietosum,Gaffeltandmos-Jeneverbestruweel; subass. met Bochtige smele,0,Gaffeltandmos-Jeneverbestruweel; subass. met Bochtige smele
+17.0,41AA,41AA02,Cladonio-Pinetum sylvestris,Korstmossen-Dennenbos,1,Korstmossen-Dennenbos
+,41AA02,41AA02A,Cladonio-Pinetum cladinietosum,Korstmossen-Dennenbos; subass. met Cladonia-soorten,0,Korstmossen-Dennenbos; subass. met Cladonia-soorten
+,41AA02,41AA02B,Cladonio-Pinetum dicranetosum polyseti,Korstmossen-Dennenbos; subass. met Gerimpeld gaffeltandmos,0,Korstmossen-Dennenbos; subass. met Gerimpeld gaffeltandmos
+17.0,41AA,41AA03,Leucobryo-Pinetum,Kussentjesmos-Dennenbos,1,Kussentjesmos-Dennenbos
+,41AA03,41AA03A,Leucobryo-Pinetum deschampsietosum,Kussentjesmos-Dennenbos; subass. met Bochtige smele,0,Kussentjesmos-Dennenbos; subass. met Bochtige smele
+,41AA03,41AA03B,Leucobryo-Pinetum vaccinietosum,Kussentjesmos-Dennenbos; subass. met Bosbessen,0,Kussentjesmos-Dennenbos; subass. met Bosbessen
+,41AA03,41AA03C,Leucobryo-Pinetum empetretosum,Kussentjesmos-Dennenbos; subass. met Kraaiheide,0,Kussentjesmos-Dennenbos; subass. met Kraaiheide
+,41AA03,41AA03D,Leucobryo-Pinetum molinietosum,Kussentjesmos-Dennenbos; subass. met Pijpestrootje,0,Kussentjesmos-Dennenbos; subass. met Pijpestrootje
+,41DG,41DG01,DG Prunus serotina-[Dicrano-Pinion],Derivaatgemeenschap van Amerikaanse vogelkers,0,Derivaatgemeenschap van Amerikaanse vogelkers
+,41DG,41DG02,DG Rubus fruticosus-[Dicrano-Pinion],Derivaatgemeenschap van Gewone braam,0,Derivaatgemeenschap van Gewone braam
+,41DG,41DG03,DG Carex arenaria-Calamagrostis epigejos-[Dicrano-Pinion],Derivaatgemeenschap van Zandzegge,0,Derivaatgemeenschap van Zandzegge
+,41RG,41RG01,RG Pleurozium schreberi-Polytrichum formosum-[Vaccinio-Piceetea],Rompgemeenschap van Bronsmos en Haarmos,0,Rompgemeenschap van Bronsmos en Haarmos
+,41RG,41RG02,RG Eurhynchium praelongum-Pseudoscleropodium purum-[Vaccinio-Piceetea],Rompgemeenschap van Fijn en Groot laddermos,0,Rompgemeenschap van Fijn en Groot laddermos
+,41RG,41RG03,RG Pteridium aquilinum-[Dicrano-Pinion],Rompgemeenschap van Adelaarsvaren,0,Rompgemeenschap van Adelaarsvaren
+,,42,Quercetea robori-petraeae,Klasse der eiken- en beukenbossen op voedselarme grond,1,Klasse der eiken- en beukenbossen op voedselarme grond
+,42,42A,Quercetalia roboris,Orde der eiken- en beukenbossen op voedselarme grond,1,Orde der eiken- en beukenbossen op voedselarme grond
+,42A,42AA,Quercion roboris,Zomereikverbond,1,Zomereikverbond
+18.0,42AA,42AA01,Betulo-Quercetum roboris,Berken-Eikenbos,1,Berken-Eikenbos
+,42AA01,42AA01A,Betulo-Quercetum cladonietosum,Berken-Eikenbos; subass. met Cladonia-soorten,0,Berken-Eikenbos; subass. met Cladonia-soorten
+,42AA01,42AA01B,Betulo-Quercetum deschampsietosum,Berken-Eikenbos; subass. met Bochtige smele,0,Berken-Eikenbos; subass. met Bochtige smele
+,42AA01,42AA01C,Betulo-Quercetum vaccinietosum,Berken-Eikenbos; subass. met Bosbessen,0,Berken-Eikenbos; subass. met Bosbessen
+,42AA01,42AA01D,Betulo-Quercetum molinietosum,Berken-Eikenbos; subass. met Pijpestrootje,0,Berken-Eikenbos; subass. met Pijpestrootje
+,42AA01,42AA01E,Betulo-Quercetum dryopteridetosum,Berken-Eikenbos; subass. met Brede stekelvaren,0,Berken-Eikenbos; subass. met Brede stekelvaren
+18.0,42AA,42AA02,Fago-Quercetum,Beuken-Zomereikenbos,1,Beuken-Zomereikenbos
+,42AA02,42AA02A,Fago-Quercetum vaccinietosum,Beuken-Zomereikenbos; subass. met Blauwe bosbes,0,Beuken-Zomereikenbos; subass. met Blauwe bosbes
+,42AA02,42AA02B,Fago-Quercetum pteridietosum,Beuken-Zomereikenbos; subass. met Adelaarsvaren,0,Beuken-Zomereikenbos; subass. met Adelaarsvaren
+,42AA02,42AA02C,Fago-Quercetum convallarietosum,Beuken-Zomereikenbos; subass. met Lelietje-van-dalen,0,Beuken-Zomereikenbos; subass. met Lelietje-van-dalen
+,42AA02,42AA02D,Fago-Quercetum molinietosum,Beuken-Zomereikenbos; subass. met Pijpestrootje,0,Beuken-Zomereikenbos; subass. met Pijpestrootje
+,42AA02,42AA02E,Fago-Quercetum holcetosum,Beuken-Zomereikenbos; subass. met Gladde witbol,0,Beuken-Zomereikenbos; subass. met Gladde witbol
+18.0,42AA,42AA03,Deschampsio-Fagetum,Bochtige smele-Beukenbos,1,Bochtige smele-Beukenbos
+,42AA03,42AA03A,Deschampsio-Fagetum leucobryetosum,Bochtige smele-Beukenbos; subass. met Kussentjesmos,0,Bochtige smele-Beukenbos; subass. met Kussentjesmos
+,42AA03,42AA03B,Deschampsio-Fagetum typicum,Bochtige smele-Beukenbos; typische subass.,0,Bochtige smele-Beukenbos; typische subass.
+,42AA03,42AA03C,Deschampsio-Fagetum isopterygietosum,Bochtige smele-Beukenbos; subass. met Gewoon pronkmos,0,Bochtige smele-Beukenbos; subass. met Gewoon pronkmos
+,42A,42AB,Luzulo-Fagion,Verbond der Veldbies-Beukenbossen,1,Verbond der Veldbies-Beukenbossen
+18.0,42AB,42AB01,Luzulo luzuloidis-Fagetum,Veldbies-Beukenbos,0,Veldbies-Beukenbos
+,42DG,42DG01,DG Prunus serotina-[Quercion roboris],Derivaatgemeenschap van Amerikaanse vogelkers,0,Derivaatgemeenschap van Amerikaanse vogelkers
+,42DG,42DG02,DG Quercus rubra-[Quercion roboris],Derivaatgemeenschap van Amerikaanse eik,0,Derivaatgemeenschap van Amerikaanse eik
+,42RG,42RG01,RG Holcus-Dryopteris-[Quercion roboris],Rompgemeenschap Gladde Witbol en Brede stekelvaren,0,Rompgemeenschap Gladde Witbol en Brede stekelvaren
+,42RG,42RG02,RG Rubus fruticosus-[Quercion roboris],Rompgemeenschap van Gewone braam,0,Rompgemeenschap van Gewone braam
+,,43,Querco-Fagetea,Klasse der eiken- en beukenbossen op voedselrijke grond,1,Klasse der eiken- en beukenbossen op voedselrijke grond
+,43,43A,Fagetalia sylvaticae,Orde der eiken- en beukenbossen op voedselrijke grond,1,Orde der eiken- en beukenbossen op voedselrijke grond
+,43A,43AA,Alno-Padion,Verbond van Els en Vogelkers,1,Verbond van Els en Vogelkers
+18.0,43AA,43AA01,Violo odoratae-Ulmetum,Abelen-Iepenbos,1,Abelen-Iepenbos
+,43AA01,43AA01A,Violo odoratae-Ulmetum allietosum,Abelen-Iepenbos; subass. met Slangelook,0,Abelen-Iepenbos; subass. met Slangelook
+,43AA01,43AA01B,Violo odoratae-Ulmetum inops,Abelen-Iepenbos; Soortenarme subass.,0,Abelen-Iepenbos; Soortenarme subass.
+,43AA01,43AA01C,Violo odoratae-Ulmetum scilletosum,Abelen-Iepenbos; subass. met Wilde hyacint,0,Abelen-Iepenbos; subass. met Wilde hyacint
+18.0,43AA,43AA02,Fraxino-Ulmetum,Essen- Iepenbos,1,Essen- Iepenbos
+,43AA02,43AA02A,Fraxino-Ulmetum typicum,Essen- Iepenbos; typische subass.,0,Essen- Iepenbos; typische subass.
+,43AA02,43AA02B,Fraxino-Ulmetum galanthetosum,Essen- Iepenbos; subass. met Gewoon sneeuwklokje,0,Essen- Iepenbos; subass. met Gewoon sneeuwklokje
+18.0,43AA,43AA03,Crataego-Betuletum pubescentis,Meidoorn-Berkenbos,1,Meidoorn-Berkenbos
+,43AA03,43AA03A,Crataego-Betuletum typicum,Meidoorn-Berkenbos; typische subass.,0,Meidoorn-Berkenbos; typische subass.
+,43AA03,43AA03B,Crataego-Betuletum menthetosum,Meidoorn-Berkenbos; subass. met Watermunt,0,Meidoorn-Berkenbos; subass. met Watermunt
+18.0,43AA,43AA04,Carici remotae-Fraxinetum,Goudveil-Essenbos,0,Goudveil-Essenbos
+18.0,43AA,43AA05,Pruno-Fraxinetum,Vogelkers-Essenbos,0,Vogelkers-Essenbos
+,43A,43AB,Carpinion betuli,Haagbeuken-verbond,1,Haagbeuken-verbond
+18.0,43AB,43AB01,Stellario-Carpinetum,Eiken-Haagbeukenbos,1,Eiken-Haagbeukenbos
+,43AB01,43AB01A,Stellario-Carpinetum polystichetosum,Eiken-Haagbeukenbos; subass. met Stijve naaldvaren,0,Eiken-Haagbeukenbos; subass. met Stijve naaldvaren
+,43AB01,43AB01B,Stellario-Carpinetum orchietosum,Eiken-Haagbeukenbos; subass. met Purperorchis,0,Eiken-Haagbeukenbos; subass. met Purperorchis
+,43AB01,43AB01C,Stellario-Carpinetum typicum,Eiken-Haagbeukenbos; typische subass.,0,Eiken-Haagbeukenbos; typische subass.
+,43AB01,43AB01D,Stellario-Carpinetum allietosum,Eiken-Haagbeukenbos; subass. met Daslook,0,Eiken-Haagbeukenbos; subass. met Daslook
+,43AB01,43AB01E,Stellario-Carpinetum dryopteridetosum,Eiken-Haagbeukenbos; subass. met Smalle stekelvaren,0,Eiken-Haagbeukenbos; subass. met Smalle stekelvaren
+,43AB01,43AB01F,Stellario-Carpinetum oxalidetosum,Eiken-Haagbeukenbos; subass. met Witte klaverzuring,0,Eiken-Haagbeukenbos; subass. met Witte klaverzuring
+,43RG,43RG01,RG Anthriscus sylvestris -[Ulmenion carpinifoliae],Rompgemeenschap van Fluitekruid,0,Rompgemeenschap van Fluitekruid
+,43RG,43RG02,RG Urtica dioica -[Ulmenion carpinifoliae],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
+,43RG,43RG03,RG Urtica dioica [Circaeo-Alnenion],Rompgemeenschap van Grote brandnetel,0,Rompgemeenschap van Grote brandnetel
