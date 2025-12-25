@@ -96,7 +96,9 @@ def reference_levels(reference='sbbcat'):
         _logger.error(f'Reference system "{reference}" is not supported.')
     return None
 
+
 def _validate_sbb_pattern(code):
+    """Return valid syntaxon code or None, given string representing code."""
 
     for syntaxlevel, pattern in SBB_PATTERNS.items():
 
@@ -207,7 +209,7 @@ def _syntaxon_validate_string(code):
     if vvncode: # match with rvvncode
         return str(vvncode)
 
-    return None # no match fount
+    return _np.nan #None # no match fount
 
 
 def syntaxon_validate(code):
@@ -285,11 +287,11 @@ def _syntaxonclass_string(code):
                 return match.group(2).zfill(2)
 
     _logger.error(f'No matching syntaxon class found for "{code}".')
-    return None
+    return _np.nan
 
 
 def syntaxonclass(code):
-    """Return syntraxonomical class of given staatsbosbeheer catalogus syntaxon code.
+    """Return syntaxonomical class of given staatsbosbeheer catalogus syntaxon code.
     
     Parameters
     ----------
@@ -317,7 +319,7 @@ def syntaxonclass(code):
     if _pd.isnull(code):
         _logger.error((f'Input "{code}" of type {type(code)} is no valid '
             f'syntaxon input.'))
-        return None
+        return _np.nan
 
     #if isinstance(code, str):
     synclass = _syntaxonclass_string(str(code))
@@ -327,7 +329,7 @@ def syntaxonclass(code):
 
     # LAST RESORT
     raise ValueError((f'Unknown syntaxon code: {code} of type {type(code)}'))
-    ##return None
+
 
 
 def _syntaxonlevel_string(code, reference=None):
@@ -350,7 +352,7 @@ def _syntaxonlevel_string(code, reference=None):
     # return None if no match was found
     _logger.error((f'No matching syntaxon level found for "{code}" '
         f'in reference system "{reference}".'))
-    return None
+    return _np.nan
 
 
 def syntaxonlevel(code, reference='sbbcat'):
@@ -400,7 +402,7 @@ def syntaxonlevel(code, reference='sbbcat'):
 
 
     _logger.error((f'Unknown type for syntaxon code: {type(code)}'))
-    return None #_np.nan
+    return _np.nan
 
 
 def syntaxon_codetest(code=None, reference='sbbcat'):
@@ -461,3 +463,48 @@ def syntaxon_codetest(code=None, reference='sbbcat'):
 
     return _pd.DataFrame(tested)
 
+
+def syntaxon_parent(code, reference='sbbcat'):
+    """Return syntaxon code for parent of given syntaxon."""
+    
+    if reference not in SUPPORTED_REFERENCE_SYSTEMS:
+        raise ValueError((f'Invalid reference system "{reference}". Reference sytem must be in "{SUPPORTED_REFERENCE_SYSTEMS}".'))
+    
+    code = syntaxon_validate(code)
+    level = syntaxonlevel(code, reference=reference)
+
+    if reference in ['vvn','rvvn']:
+        if level=='klasse':
+            return _np.nan
+        if level=='orde':
+            return code[:-1]
+        if level=='verbond':
+            return code[:-1]
+        if level=='associatie':
+            return code[:-1]
+        if level=='subassociatie':
+            return code[:-1]
+        if level=='romp':
+            return code[:-4]
+        if level=='derivaat':
+            return code[:-4]
+
+    if reference in ['sbbcat']:
+        if level=='klasse':
+            return _np.nan
+        if level=='verbond':
+            return code[:-1]
+        if level=='associatie':
+            return code[:-1]
+        if level=='subassociatie':
+            return code[:-1]
+        if level=='klasseromp':
+            return code[:-2]
+        if level=='verbondsromp':
+            return code[:-2]
+        if level=='klassederivaat':
+            return code[:-2]
+        if level=='verbondsderivaat':
+            return code[:-2]
+
+    return _np.nan

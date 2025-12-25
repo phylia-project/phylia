@@ -11,7 +11,7 @@ from openpyxl.worksheet.table import Table as _Table, TableStyleInfo as _TableSt
 import openpyxl as _openpyxl
 
 from . import _data_sbb_intern
-from .cmsi import vegetationtypes
+from .cmsi import vegetationtypes as _vegetationtypes
 
 class SbbRevision2019:
     """Table with possible translations between Staatsbosbeheer 
@@ -30,15 +30,21 @@ class SbbRevision2019:
     """
 
     ADDITIONAL_TRANSLATIONS_SBB_TO_RVVN = [
+        ['01A1', 'r01Aa01a',],
+        ['01A1', 'r01Aa01b',],
+        ['01A2', 'r01Aa02a',],
+        ['01A2', 'r01Aa02b',],
+        ['01B1', 'r01Ab01b',],
         ['05D3a', 'r05Bc03',],
         ['05D3b', 'r05Bc03',],
         ['05D3c', 'r05Bc03',],
-        ['11-j',  'r09RG10',],
         ['08B-b', 'r10RG07',],
-        ['19-h',  'r16RG08',],
+        ['11-j',  'r09RG10',],
         ['14/d',  'r32Ca03',],
-        ['31D3',  'r32Ca03',],
+        ['14D4',  'r14Bb02a',],
         ['14D4',  'r14Bb02',],
+        ['19-h',  'r16RG08',],
+        ['31D3',  'r32Ca03',],
         ['39A-f', 'r43Aa02',],
         ['40A2',  'r43Aa02',],
         ['42A-a', 'r45Aa05',],
@@ -141,7 +147,7 @@ class SbbRevision2019:
         """Return table of syntaxa from the Staatsbosbeheer Catalogus."""
 
         # get full table of cmsi sbbcat syntaxa
-        sbbcat = vegetationtypes(
+        sbbcat = _vegetationtypes(
             typology='sbbcat', current_only=False, include_mapcodes=False,
             verbose=True)
 
@@ -156,7 +162,7 @@ class SbbRevision2019:
         """Return table of syntaxaq from the rVVN."""
 
         # get full table of cmsi revision syntaxa
-        rvvn = vegetationtypes(
+        rvvn = _vegetationtypes(
             typology='rvvn', current_only=False, include_mapcodes=False,
             verbose=True)
 

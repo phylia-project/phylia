@@ -15,7 +15,9 @@ def sbbsyn():
 
 @pytest.fixture
 def rvvnsyn():
-    syn = phylia.data.synbiosys.rvvn_syntaxa()
+    #syn = phylia.data.synbiosys.rvvn_syntaxa()
+    syn = phylia.data.cmsi.vegetationtypes(typology='rvvn', 
+        current_only=False, verbose=False)
     return syn
 
 
@@ -62,13 +64,13 @@ def test_validate_string():
     validated = [syntaxontools._syntaxon_validate_string(x) 
         for x in testcodes]
 
-    assert all(isinstance(x, str) for x in validated if x is not None)
+    assert all(isinstance(x, str) for x in validated if not pd.isnull(x))
 
     testcodes = [str(x) for x in syntaxontools.VVN_TESTCODES]
     validated = [syntaxontools._syntaxon_validate_string(x) 
         for x in testcodes]
 
-    assert all(isinstance(x, str) for x in validated if x is not None)
+    assert all(isinstance(x, str) for x in validated if not pd.isnull(x))
 
 
 def test_syntaxon_validate():
@@ -81,7 +83,7 @@ def test_syntaxon_validate():
     # input list
     validated = syntaxontools.syntaxon_validate(syntaxontools.SBB_TESTCODES)
     assert isinstance(validated, list)
-    assert all(isinstance(x, str) for x in validated if x is not None)
+    assert all(isinstance(x, str) for x in validated if  not pd.isnull(x))
 
     # input integer (valid code)
     code = 400
@@ -95,7 +97,6 @@ def test_syntaxon_validate():
 
 
 def test_syntaxonclass_string(sbbsyn):
-
 
     testcodes = syntaxontools.SBB_TESTCODES
     synclass = syntaxontools.syntaxonclass(testcodes)
@@ -173,3 +174,25 @@ def test_syntaxon_level_with_rvvn(rvvnsyn):
 
     assert len(synlevels) == len(reference_levels)
     assert sorted(synlevels) == sorted(reference_levels)
+
+
+def test_syntaxon_parent_with_rvvnsyn(rvvnsyn):
+
+    df = pd.DataFrame(syntaxontools.VVN_TESTCODES, columns=['SynCode'])
+    df['SynLevel'] = df['SynCode'].apply(syntaxontools.syntaxonlevel, reference='rvvn')
+    df['SynParent'] = df['SynCode'].apply(syntaxontools.syntaxon_parent, reference='rvvn')
+    df['ParentLevel'] = df['SynParent'].apply(syntaxontools.syntaxonlevel, reference='rvvn')
+
+    for col in ['SynLevel', 'SynParent', 'ParentLevel']:
+        assert any(df[col].notnull())
+
+def test_syntaxon_parent_with_sbbsyn(sbbsyn):
+
+    df = pd.DataFrame(syntaxontools.SBB_TESTCODES, columns=['SynCode'])
+    df['SynLevel'] = df['SynCode'].apply(syntaxontools.syntaxonlevel, reference='sbbcat')
+    df['SynParent'] = df['SynCode'].apply(syntaxontools.syntaxon_parent, reference='sbbcat')
+    df['ParentLevel'] = df['SynParent'].apply(syntaxontools.syntaxonlevel, reference='sbbcat')
+
+    for col in ['SynLevel', 'SynParent', 'ParentLevel']:
+        assert any(df[col].notnull())
+

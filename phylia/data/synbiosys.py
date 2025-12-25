@@ -6,7 +6,7 @@ import numpy as _np
 import pandas as _pd
 from importlib import resources as _resources
 from . import _data_synbiosys
-from ..tools.syntaxontools import syntaxon_validate
+from ..tools.syntaxontools import syntaxon_validate as _syntaxon_validate
 
 def rvvn_syntables():
     """Presence and fidelity of species in syntaxa within the rvvn system.
@@ -120,8 +120,8 @@ def syntaxa_vvn():
     table.columns = map(str.lower, table.columns)
 
     # validate syntaxon codes
-    table['code'] = syntaxon_validate(table['code'])
-    #table['parent'] = syntaxon_validate(table['parent'])
+    table['code'] = _syntaxon_validate(table['code'])
+    #table['parent'] = _syntaxon_validate(table['parent'])
 
     # reorder columns
     colnames = ['code', 'wetnaam', 'nednaam', 'nednaam_alt', 'isparent', 'hoofdgroep', 'parent']
@@ -134,3 +134,10 @@ def syntaxa_vvn():
     table = table.set_index('code', verify_integrity=True)
 
     return table
+
+def dbversion():
+    """Return version numbner of SynBioSys database source."""
+    # read source file
+    srcfile = (_resources.files(_data_synbiosys) / 'synbiosys_dbversion.csv')
+    table = _pd.read_csv(srcfile, encoding='latin-1', dtype=object, low_memory=False)
+    return table.loc[0, 'version']

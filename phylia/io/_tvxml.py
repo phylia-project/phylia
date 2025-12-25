@@ -1,8 +1,9 @@
 
 import os
+import warnings
 import lxml.etree as ET
 import numpy as _np
-##from pandas import Series, DataFrame
+from pandas import Series, DataFrame
 import pandas as _pd
 
 #from .._core._releve import Releve
@@ -164,7 +165,12 @@ class TvXml:
         # convert columns dtypes
         for colname in tvhab.columns:
             template = self.tvhabita_template.loc[colname,:]
-            if (template['field_type']=='N'): 
+            if isinstance(template, DataFrame):
+                warnings.warn((f"Multipe definitions of field '{colname}':\n{str(template)}.'"))
+                #raise ValueError
+
+            elif (template['field_type']=='N'): 
+                # template is a series
                 if (template['field_dec']=='0'):
                     tvhab[colname] = tvhab[colname].astype('Int64')
                 else:
