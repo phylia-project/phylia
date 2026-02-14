@@ -31,9 +31,9 @@ def test_get_filetype(root=root):
 def test_get_mdbfiles(root=root):
     
     sbbprj = SbbProjects(root)
-    df1, df2 = sbbprj.get_mdbfiles()
-    assert not df1.empty
-    assert isinstance(df2, pd.DataFrame)
+    df = sbbprj.get_databases()
+    assert not df.empty
+    assert isinstance(df, pd.DataFrame)
 
 
 def test_get_projectfiles(root=root):
@@ -87,10 +87,10 @@ def test_get_rootfolder(root=root):
 def test_get_shapefiles(root=root):
 
     sbbprj = SbbProjects(root)
-    df1, df2 = sbbprj.get_shapefiles()
+    df = sbbprj.get_shapefiles()
 
-    assert not df1.empty
-    assert isinstance(df2, pd.DataFrame)
+    assert not df.empty
+    assert isinstance(df, pd.DataFrame)
 
 
 def get_tv2projects(root=root):

@@ -10,10 +10,10 @@ from openpyxl.styles.alignment import Alignment as _Alignment
 from openpyxl.worksheet.table import Table as _Table, TableStyleInfo as _TableStyleInfo
 import openpyxl as _openpyxl
 
-from . import _data_sbb_intern
-from .cmsi import vegetationtypes as _vegetationtypes
+from .. import _data_sbb_intern
+from ..cmsi import vegetationtypes as _vegetationtypes
 
-class SbbRevision2019:
+class TranslateSbbRevision2019:
     """Table with possible translations between Staatsbosbeheer 
     Catalogus and rVVN syntaxa including comments from experts.
     
@@ -41,6 +41,7 @@ class SbbRevision2019:
         ['08B-b', 'r10RG07',],
         ['11-j',  'r09RG10',],
         ['14/d',  'r32Ca03',],
+        ['14-t',  'r14RG07',],
         ['14D4',  'r14Bb02a',],
         ['14D4',  'r14Bb02',],
         ['19-h',  'r16RG08',],
@@ -274,6 +275,27 @@ class SbbRevision2019:
                 idx = translations.index.values[-1] + 1
                 translations.loc[idx, 'code_sbb'] = sbbcode
                 translations.loc[idx, 'code_rvvn_2018'] = rvvncode
+
+        # drop erroneous translation 14-v -> r32RG03
+        mask1 = translations['code_sbb']=='14-v'
+        mask2 = translations['code_rvvn_2018']=='r32RG03'
+        idx = translations[mask1&mask2].index.values[0]
+        translations = translations.drop(index=idx)
+
+        # drop erroneous translation 41A-d -> r45RG04
+        mask1 = translations['code_sbb']=='41A-d'
+        mask2 = translations['code_rvvn_2018']=='r45RG04'
+        idx = translations[mask1&mask2].index.values[0]
+        translations = translations.drop(index=idx)
+
+        # drop erroneous translation 11-j#16A-g -> r09RG10
+        mask = translations["code_rvvn_2018"]=="r09RG10"
+        idx = translations[mask].index.values
+        translations = translations.drop(index=idx)
+
+        mask2 = translations["code_rvvn_2018"]=="r09RG10"
+        assert translations[mask2].empty
+
 
         return translations
 

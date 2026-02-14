@@ -8,8 +8,8 @@ from importlib import resources as _resources
 import logging as _logging
 _logger = _logging.getLogger(__name__)
 
-from . import _data_cmsi
-from ..tools import syntaxontools as _syntaxontools
+from .. import _data_cmsi
+from ...tools import syntaxontools as _syntaxontools
 
 def vegetationtypes(typology='sbbcat', current_only=True, 
     include_mapcodes=True, include_crossclass=True, verbose=False):
@@ -145,7 +145,6 @@ class CmsiSyntaxonTable:
         self._syntaxa = self._syntaxa_src.copy()
         self._syntaxa['IsCurrent'] = self._syntaxa['IsCurrent'].replace({'1':'Yes', '0':'No'})
 
-
         # BUGFIXES: correct typos in CmsiTable syntaxa
         # ------------------------------------------
 
@@ -155,6 +154,22 @@ class CmsiSyntaxonTable:
             self._syntaxa.at[idx,'IsCurrent']='No'
         else:
             _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for 43C1g can be removed.')            
+
+
+        # 37-e IsCurrent
+        # Het r40Ab01 Pruno-Crataegetum rubetosum ulmifolii wordt in de Catallogus niet erkend
+        # Het is teveel toegesneden op Zuid-Limburg waardoor vergelijkbare gemeenschappen buiten
+        # Zuid-Limburg er niet goed inpassen. (mond med piet schipper 4 feb 2026)
+        # In plaats daarvan worden de subassociaties onderscheiden als afzonderlijke klasserompen.
+        # 37-e Koebraamgemeenschap staat op verevalllen, maar er is geen logisch alternatief
+        # gedefinieerd in de catalogus
+        code = '37-e'
+        idx = self._syntaxa[self._syntaxa['Code']==code].index.values[0]
+        if self._syntaxa.at[idx,'IsCurrent']=='No':
+            self._syntaxa.at[idx,'IsCurrent']='Yes'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {code} can be removed.')            
+
 
         # set three KOV syntaxa from vervallen to IsCurrent
         for sbbcode in ['43B-b', '43-j', '22B-a']:
@@ -171,6 +186,20 @@ class CmsiSyntaxonTable:
             self._syntaxa = self._syntaxa.drop(idx)
         else:
             _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for Revisie syntaxon {code} can be removed.')
+
+        # Drop 23B-a:
+        # A cross class syntaxon 22B-a#23-b does exist
+        # 22B-a RG Honckenya peploides-[Salsolo-Honckenyion peploides/Ammophiletea]
+        # 23-b  RG Honckenya peploides-[Salsolo-Honckenyion peploides/Ammophiletea]
+        # However, this syntaxon does not:
+        # 23B-a RG Honckenya peploides-[Salsolo-Honckenyion peploides/Ammophilion arenariae]
+        code = '23B-a'
+        if not self._syntaxa[self._syntaxa['Code']==code].empty:
+            idx = self._syntaxa[self._syntaxa['Code']==code].index.values[0]
+            self._syntaxa = self._syntaxa.drop(idx)
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for Sbb syntaxon {code} can be removed.')
+
 
         # BUFIX: Correct names for klasseoverschrijdende syntaxa
         # ------------------------------------------------------
@@ -218,7 +247,7 @@ class CmsiSyntaxonTable:
         sbbcode = '32/b'
         idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
         if self._syntaxa.loc[idx,'LongScientificName']=='DG Impatiens glandulifera-[Convolvulo-Filipenduletea]':
-            self._syntaxa.loc[idx,'LongScientificName']='DG Impatiens glandulifera-[Conv-Filipen/Galio-Urticetea]'
+            self._syntaxa.loc[idx,'LongScientificName']='DG Impatiens glandulifera-[Convolvulo-Filipenduletea/Galio-Urticetea]'
             self._syntaxa.loc[idx,'ShortScientificName']='DG Impatiens glandulifera-[Convolvulo-Filipenduletea/Galio-Urticetea]'
             self._syntaxa.loc[idx,'LongCommonName']='DG Reuzenbalsemien-[Klasse der natte strooiselruigten/Klasse van de nitrofiele zomen]'
             self._syntaxa.loc[idx,'ShortCommonName']='DG Reuzenbalsemien-[Klasse der natte strooiselruigten/Klasse van de nitrofiele zomen]'
@@ -228,10 +257,35 @@ class CmsiSyntaxonTable:
         sbbcode = '33/e'
         idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
         if self._syntaxa.loc[idx,'LongScientificName']=='DG Impatiens glandulifera-[Galio-Urticetea]':
-            self._syntaxa.loc[idx,'LongScientificName']='DG Impatiens glandulifera-[Conv-Filipen/Galio-Urticetea]'
+            self._syntaxa.loc[idx,'LongScientificName']='DG Impatiens glandulifera-[Convolvulo-Filipenduletea/Galio-Urticetea]'
             self._syntaxa.loc[idx,'ShortScientificName']='DG Impatiens glandulifera-[Convolvulo-Filipenduletea/Galio-Urticetea]'
             self._syntaxa.loc[idx,'LongCommonName']='DG Reuzenbalsemien-[Klasse der natte strooiselruigten/Klasse van de nitrofiele zomen]'
             self._syntaxa.loc[idx,'ShortCommonName']='DG Reuzenbalsemien-[Klasse der natte strooiselruigten/Klasse van de nitrofiele zomen]'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
+
+        sbbcode = '16-y'
+        idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
+        if self._syntaxa.loc[idx,'LongScientificName']=='RG Potentilla reptans-[Plantaginetea majoris/Molinio-Arrhenatheretalia]':
+            self._syntaxa.loc[idx,'LongScientificName'] ='RG Potentilla reptans-[Plantaginetea majoris/Molinio-Arrhenatheretea]'
+            self._syntaxa.loc[idx,'ShortScientificName']='RG Potentilla reptans-[Plantaginetea majoris/Molinio-Arrhenatheretea]'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
+
+        sbbcode = '43-o'
+        idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
+        if self._syntaxa.loc[idx,'LongScientificName']=='RG Rubus caesius-Salix alba-[Salicetea purpureae-uerco-Fagetea]':
+            self._syntaxa.loc[idx,'LongScientificName'] ='RG Rubus caesius-Salix alba-[Salicetea purpureae/Querco-Fagetea]'
+            self._syntaxa.loc[idx,'ShortScientificName']='RG Rubus caesius-Salix alba-[Salicetea purpureae/Querco-Fagetea]'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
+
+        sbbcode = '09-m'
+        idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
+        if self._syntaxa.loc[idx, 'LongCommonName']=='RG':
+            self._syntaxa.loc[idx,'ShortScientificName']='RG Salix repens-[Parvocaricetea]'
+            self._syntaxa.loc[idx,'ShortCommonName']='RG Kruipwilg [Klasse der kleine Zeggen]'
+            self._syntaxa.loc[idx,'LongCommonName']='RG Kruipwilg [Klasse der kleine Zeggen]'
         else:
             _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
 
@@ -244,26 +298,29 @@ class CmsiSyntaxonTable:
         else:
             _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
 
+        sbbcode = '14-v'
+        idx = self._syntaxa[self._syntaxa['Code']==sbbcode].index.values[0]
+        if self._syntaxa.loc[idx,'LongCommonName']=='RG Boerenwormkruid-Duizendblad-[Klasse der droge graslanden op zandgrond/Bijvoetklasse]':
+            self._syntaxa.loc[idx,'LongCommonName']='RG Ruige zegge-[Klasse der droge graslanden op zandgrond/Bijvoetklasse]'
+            self._syntaxa.loc[idx,'ShortCommonName']='RG Ruige zegge-[Klasse der droge graslanden op zandgrond/Bijvoetklasse]'
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for {sbbcode} can be removed.')
+
+
         # BUGFIX: LongScientificNames with -etalia
-        veg = self._syntaxa.copy()
-        mask=veg['VegClas']=='TBO Nationale Vegetatie typologie'
-        veg = veg[mask].copy()
-        # add column with syntaxlevel
-        veg['SynLevel'] = _pd.Categorical(
-            values = veg['Code'].apply(
-            _syntaxontools.syntaxonlevel, reference='sbbcat'),
-            categories = self.SYNTAXON_ORDER,
-            ordered=True,
-            )
-        mask = veg['LongScientificName'].str.endswith('alia')
-        mask2 = veg['SynLevel']=='verbond'
-        if veg[mask&mask2].empty:
-            print(f"Bugfix for LongScientificnames with -etalia can be removed.")
-        if not veg[mask&mask2].empty:
-            for idx, row in veg[mask&mask2].iterrows():
-                mask = self._syntaxa['GUID']==row['GUID']
-                idx = self._syntaxa[mask].index[0]
-                self._syntaxa.loc[idx,'LongScientificName']=self._syntaxa.loc[idx,'ShortScientificName']
+        sbbcodes = [
+           '01A', '02A', '03A', '04A', '04B', '04C', '05A', '05B', '05C', '06A',
+           '07A', '08A', '08B', '09A', '09B', '10A', '11A', '11B', '12A', '12B',
+           '13A', '14A', '14B', '14C', '15A', '16A', '16B', '17A', '18A', '19A',
+           '20A', '22A', '23A', '24A', '25A', '26A', '27A', '28A', '29A', '30A',
+           '30B', '31A', '31B', '31C', '32A', '32B', '33A', '34A', '35A', '36A',
+           '37A', '38A', '39A', '40A', '41A', '42A', '43A',
+           ]
+        mask = self._syntaxa['Code'].isin(sbbcodes)
+        if not self._syntaxa[mask][self._syntaxa[mask]['LongScientificName']!=self._syntaxa[mask]['ShortScientificName']].empty:
+            self._syntaxa.loc[mask,'LongScientificName'] = self._syntaxa.loc[mask,'ShortScientificName']
+        else:
+            _logger.warning(f'Bugfix in CmsiSyntaxonTable.init for "-etalia" can be removed.')
 
 
         # validate spelling of syntaxon codes
@@ -526,43 +583,6 @@ class CmsiSyntaxonTable:
         return mapcodes
 
 
-class CmsiTaxonTable:
-    """Manage tables with taxa from CMSi.""" 
-
-    def __init__(self):
-
-        # get package data
-        srcfile = (_resources.files(_data_cmsi) / 'CMSiTaxon.csv')
-        self._taxontable = _pd.read_csv(srcfile, sep=';', 
-            encoding='utf-8', dtype='object')
-        self._taxontable = self._taxontable.set_index(
-            'Code', drop=True, verify_integrity=True)
-
-        srcfile = (_resources.files(_data_cmsi) / 'CMSiTaxonSynonyms.csv')
-        self._taxon_synonyms = _pd.read_csv(srcfile, sep=';', 
-            encoding='utf-8', dtype='object')
-        self._taxon_synonyms = self._taxon_synonyms.set_index(
-            'TaxonCode', drop=True, verify_integrity=True)
-
-        srcfile = (_resources.files(_data_cmsi) / 'CMSiPreferredTaxonRegister.csv')
-        self._taxon_preferred = _pd.read_csv(srcfile, sep=';', 
-            encoding='utf-8', dtype='object')
-        self._taxon_preferred = self._taxon_preferred.set_index(
-            'PreferredTaxonCode', drop=True, verify_integrity=True)
-
-
-    def __repr__(self):
-        return f'{self.__class__.__name__} (n={len(self)})'
-
-
-    def __len__(self):
-        return len(self._taxontable)
-
-
-    def get_planten(self):
-        """Return table of plant names."""
-        mask = self._taxon_preferred['TaxonGroupName'].isin(['Vaatplanten','Korstmossen','Mossen','Kranswieren',])
-        return self._taxon_preferred[mask]
 
 
 

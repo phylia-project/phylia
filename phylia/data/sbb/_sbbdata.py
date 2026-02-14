@@ -3,11 +3,13 @@ Tables developed by Staatsbosbeheer.
 """
 
 from importlib import resources as _resources
+import logging as _logging
 ##from . import _synbiosys_data
 import pandas as _pd
+from .. import _data_sbb_intern
+from ..syntra import TranslateSbbRevision2019
 
-from . import _data_sbb_intern
-from ._sbb_revision_2019 import SbbRevision2019
+_logger = _logging.getLogger(__name__)
 
 
 def sbbcat_syntaxa():
@@ -17,6 +19,10 @@ def sbbcat_syntaxa():
     Notes
     -----
     This table has been developed by Piet Schipper.
+    
+    """
+    _logger.warning((f"This method was deprecated. Use 'phylia.data.cmsi.vegetationtypes' instead."))
+    return _pd.DataFrame()
     """
     srcfile = (_resources.files(_data_sbb_intern) / 'sbbcat_syntaxonnames.csv')
     sbbcat = _pd.read_csv(srcfile, encoding='latin-1')
@@ -27,6 +33,8 @@ def sbbcat_syntaxa():
     mask2 = sbbcat['sbbcat_wetname'].str.startswith('NVT')
     mask3 = sbbcat['sbbcat_wetname'].str.startswith('VOORLOPIG ONBEKEND')
     return sbbcat[~mask1 & ~mask2 & ~mask3]
+    """
+
 
 def sbbcat_characteristic():
     """Return table with characteristic vegetation types for all
@@ -85,7 +93,23 @@ def sbbcat_revision_2019():
     #translations = _pd.read_csv(srcfile, encoding='latin-1', dtype='object')
     #translations.index.name = 'translation_id'
     #return translations
-    rev = SbbRevision2019()
+    rev = TranslateSbbRevision2019()
     return rev.revisiontable()
     
-
+    
+def _sbbcat_diagnostic_species_2014():
+    """Return table of diagnstic species for Staatsbosbeheer Catalogus 
+    syntaxa. 
+    
+    Notes
+    -----
+    The source for this table was a spreadsheet created by Piet Schipper 
+    that contained a list of syntaxa and diagnostic species. This 
+    spreadsheet was distributed among users of the Staatsbosbeheer 
+    Catalogus and when users refer to the Catalogus, they usually mean
+    this spreadsheet. The spreadsheet was actively maintained till about 
+    2014.
+        
+    """
+    srcfile = (_resources.files(_data_sbb_intern) / 'sbbcatalogus2014_diagnostic_species.csv')
+    return _pd.read_csv(srcfile, encoding='latin-1')

@@ -2,9 +2,9 @@
 import numpy as _np
 import pandas as _pd
 import re as _re
-from ._sbb_revision_2019 import SbbRevision2019
-from .cmsi import CmsiSyntaxonTable
-from ..tools import syntaxontools
+from . import TranslateSbbRevision2019
+from ..cmsi import CmsiSyntaxonTable
+from ...tools import syntaxontools
 
 def translate_sbb_to_rvvn(lowest_only=False, include_subass=True):
     """Return table of Staatsbosbeheer Catalogus syntaxa with 
@@ -51,7 +51,7 @@ def translate_rvvn_to_sbb(lowest_only=False, include_subass=True):
 
 
 def sbbcrossclasscodes():
-    """Return table of crossclasscode for alll class crossing syntaxa in Staatsbosbeheer Catalogus."""
+    """Return table of crossclasscode for all class crossing syntaxa in Staatsbosbeheer Catalogus."""
     synta = SyntaxonTranslator()
     return synta.crossclasscodes()
 
@@ -87,9 +87,6 @@ class SyntaxonTranslator:
         sbbcat = self._cst.vegetationtypes(typology='sbbcat', 
             current_only=False, include_mapcodes=False,
             verbose=True)
-        ##sbbcat = _vegetationtypes(
-        ##    typology='sbbcat', current_only=False, include_mapcodes=False,
-        ##    verbose=True)
 
         # drop confusing columns and rows
         sbbcat = sbbcat.drop(columns=['VegClas', 'GUID', 'Parent', 
@@ -105,9 +102,6 @@ class SyntaxonTranslator:
         rvvn = self._cst.vegetationtypes(typology='rvvn', 
             current_only=False, include_mapcodes=False,
             verbose=True)
-        ##rvvn = phylia.data.cmsi.vegetationtypes(
-        ##    typology='rvvn', current_only=False, include_mapcodes=False,
-        ##    verbose=True)
 
         # drop confusing columns and rows
         rvvn = rvvn.drop(columns=['VegClas', 'GUID', 'Parent', 
@@ -487,7 +481,9 @@ class SyntaxonTranslator:
         """
 
         translations = self._rvvn_back_to_rvvn(
-            lowest_only=lowest_only, include_subass=include_subass).rename(
+            lowest_only=lowest_only, include_subass=include_subass)
+
+        translations = translations.rename(
             columns={
             'sbbcat_vertaling':'SbbVertaling',
             'revisie_terugvertaling' : 'RevisieTerugvertaling',
@@ -503,6 +499,7 @@ class SyntaxonTranslator:
         # merge translations to cmsi_rev
         cmsi_rev = _pd.merge(cmsi_rev, translations, left_index=True, right_index=True, how='left')
         cmsi_rev['SbbVertalingCount'] = cmsi_rev['SbbVertalingCount'].fillna(0).astype(int)
+        cmsi_rev['SbbVertalingHistorischCount'] = cmsi_rev['SbbVertalingHistorischCount'].fillna(0).astype(int)
         cmsi_rev['RevisieTerugvertalingCount'] = cmsi_rev['RevisieTerugvertalingCount'].astype(float).fillna(0).astype(int)
 
         # add column with SbbVertalingLevel
@@ -529,8 +526,8 @@ class SyntaxonTranslator:
 
         columns = [
             'SbbVertaling',
-            'SbbVertalingHistorisch',
             'RevisieTerugvertaling',
+            'SbbVertalingHistorisch',
             'SbbVertalingLevel',
             'SbbVertalingIsLowest',
             'SbbIdentiek',
@@ -539,8 +536,8 @@ class SyntaxonTranslator:
             'SynClass',
             'IsLowest',
             'SbbVertalingCount',
-            'SbbVertalingHistorischCount',
             'RevisieTerugvertalingCount',
+            'SbbVertalingHistorischCount',
             'ShortScientificName',
             'LongScientificName',
             'ShortCommonName',

@@ -135,6 +135,7 @@ def syntaxa_vvn():
 
     return table
 
+
 def dbversion():
     """Return version numbner of SynBioSys database source."""
     # read source file

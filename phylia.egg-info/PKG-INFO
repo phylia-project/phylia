@@ -1,6 +1,6 @@
-Metadata-Version: 2.1
+Metadata-Version: 2.4
 Name: phylia
-Version: 0.0.3
+Version: 0.0.4
 Summary: phylia is a python package for phytosociological information analysis.
 Author-email: Thomas de Meij <mailphylia@gmail.com>
 Project-URL: Homepage, https://github.com/phylia-project/phylia.git
@@ -12,12 +12,14 @@ Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 License-File: LICENSE
 Requires-Dist: geopandas
+Requires-Dist: fiona
 Requires-Dist: numpy
 Requires-Dist: pandas
 Requires-Dist: matplotlib
 Requires-Dist: pyodbc
 Requires-Dist: lxml
 Requires-Dist: plotly
+Dynamic: license-file
 
 # phylia
 #

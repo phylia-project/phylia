@@ -46,7 +46,7 @@ class SbbProjects:
 
     get_filetype
         Return table with all files of given filetype under root.
-    get_mdbfiles
+    get_databases
         Return table with project mdbfiles.
     get_shapefiles
         Return table with project shapefiles.
@@ -75,10 +75,15 @@ class SbbProjects:
         
     """
 
-    DEFAULT_DISCARDTAGS = ['conversion','ConversionPGB','catl','ctl','soorten',
-        'kopie','test','oude versie','db1','test','fout', 'copy',
-        'themas','florakartering','flora','toestand','backup',
-        'foutmelding','Geodatabase',]
+    DEFAULT_DISCARDTAGS = ['conversion','ConversionPGB','soorten',
+        'kopie','test','oude versie','db1','test','fout','copy',
+        'themas','florakartering','toestand','backup',
+        'Backup',
+        'foutmelding','Geodatabase','New Personal Geodatabase',
+        'tijdelijke map',]
+
+    DEFAULT_PREFERREDTAGS = ['import CMSi', 'cmsi', 'naar Kievit', 'upload cmsi', 'inladen in cmsi',
+        'cmsi import', 'import'] # 'catl','ctl',
 
     INDEXCOL1 = 'provincie'
     INDEXCOL2 = 'project'
@@ -217,14 +222,15 @@ class SbbProjects:
             
         """
         prjtbl = self.get_projectfolders()
-        prjdirs = _pd.Series(index=filetbl.index,dtype='object')
+        prjdirs = _pd.Series(index=filetbl.index, dtype='object')
         for idx in prjdirs.index:
-            prv = filetbl.loc[idx,self.INDEXCOL1]
-            prj = filetbl.loc[idx,self.INDEXCOL2]
+            prv = filetbl.loc[idx, self.INDEXCOL1]
+            prj = filetbl.loc[idx, self.INDEXCOL2]
             prjdirs.loc[idx] = prjtbl.loc[(prv,prj)]
         filedirs = filetbl[pathcol].apply(lambda x:_os.path.dirname(x))
         mask = filedirs==prjdirs
         return mask
+
 
     def get_filetype(self, filetype=None, relpaths=True):
         """
@@ -248,15 +254,17 @@ class SbbProjects:
         the table that is returned.   
            
         """
-        filetype = self._validate_filetype(filetype)
+        #filetype = self._validate_filetype(filetype)
         if filetype is None:
             _logger.warning(f'Filetype is None. All files wil be listed.')
+        if isinstance(filetype, str):
+            filetype = filetype.lstrip('.')
 
         fpathcol='fpath'
         fnamecol='fname'
-        if isinstance(filetype, str):
-            fpathcol=f'{filetype}path'
-            fnamecol=f'{filetype}name'
+        #if isinstance(filetype, str):
+        #    fpathcol=f'{filetype}path'
+        #    fnamecol=f'{filetype}name'
 
         prjtbl = self._projects
 
@@ -304,8 +312,8 @@ class SbbProjects:
 
         Returns
         -------
-        pd.DataFrame
-
+        DataFrame
+            
         """
         filetbl = self.get_projectfiles()
 
@@ -314,7 +322,7 @@ class SbbProjects:
             logger.error(f'{filetbl} is not a DataFrame')
             return DataFrame()
         if colname is None:
-            colname = 'shpname'
+            colname = 'fname'
         """
         if isinstance(colname, str): 
             if colname not in filetbl.columns:
@@ -358,7 +366,7 @@ class SbbProjects:
         # is present, return a table with all filenames in a project
         # and let the user sort it all out.
         for (provincie,project),tbl in masktbl.groupby([self.INDEXCOL1,self.INDEXCOL2]):
-            any_masksel = tbl['masksel'].any()
+            any_masksel = tbl['is_selected'].any()
             if 'likename' in list(tbl):
                 any_likename = tbl['likename'].any()
             else:
@@ -375,30 +383,33 @@ class SbbProjects:
         return ambiguous
 
 
-    def get_mdbfiles(self, discard_tags=False, priority_filepaths=None):
+    def get_databases(self, prefer_tags=False, discard_tags=False, 
+        priority_filepaths=None):
         """
         Return table with mdbfiles by project and table with projects 
         for which no single mdb-file could be selected.
 
         Parameters
         ----------
-        discard_tags : {False, True, list of tags}
-            True: Use default list of tags to discard projectfolders 
-            with names that indicate copies or discarded data.
-            List of strings: Discard projectfolders with any of the
-            strings in their filepath.
+        prefer_tags : {False, True, list of strings}
+            False: Do not us preferred tags at all (default)
+            True: Use default list of preferred tags.
+            List of strings: Prefer filepaths with any of the
+            strings in their filepath (case sensitive).
+        discard_tags : {False, True, list of strings}
             False: Do not us tags at all (default)
+            True: Use default list of discard_tags.
+            List of strings: Discard projectfolders with any of the
+            given strings in their filepath (case sensitive).
         priority_filepaths : list of string, optional
-            Mdb filepaths in this list are selected as projectfiles.
-            Other candidate projectfiles will be ignored.
+            Mdb filepaths in this list are selected as projectfiles,
+            if present. Other possible candidate projectfiles will be 
+            ignored, regardless the other options.
 
         Returns
         -------
         mdbsel : DataFrame
             Table with selected mdbfiles.
-        ambiguous : DataFrame
-            Table with projects for which multiple mdbfiles remain
-            present after filtering.
 
         Notes
         -----
@@ -417,55 +428,94 @@ class SbbProjects:
         when multiple files are present.
             
         """
-        filetbl = self.get_filetype(filetype='mdb', relpaths=True)
+        mdb = self.get_filetype(filetype='mdb', relpaths=True)
+        accdb = self.get_filetype(filetype='accdb', relpaths=True)
+        filetbl = _pd.concat([mdb, accdb])
+        filetbl = filetbl.sort_values('fpath').reset_index(drop=True)
 
         # set variable "discard_tags"
+        if discard_tags:
+            if isinstance(discard_tags, list):
+                if not all([isinstance(item, str) for item in discard_tags]):
+                    raise ValueError((f'Not al given diascard tags are strings '
+                        f'in {discard_tags}.'))
+            else:
+                discard_tags = self.DEFAULT_DISCARDTAGS
         if not discard_tags:
             discard_tags = []
+
+        # set variable "prefer_tags"
+        if prefer_tags:
+            if isinstance(prefer_tags, list):
+                if not all([isinstance(item, str) for item in prefer_tags]):
+                    raise ValueError((f'Not al given diascard tags are strings '
+                        f'in {prefer_tags}.'))
+            else:
+                prefer_tags = self.DEFAULT_PREFERREDTAGS
+        if not prefer_tags:
+            prefer_tags = []
+
+        # set variable "priority filepaths"
+        if not priority_filepaths:
+            priority_filepaths = []
         else:
-             if isinstance(discard_tags, list):
-                if not all([isinstance(item, str) for item in discard_tags]):
-                    raise ValueError((f'Not al given tags are strings '
-                        f'in {discard_tags}.'))
-             else:
-                discard_tags = self.DEFAULT_DISCARDTAGS
+            if not all([isinstance(item, str) for item in priority_filepaths]):
+                raise ValueError((f'Not al given prefer tags are strings '
+                    f'in {priority_filepaths}.'))
 
-        # mask for mdbfile in project directory
-        mask_prjdir = self._file_in_projectdir(filetbl, pathcol='mdbpath')
+        # mask for selecting all mdbfiles in project directory
+        mask_prjdir = self._file_in_projectdir(filetbl, pathcol='fpath')
 
-        # mask for tags in pathfilter
-        if discard_tags:
-            ##lowertags = [x.lower() for x in use_discard_tags]
-            ##mask_fpath = filetbl['mdbpath'].str.lower().str.contains(
-            ##    '|'.join(lowertags),na=False,regex=True,case=False)
-            ##mask_fpath = filetbl['mdbpath'].str.contains(
-            ##    '|'.join(use_discard_tags),na=False,regex=True,case=False)
-            mask_fpath = filetbl['mdbpath'].apply(
-                lambda x: any([tag.lower() in str(x).lower() for tag in discard_tags]))
-            
-            sumfpath = sum(mask_fpath)
-            _logger.info((f'{sumfpath} rows with mdb-files have been '
-                f'marked as copies based on given tags.'))
+        # mark files given as priority filepaths
+        if priority_filepaths:
+            mask_priority_filepaths = filetbl['fpath'].isin(priority_filepaths)
         else:
-            mask_fpath = _pd.Series(data=False,index=filetbl.index)
+            mask_priority_filepaths = _pd.Series(data=False, index=filetbl.index)
 
+        # mask for selecting discard_tags present in filepath
+        ##if discard_tags:
+        mask_discardtag = filetbl['fpath'].apply(
+            lambda x: any([tag in str(x) for tag in discard_tags]))
+        
+        #sumfpath = sum(mask_discardtag)
+        #_logger.info((f'{sumfpath} rows with mdb-files have been '
+        #    f'marked as copies based on given tags.'))
+        ##else:
+        ##    mask_discardtag = _pd.Series(data=False, index=filetbl.index)
+
+        # mask for selecting prefer_tags present in filepath
+        ##if prefer_tags:
+        mask_prefertag = filetbl['fpath'].apply(
+            lambda x: any([tag in str(x) for tag in prefer_tags]))
+        
+        #sumfpath = sum(mask_preferredtag)
+        #_logger.info((f'{sumfpath} rows with mdb-files have been '
+        #    f'marked as preferred file based on given tags.'))
+        ##else:
+        ##    mask_preferredtag = _pd.Series(data=False, index=filetbl.index)
 
         # masktbl is a temporary copy of filetbl with columns for masking
         # mask_fname and mask_prjdir are series with the same index
         # as DataFrame filetbl.
         masktbl = filetbl.copy()
-        masktbl['maskprj'] = mask_prjdir
-        masktbl['maskfpath'] = ~mask_fpath
-        masktbl['masksel'] = False
-        if priority_filepaths:
-            masktbl['isin_priority_filepaths'] = masktbl['mdbpath'].isin(priority_filepaths)
-        else:
-            masktbl['isin_priority_filepaths'] = False
+        masktbl['isin_prjdir'] = mask_prjdir
+        masktbl['has_discardtag'] = mask_discardtag
+        masktbl['has_prefertag'] = mask_prefertag
+        masktbl['isin_priority_filepaths'] = mask_priority_filepaths
+        masktbl['is_selected'] = False # to be set in selection process
 
         # step-wise select most probable mdb projectfile
+        lastproject = None
         for (provincie, project), tbl in masktbl.groupby([self.INDEXCOL1, self.INDEXCOL2]):
 
-            ##mask = tbl['mdbpath'].isin(priority_filepaths)
+            if lastproject is None:
+                lastproject = project
+                idx = None
+            if lastproject!=project:
+                idx = None
+            if idx is not None:
+                continue # selected path has allready been found
+
             if not tbl[tbl['isin_priority_filepaths']==True].empty:
                 # at least one mdb path is in list of preferred mdbs,
                 # choose that filepath
@@ -473,36 +523,52 @@ class SbbProjects:
             elif len(tbl)==1:
                 # just one mdb in entire project tree structure
                 idx = tbl.index[0]
-            elif len(tbl[tbl['maskprj']])==1:
-                # exactly one mdb in prjdir
-                idx = tbl[tbl['maskprj']].index[0]
-            elif len(tbl[tbl['maskfpath']])==1:
+            elif len(tbl[tbl['has_prefertag']])==1:
                 # only one mdbfile found in entire tree structure 
-                # after excluding unlikely files
-                idx = tbl[tbl['maskfpath']].index[0]
-            elif len(tbl[tbl['maskprj']&tbl['maskfpath']])==1:
+                # with a preferred_tag in filepath
+                idx = tbl[tbl['has_prefertag']].index[0]
+            elif len(tbl[~tbl['has_discardtag']])==1:
+                # only one mdbfile found in entire tree structure 
+                # after excluding files with a discard_tag in
+                # their filepath
+                idx = tbl[~tbl['has_discardtag']].index[0]
+            elif len(tbl[tbl['isin_prjdir']&tbl['has_prefertag']&~tbl['has_discardtag']])==1:
                 # only one mdb in prjdir after discarding unlikely 
                 # files by pathname
-                idx = tbl[tbl['maskprj']&tbl['maskfpath']].index[0]
+                idx = tbl[tbl['isin_prjdir']&tbl['has_prefertag']&~tbl['has_discardtag']].index[0]
+            elif (len(tbl[tbl['isin_prjdir'] & ~tbl['has_discardtag']])==1):
+                # none of the previous selections returned exactly one mdbfile
+                # as a last resort: pick the best possible file in the project
+                # folder, if present
+                idx = tbl[tbl['isin_prjdir']&~tbl['has_discardtag']].index[0]
             else:
-                idx = None
+                pass ##idx = None
 
             if idx is not None:
                 # mark chosen file as selected
-                masktbl.loc[idx,'masksel']=True
+                masktbl.loc[idx,'is_selected']=True
 
+
+        """
         # create table of projects with selected mdb files
-        mdbsel = filetbl[masktbl['masksel']]
+        mdbsel = filetbl[masktbl['is_selected']]
 
         # create table of projects with to many ambiguous files to 
         # select a project mdb file
         ambiguous = self._ambiguous_filepaths(masktbl)
 
         return mdbsel, ambiguous
+        """
+        # mark projects without selected mdb file as ambiguous
+        masktbl['project_ambiguous'] = masktbl.groupby(
+            by=[self.INDEXCOL1, self.INDEXCOL2])['is_selected'].transform(
+                lambda x:not any(x.values))
+
+        return masktbl
 
 
-    def get_shapefiles(self, shapetype='polygon', priority_filepaths=None, 
-        column_prefix=None,):
+    def get_shapefiles(self, shapetype='polygon', priority_folders=None,
+        priority_filepaths=None, column_prefix=None):
         """
         Return table with project shapefiles and table with possible 
         projectfiles for projects where no single projectfile could be 
@@ -512,12 +578,14 @@ class SbbProjects:
         ----------
         shapetype : {'polygon','line'}, default 'polygon'
             Type of shapefile to filter.
-        column_prefix : str, optional
-            Column in filetbl with filename. If None, default name is
-            inferred from value of shptype.
+        priority_folders : 
+            
         priority_filepaths : list of strings, optional
             Filepaths equal to a string in this list will allways be 
             selected as project shapefile, discarding other files.
+        column_prefix : str, optional
+            Column in filetbl with filename. If None, default name is
+            inferred from value of shptype.
 
         Returns
         -------
@@ -538,8 +606,8 @@ class SbbProjects:
         """
         # TODO: Add functionality for ignoring filepaths with names that
         # indicate folders that have been copied or discarded (like in 
-        # get_mdbfiles()
-
+        # get_databases()
+       
         filetbl = self.get_filetype(filetype='shp', relpaths=True)
 
         # masks for filename contains keyword
@@ -556,8 +624,8 @@ class SbbProjects:
         else:
             raise(f'{shapetype} is not a valid shapefile type. ')
 
-        namecol='shpname'
-        pathcol='shppath'
+        namecol='fname'
+        pathcol='fpath'
 
         isname = filetbl[namecol].str.lower()==key_isname
         likename = filetbl[namecol].str.lower().str.contains(key_contains)
@@ -565,14 +633,19 @@ class SbbProjects:
         # mask for file in project directory
         masktbl = filetbl.copy()
         mask_prjdir = self._file_in_projectdir(masktbl,pathcol=pathcol)
+        mask_preferdir = filetbl['fpath']
+
+        folders = filetbl['fpath'].apply(lambda x:_os.path.dirname(x)+"\\")
+        mask_folders = [folder in priority_folders for folder in folders]
 
         # masktbl is a temporary copy of filetbl with columns for masking
         # mask_fname and mask_prjdir are series with the same index
         # as DataFrame filetbl.
         masktbl['isname'] = isname
         masktbl['likename'] = likename
+        masktbl['in_priorityfolder'] = mask_folders
         masktbl['inprj'] = mask_prjdir
-        masktbl['masksel'] = False
+        masktbl['is_selected'] = False
 
 
         # step-wise select most probable shp projectfile
@@ -581,6 +654,12 @@ class SbbProjects:
             if len(tbl[tbl['isname']])==1: 
                 # only one file named 'vlakken'
                 idx = tbl[tbl['isname']].index[0]
+            elif len(tbl[tbl['isname']&tbl['in_priorityfolder']])==1:
+                # only one file vlakken in priority folder
+                idx = tbl[tbl['isname']&tbl['in_priorityfolder']].index[0]
+            elif len(tbl[tbl['likename']&tbl['in_priorityfolder']])==1: 
+                # only one file with name like vlakken in priority folder
+                idx = tbl[tbl['likename']&tbl['in_priorityfolder']].index[0]
             elif len(tbl[tbl['isname']&tbl['inprj']])==1:
                 # only one file vlakken in projectfolder
                 idx = tbl[tbl['isname']&tbl['inprj']].index[0]
@@ -598,25 +677,27 @@ class SbbProjects:
             # been choosen based on automated selection.
             # Parameter shpfilepaths contains a list of filepaths of 
             # shapefiles. If any of these filepaths is present in 
-            # column shppath, this file will be selected.
+            # column fpath, this file will be selected.
                 mask = tbl[pathcol].isin(priority_filepaths)
                 if len(tbl[mask])==1:
                     idx = tbl[mask].index[0]
 
             if idx is not None:
-                masktbl.loc[idx,'masksel']=True
+                masktbl.loc[idx,'is_selected']=True
 
+
+        """
         self._shpfilter = masktbl
-
         # rename columns in table
         if column_prefix is not None:
             filetbl = filetbl.rename(columns={
-                'shpname': f'{column_prefix}name',
-                'shppath': f'{column_prefix}path',
+                'fname': f'{column_prefix}name',
+                'fpath': f'{column_prefix}path',
                 })
 
         # create table of projects with selected project files
-        shpsel = filetbl[masktbl['masksel']].reset_index(drop=True)
+
+        shpsel = filetbl[masktbl['is_selected']].reset_index(drop=True)
         shpsel = shpsel.sort_values(by=[self.INDEXCOL1,self.INDEXCOL2])
 
         # create table of projects with to many ambiguous files to 
@@ -625,6 +706,8 @@ class SbbProjects:
         ambiguous = ambiguous.sort_values(by=[self.INDEXCOL1,self.INDEXCOL2])
 
         return shpsel, ambiguous
+        """
+        return masktbl
 
 
     def get_tv2projects(self, relpaths=True, verbose=True, preferred=[]):
@@ -934,10 +1017,15 @@ class SbbProjects:
             Folderpaths in this list will be set as best Turboveg2
             datasource folder.
             
+        Returns
+        -------
+        DataFrame
+            Table with project file paths.
+            
         """
 
         # find mdb files
-        mdbsel, ambigous = self.get_mdbfiles( 
+        mdbsel = self.get_databases( 
             discard_tags=discard_tags,
             priority_filepaths=mdbpaths
             )
@@ -949,12 +1037,12 @@ class SbbProjects:
         if ambiprj!=0:
             _logger.info((f'{ambiprj} projects with multiple mdb-files '
                 f'where no best source file was chosen. Mdb filepath '
-                f'has been set to Nan. Call "get_mdbfiles()" '
+                f'has been set to Nan. Call "get_databases()" '
                 f'for a table of possible sourcefiles.'))
         """
 
         # find polygon shapefiles
-        polysel, ambigous = self.get_shapefiles(shapetype='polygon',
+        polysel = self.get_shapefiles(shapetype='polygon',
             priority_filepaths=polygonpaths)
         polysel = polysel.set_index(
                 keys=[self.INDEXCOL1,self.INDEXCOL2],verify_integrity=True)
@@ -969,7 +1057,7 @@ class SbbProjects:
         """
 
         # find line shapefiles
-        linesel,ambigous = self.get_shapefiles(shapetype='line',
+        linesel = self.get_shapefiles(shapetype='line',
             priority_filepaths=linepaths)
         linesel = linesel.set_index(
                 keys=[self.INDEXCOL1, self.INDEXCOL2], verify_integrity=True)
@@ -1035,7 +1123,7 @@ class SbbProjects:
         The names of mapping projects in de Staatsbosbeheer folder
         structure are composed of several elements that contain 
         information about the project (number, name and year). 
-        Unfortunately, not all follders have been named consistently,
+        Unfortunately, not all folders have been named consistently,
         but this function tries to retrieve the sepereate element for 
         each folder.
         The column "match" gives information about the regular 
