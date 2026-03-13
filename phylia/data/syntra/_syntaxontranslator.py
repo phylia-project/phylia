@@ -5,6 +5,8 @@ import re as _re
 from . import TranslateSbbRevision2019
 from ..cmsi import CmsiSyntaxonTable
 from ...tools import syntaxontools
+from ...tools.syntaxontools import syntaxonlevel as get_syntaxonlevel
+
 
 def translate_sbb_to_rvvn(lowest_only=False, include_subass=True):
     """Return table of Staatsbosbeheer Catalogus syntaxa with 
@@ -65,7 +67,7 @@ class SyntaxonTranslator:
 
         self._cst = CmsiSyntaxonTable()
 
-        self._rev = SbbRevision2019()
+        self._rev = TranslateSbbRevision2019()
         self._translation_rules = self._rev.translations(from_sys='sbbcat', to_sys='rvvn')
 
         self._sbbcat = self.syntaxa_sbb()
@@ -157,13 +159,11 @@ class SyntaxonTranslator:
         return translation_rules
 
 
-    def _sbb_to_rvvn(self, lowest_only=False, include_subass=True):
+    def _sbb_to_rvvn(self, include_subass=True): #lowest_only=False, 
         """Return table of translations from sbbcat to rvvn.
         
         Parameters
         ----------
-        lowest_only : {'Yes','No'}
-            Return translations for lowest level of rvvn only.
         ingnore_subassociaties :
             Translations to rvvn subassociaties are translated to 
             parent rvvn associatie.
@@ -173,43 +173,24 @@ class SyntaxonTranslator:
         Table with translation of Sbb Catalogus syntaxa to rvvn sysntaxa.
             
         """
-        if include_subass:
-            # associaties must be present in selection to translate
-            # subassociaties to associaties
-            lowest_only=False
-
-        translation_rules = self.translation_rules()
         translations = []
-        for code, data in translation_rules.groupby('code_sbb'):
-
-            mask_iscurrent = data['rvvn_iscurrent']=='Yes'
-            mask_lowest = data['rvvn_islowest']=='Yes'
+        for code, data in self.translation_rules().groupby('code_sbb'):
 
             # get translations to current rvvn types
-            if not lowest_only:
-                current = data[mask_iscurrent]['code_rvvn_2018'].values
-            else:
-                current = data[mask_iscurrent & mask_lowest]['code_rvvn_2018'].values
-
+            mask_iscurrent = data['rvvn_iscurrent']=='Yes'
+            current = data[mask_iscurrent]['code_rvvn_2018'].values
             if not include_subass:
                 # translate rvvn subassociaties to their associaties
                 current = sorted(set([self._subasscode_to_asscode(code, 
                     typology='rvvn') for code in current]))
-
             text_current = self.JOINSTR.join(current) if any(current) else _np.nan
 
-            # get translations historic rvvn types
-            if not lowest_only:
-                notcurrent = data[~mask_iscurrent]['code_rvvn_2018'].values
-            else:
-                notcurrent = data[~mask_iscurrent & mask_lowest]['code_rvvn_2018'].values
-
+            historic = data[~mask_iscurrent]['code_rvvn_2018'].values
             if not include_subass:
                 # translate rvvn subassociaties to associaties
-                notcurrent = sorted(set([self._subasscode_to_asscode(code, 
-                    typology='rvvn') for code in notcurrent]))
-
-            text_historic = self.JOINSTR.join(notcurrent) if any(notcurrent) else _np.nan
+                historic = sorted(set([self._subasscode_to_asscode(code, 
+                    typology='rvvn') for code in historic]))
+            text_historic = self.JOINSTR.join(historic) if any(historic) else _np.nan
 
             # create record with translations
             translations.append({
@@ -217,7 +198,7 @@ class SyntaxonTranslator:
                 'revisie_actueel':text_current,
                 'revisie_actueel_count':len(current),
                 'revisie_historisch' : text_historic,
-                'revisie_historisch_count':len(notcurrent),
+                'revisie_historisch_count':len(historic),
                 })
 
         return _pd.DataFrame(translations).set_index('code_sbb', verify_integrity=True)
@@ -239,29 +220,16 @@ class SyntaxonTranslator:
         Table with translation of rvvn syntaxa to Sbb Catalogus syntaxa.
             
         """      
-        if include_subass:
-            # associaties must be present in selection to translate
-            # subassociaties to associaties
-            lowest_only=False
-
-        ##translation_rules = self.translation_rules()
         translations = []
         for code, data in self.translation_rules().groupby('code_rvvn_2018'):
 
-            mask_iscurrent = data['sbb_iscurrent']=='Yes'
-            mask_lowest = data['sbb_islowest']=='Yes'
-
             # get translations to current sbb syntaxa
-
-            if not lowest_only:
-                current = data[mask_iscurrent]['code_sbb'].values
-            else:
-                current = data[mask_iscurrent & mask_lowest]['code_sbb'].values
-
+            mask_iscurrent = data['sbb_iscurrent']=='Yes'
+            current = data[mask_iscurrent]['code_sbb'].values
             if not include_subass:
+                # translate sbbcat subassociaties to their associaties
                 current = sorted(set([self._subasscode_to_asscode(code, 
                     typology='sbbcat') for code in current]))
-            ##current = data[mask_iscurrent]['code_sbb'].values
 
             # translate to crossclasscodes, if present
             current = sorted(set([self._get_crossclasscode(code) for code in current]))
@@ -269,31 +237,26 @@ class SyntaxonTranslator:
             # create text line of syntaxa
             current_text = self.JOINSTR.join(current) if any(current) else _np.nan
 
-            # get historic syntaxa
-            if not lowest_only:
-                notcurrent = data[~mask_iscurrent]['code_sbb'].values
-            else:
-                notcurrent = data[~mask_iscurrent & mask_lowest]['code_sbb'].values
-            ##notcurrent = data[~mask_iscurrent]['code_sbb'].values
-            historic_text = self.JOINSTR.join(notcurrent) if any(notcurrent) else _np.nan
+            historic = data[~mask_iscurrent]['code_sbb'].values
+            historic_text = self.JOINSTR.join(historic) if any(historic) else _np.nan
 
             translations.append({
                 'code_rvvn' : code, 
                 'sbbcat_vertaling' : current_text,
-                'sbbcat_vertaling_historisch' : historic_text,
                 'sbbcat_vertaling_count' : len(current),
-                'sbbcat_vertaling_historisch_count' : len(notcurrent),
+                'sbbcat_vertaling_historisch' : historic_text,
+                'sbbcat_vertaling_historisch_count' : len(historic),
                 })
 
         return _pd.DataFrame(translations).set_index('code_rvvn', verify_integrity=True)
 
 
-    def _sbb_back_to_sbb(self, lowest_only=False, include_subass=True):
+    def _sbb_back_to_sbb(self, include_subass=True): #lowest_only=False, 
         """Return table of translationa from sbbcat to rvvn and back again."""
 
-        sbb_naar_revisie = self._sbb_to_rvvn(lowest_only=lowest_only, 
+        sbb_naar_revisie = self._sbb_to_rvvn( 
             include_subass=include_subass)
-        revisie_naar_sbb = self._rvvn_to_sbb(lowest_only=lowest_only, 
+        revisie_naar_sbb = self._rvvn_to_sbb( 
             include_subass=include_subass)
 
         # translation back to sbbcat
@@ -303,27 +266,20 @@ class SyntaxonTranslator:
             revisie_codes = sbb_naar_revisie.loc[idx,'revisie_actueel']
             
             if isinstance(revisie_codes, float):
+                # no revision codes found for this sbbcode
                 sbb_naar_revisie.loc[idx,'sbb_terugvertaling'] = _np.nan
                 sbb_naar_revisie.loc[idx,'sbb_terugvertaling_count'] = 0
                 continue
 
-            sbb_list = []
+            sbb_vertaling_codes = []
             for rvvncode in revisie_codes.split(self.JOINSTR):
-                sbb_vertaling = revisie_naar_sbb.loc[rvvncode.strip(),'sbbcat_vertaling']
-                if _pd.isnull(sbb_vertaling):
+                sbb_codes = revisie_naar_sbb.loc[rvvncode.strip(),'sbbcat_vertaling']
+                if _pd.isnull(sbb_codes):
                     continue
 
-                #sbb_vertaling_codes = [x.strip() for x in sbb_vertaling.split(self.JOINSTR)]
-                sbb_vertaling_codes = _re.split(f'{self.JOINSTR}|{self.JOINCROSSCLASS}', sbb_vertaling)
-
-                if not lowest_only:
-                    sbb_list.extend(sbb_vertaling_codes)
-                else:
-                    for code in sbb_vertaling_codes:
-                        if sbb_islowest[code]=='Yes':
-                            sbb_list.extend([code])
-                sbb_vertaling_codes = sbb_list.copy()
-
+                # split crossclasscodes
+                sbb_codes = _re.split(f'{self.JOINSTR}|{self.JOINCROSSCLASS}', sbb_codes)
+                sbb_vertaling_codes.extend(sbb_codes)
 
             if not include_subass:
                 sbb_vertaling_codes = sorted(set([self._subasscode_to_asscode(code, 
@@ -333,21 +289,23 @@ class SyntaxonTranslator:
             sbb_vertaling_codes = sorted(set([self._get_crossclasscode(code) 
                 for code in sbb_vertaling_codes]))
 
-
+            # set column values
             sbb_naar_revisie.loc[idx,'sbb_terugvertaling'] = self.JOINSTR.join(sorted(set(sbb_vertaling_codes)))
             sbb_naar_revisie.loc[idx,'sbb_terugvertaling_count'] = len(set(sbb_vertaling_codes))
+
         sbb_naar_revisie['sbb_terugvertaling_count'] = sbb_naar_revisie['sbb_terugvertaling_count'].astype(int)
-        return sbb_naar_revisie
+        columns = ['revisie_actueel',  
+            'sbb_terugvertaling', 'revisie_actueel_count','sbb_terugvertaling_count',
+            'revisie_historisch', 'revisie_historisch_count',]
+        return sbb_naar_revisie[columns]
 
 
-    def _rvvn_back_to_rvvn(self, lowest_only=False, include_subass=True):
+    def _rvvn_back_to_rvvn(self, include_subass=True): #lowest_only=False, 
         """Return table of translations from rvvn to sbbcat and back again."""
 
-        if include_subass:
-            lowest_only=False
-
-        revisie_naar_sbb = self._rvvn_to_sbb(lowest_only=lowest_only, include_subass=include_subass)
-        sbb_naar_revisie = self._sbb_to_rvvn(lowest_only=lowest_only, include_subass=include_subass)
+        # translation tables
+        revisie_naar_sbb = self._rvvn_to_sbb(include_subass=include_subass)
+        sbb_naar_revisie = self._sbb_to_rvvn(include_subass=include_subass)
 
         # translation back to revisie
         revisie_naar_sbb['revisie_terugvertaling'] = _pd.Series(dtype='object')
@@ -359,30 +317,30 @@ class SyntaxonTranslator:
                 revisie_naar_sbb.loc[idx,'revisie_terugvertaling_count'] = 0
                 continue
 
-            revisie_list = []
+            revisie_vertaling_codes = []
             sbb_codes = _re.split(f'{self.JOINSTR}|{self.JOINCROSSCLASS}', sbb_codes)
             for code in sbb_codes:
                 revisie_vertaling = sbb_naar_revisie.loc[code.strip(),'revisie_actueel']
                 if _pd.isnull(revisie_vertaling):
                     continue
-                revisie_vertaling_codes = [x.strip() for x in revisie_vertaling.split(self.JOINSTR)]
-
-                if not lowest_only:
-                    revisie_list.extend(revisie_vertaling_codes)
-                else:
-                    for code in revisie_vertaling_codes:
-                        if rvvn_islowest[code]=='Yes':
-                            revisie_list.extend([code])
-                revisie_vertaling_codes = revisie_list.copy()
+                revisie_codes = [x.strip() for x in revisie_vertaling.split(self.JOINSTR)]
+                revisie_vertaling_codes.extend(revisie_codes)
 
             if not include_subass:
                 revisie_vertaling_codes = sorted(set([self._subasscode_to_asscode(code, 
                     typology='rvvn') for code in revisie_vertaling_codes]))
 
+            # create columns
             revisie_naar_sbb.loc[idx,'revisie_terugvertaling'] = self.JOINSTR.join(sorted(set(revisie_vertaling_codes)))
             revisie_naar_sbb.loc[idx,'revisie_terugvertaling_count'] = len(set(revisie_vertaling_codes))
 
-        return revisie_naar_sbb
+
+        columns = ['sbbcat_vertaling', 'revisie_terugvertaling',
+            'sbbcat_vertaling_count', 'revisie_terugvertaling_count',
+            'sbbcat_vertaling_historisch', 
+            'sbbcat_vertaling_historisch_count',
+            ]
+        return revisie_naar_sbb[columns]
 
 
     def crossclasscodes(self):
@@ -409,7 +367,7 @@ class SyntaxonTranslator:
                 
         """
         translations = self._sbb_back_to_sbb(
-            lowest_only=lowest_only, include_subass=include_subass)
+            include_subass=include_subass)
            
         translations = translations.rename(columns={
             'revisie_actueel':'RevisieVertaling',
@@ -432,7 +390,7 @@ class SyntaxonTranslator:
         # add column with RevisieVertalingLevel
         mask = cmsi_sbb['RevisieVertalingCount']==1
         cmsi_sbb.loc[mask,'RevisieVertalingLevel'] = cmsi_sbb.loc[mask,'RevisieVertaling'].apply(
-            phylia.tools.syntaxontools.syntaxonlevel, reference='rvvn')
+            get_syntaxonlevel, reference='rvvn')
 
         # add column RevisieVertalingIsLowest
         rvvn_codes = cmsi_rev[cmsi_rev['IsLowest']=='Yes'].index.values
@@ -458,7 +416,12 @@ class SyntaxonTranslator:
         missing = [x for x in cmsi_sbb.columns if x not in columns]
         if missing:
             raise ValueError((f"Missing column {missing}"))
-        return cmsi_sbb[columns]
+        cmsi_sbb = cmsi_sbb[columns].copy()
+
+        if lowest_only:
+            cmsi_sbb = cmsi_sbb[cmsi_sbb['IsLowest']=='Yes'].copy()
+
+        return cmsi_sbb
 
 
     def translate_rvvn_to_sbb(self, lowest_only=False, include_subass=True):
@@ -481,7 +444,7 @@ class SyntaxonTranslator:
         """
 
         translations = self._rvvn_back_to_rvvn(
-            lowest_only=lowest_only, include_subass=include_subass)
+            include_subass=include_subass)
 
         translations = translations.rename(
             columns={
@@ -504,12 +467,16 @@ class SyntaxonTranslator:
 
         # add column with SbbVertalingLevel
         mask = cmsi_rev['SbbVertalingCount']==1
-        cmsi_rev['SbbVertalingLevel'] = cmsi_rev['SbbVertaling']
+        cmsi_rev.loc[mask, 'SbbVertalingLevel'] = cmsi_rev.loc[mask, 'SbbVertaling']
         cmsi_rev.loc[~mask, 'SbbVertalingLevel'] = _np.nan
-        cmsi_rev['SbbVertalingLevel'] = cmsi_rev['SbbVertalingLevel'].str.split(
+
+        # translate crossclasscodes back to single codes
+        cmsi_rev.loc[mask, 'SbbVertalingLevel'] = cmsi_rev.loc[mask, 'SbbVertalingLevel'].str.split(
             self.JOINCROSSCLASS, n=1, expand=True)[0]
-        cmsi_rev['SbbVertalingLevel'] = cmsi_rev['SbbVertalingLevel'].apply(
-            syntaxontools.syntaxonlevel, reference='sbbcat').fillna(_np.nan)
+
+        # get sbb syntaxonlevel
+        cmsi_rev.loc[mask, 'SbbVertalingLevel'] = cmsi_rev.loc[mask, 'SbbVertalingLevel'].apply(
+            syntaxontools.syntaxonlevel, reference='sbbcat') ##.fillna(_np.nan)
 
         # add column SbbVertalingIsLowest
         sbb_codes = cmsi_sbb[cmsi_sbb['IsLowest']=='Yes'].index.values
@@ -548,4 +515,9 @@ class SyntaxonTranslator:
         missing = [x for x in cmsi_rev.columns if x not in columns]
         if missing:
             raise ValueError((f"Missing column {missing}"))
-        return cmsi_rev[columns]
+        cmsi_rev = cmsi_rev[columns].copy()
+
+        if lowest_only:
+            cmsi_rev = cmsi_rev[cmsi_rev['IsLowest']=='Yes'].copy()
+
+        return cmsi_rev

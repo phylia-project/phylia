@@ -6,3 +6,5 @@ from ._syntaxontranslator import translate_sbb_to_rvvn
 from ._syntaxontranslator import translate_rvvn_to_sbb
 from ._syntaxontranslator import sbbcrossclasscodes
 
+from ._sbb_translations_to_excel import SbbTranslationsToExcel
+from ._sbb_translations_to_excel import sbbtranslations_to_excel

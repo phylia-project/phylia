@@ -9,32 +9,18 @@ from ._mdb import Mdb
 
 class MapTables:
     """
-    Contains tables from Digital Standard vegetation map.
+    Access tables from Digital Standard vegetation map.
 
-    Methods
-    -------
-        get_vegtype
-            Return vegetation type for each mapped element.
-        get_mapspecies
-            Return species data attached to mapped elements.
-        get_abiotiek
-            Return environmental field observatons attached to mapped 
-            elements.
-        get_pointspecies
-            Return point locations for mapped plant species.
-        get_year
-            Return year of mapping, returns 0000 if no dates are present.
-
-    Class methods
+    Class constructor
     ------------
-        from_mdb
-            Create MapTables object from Microsoft Access mdb filepath.
+    from_mdb
+        Create MapTables object from Microsoft Access mdb filepath.
 
     Notes
     -----
     A mapped element can be a polygon or a line. Spatial data for mapped
     elements are stored in shapefiles and linked to the MapTables data by 
-    the attribute ElmID. Use MapData object to read both tables from 
+    the attribute ElmID. Use the MapData object to read both tables from 
     Microsoft mdb file and mappend elements from shapefiles.
     
     """
@@ -175,15 +161,6 @@ class MapTables:
         #try:
         mdb = Mdb(filepath)
         
-        #if not isinstance(filepath,str):
-        #    fptype = type(filepath)
-        #    raise ValueError (f'Parameter filepath must be type "str" '
-        #        f'not type {fptype}.')
-
-        # open mdb file and check format is Digitale Standaard
-        # After mdb readerror return empty MapTables object
-        #if not mdb.all_tables:
-        #    return cls(tables=None)
 
         # check format Digitale Standaard
         
@@ -235,6 +212,7 @@ class MapTables:
 
         return cls(tables=maptables, filepath=filepath)
 
+
     @property
     def is_valid(self):
         """Return True if MapTables object contains valid data, else False."""
@@ -242,7 +220,8 @@ class MapTables:
             return False
         return True
 
-    def get_vegtype(self,loctype='v',select='all'):
+
+    def get_vegtype(self, loctype='v', select='all'):
         """
         Return vegetation type for each mapped element.
 
@@ -253,6 +232,7 @@ class MapTables:
         select : {'all','maxcov'}, default 'all'
             Select from multiple instances of polygon.
             maxcov : select vegetation type with largest numeric cover.
+
         Notes
         -----
         A mapped element can have multiple vegetation types. Therefore 

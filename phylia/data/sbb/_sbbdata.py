@@ -111,5 +111,5 @@ def _sbbcat_diagnostic_species_2014():
     2014.
         
     """
-    srcfile = (_resources.files(_data_sbb_intern) / 'sbbcatalogus2014_diagnostic_species.csv')
+    srcfile = (_resources.files(_data_sbb_intern) / 'sbbcatalogus2011_diagnostic_species.csv')
     return _pd.read_csv(srcfile, encoding='latin-1')

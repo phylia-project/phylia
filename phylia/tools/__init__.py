@@ -23,4 +23,5 @@ from .conversions import year_from_string
 from . import filetools
 from . import syntaxontools
 from .sbbprojects import SbbProjects
-from ._write_excel import write_to_excel
+from . import excel
+

@@ -113,7 +113,7 @@ class TranslateSbbRevision2019:
     def __init__(self): 
         
         # get raw table with translations
-        srcfile = (_resources.files(_data_sbb_intern) / 'sbbcat_revisie_2019.csv')
+        srcfile = (_resources.files(_data_sbb_intern) / 'translations_sbbcat_revisie_2019.csv') ##sbbcat_revisie_2019.csv')
         self._trans = _pd.read_csv(srcfile, encoding='latin-1')
         self._trans.index.name = "translation_id"
 

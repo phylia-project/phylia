@@ -23,26 +23,7 @@ class MapData:
     """
     Vegetion map data connectting spatial and non-spatial data.
     
-    Methods
-    -------
-    get_polys()
-        Return polygon geometry as GeoPandas dataframe.
-    get_lines()
-        Return line geometry as GeoPandas dataframe.
-    get_vegtype()
-        Return mapped polygons with vegetation type.
-    get_mapspecies(self,loctype='v'):
-        Return map polygons with species data.
-    get_pointspecies()
-        Return species point data.
-    get_abiotiek()
-        Return environmental observations.
-    get_boundary()
-        Return outer boundary of mapped area.
-    to_shapefile()
-        Save table to ESRI shapefile.
-
-    Classmethods
+    Constructor
     ------------
     from_filepaths()
         Create MapData instance from filepaths.
@@ -126,20 +107,20 @@ class MapData:
 
     def __init__(self,maptables=None,polygons=None,lines=None,
         mapname=None,mapyear=None):
-        """MapPolygons constructor.
+        """Use .from_filepaths() method to create MapData instance from 
+        filepaths.
 
-        Parameters
-        ----------
-        maptbl : DSreader.MapTables
+        maptbl : MapTables object
             Map table data
-        polygons : DSreader.MapElements
+        polygons : MapElements object
             Spatial data for all map polygons
-        lines : DSreader.MapElelemnts
+        lines : MapElelemnts object
             Spatial data for all map lines
         mapname : str, optional
             Use defined name of the vegetation map.
         mapyear : str, optional
             Single mapping year.
+
         """
         if maptables is None:
             maptables = MapTables()
@@ -236,9 +217,9 @@ class MapData:
         """Return vegetation map tables."""
         return self._maptbl
 
-    def get_vegtype(self,loctype='v',select='all'):
+    def get_vegtype(self, loctype='v', select='all'):
         """
-        Return mapped polygons with vegetation type
+        Return polygons or lines with mapped vegetation type
         
         Parameters
         ----------
@@ -250,9 +231,8 @@ class MapData:
 
         Returns
         -------
-        pd.DataFrame
-
-
+        DataFrame
+            
         """
         if loctype=='v':
             shape = self._poly
@@ -262,7 +242,6 @@ class MapData:
             shapepath = self._linepath
 
         vegtbl = self._maptbl.get_vegtype(loctype=loctype,select=select)
-
         if vegtbl.empty:
             name = str(vegtbl)
             if shapepath is not None:
@@ -270,19 +249,17 @@ class MapData:
             return DataFrame()
 
         try:
-            shape = pd.merge(shape,vegtbl,how='left',left_on='elmid',right_on='elmid',
-                ) #validate='one_to_many') TURNED OFF BECAUSE OF DUPLICATE ELMIDS
-                
+            shape = pd.merge(shape, vegtbl, how='left', left_on='elmid', right_on='elmid')
         except Exception as e:
             _logger.warnings((f'Merge caused fatal exception: "{e}" '
                 f'on shapefile {shapepath}" '
                 f'and Access database "{self._maptblpath}"'))
             shape = DataFrame()
-
         else:
             shape = shape.dropna(subset=['locatietype'])
 
         return shape
+
 
     def get_vegtype_singlepoly(self,loctype='v'):
 

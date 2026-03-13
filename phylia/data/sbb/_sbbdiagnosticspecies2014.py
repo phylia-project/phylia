@@ -123,15 +123,25 @@ class SbbDiagnosticSpecies2014:
 
         diataxa = self._diataxa
 
-        # check for column name chages
+        # check for missing columns
         missing = [col for col in self.COLUMNS if col not in diataxa.columns]
         if missing:
             raise ValueError((f"Missing column names: {missing}"))
+
+        # check for unexpected columns
         unexpected = [col for col in diataxa.columns if col not in self.COLUMNS]
         if unexpected:
             raise ValueError((f"Unexpected column names: {unexpected}"))
 
-        return diataxa[self.COLUMNS]
+        # check for missing scientific names
+        missing_scientificnames = diataxa[diataxa['syntaxon_scientificname'].isnull()]
+        if not missing_scientificnames.empty:
+            raise ValueError((f"{len(missing_scientificnames)} missing "
+                f"scientific names in list of diagnosticd species."))
+
+        mask = ~diataxa['diagnostic_value'].isnull()
+        diataxa = diataxa[mask][self.COLUMNS]
+        return diataxa
 
 
     def syntaxonomic_value_frequency(self):

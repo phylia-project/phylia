@@ -12,7 +12,6 @@ from phylia.data.sbb import sbbcat_diagnostic_species_2014
 from phylia.data.sbb import sbbcat_diagnostic_species_to_excel
 from phylia.data.sbb import SbbDiagnosticSpecies2014
 from phylia.data.sbb._sbbdata import _sbbcat_diagnostic_species_2014
-from phylia.data.syntra import TranslateSbbRevision2019 # move to seperate test mdule
 
 
 def test_syntaxa():
@@ -55,19 +54,6 @@ def test_class():
     assert isinstance(sbbcat.to_excel(), Workbook)
 
 
-def test_revision_2019_class(): # move to new module
-    rev = TranslateSbbRevision2019()
-    assert not rev.syntaxa_sbb().empty
-    assert not rev.syntaxa_rvvn().empty
-    assert not rev.syntaxa_with_multiple_entries().empty
-    assert not rev.sbb_syntaxa_not_in_rvvn().empty
-    assert not rev.sbb_syntaxa_namechanges().empty
-    for from_sys in rev.CLASSIFICATION_COLUMNS.keys():
-        for to_sys in rev.CLASSIFICATION_COLUMNS.keys():
-            assert not rev.translations().empty
-    assert isinstance(rev.revisiontable_to_excel(), Workbook)
-    #fpath = r"..\out\sbb_revisie_2019.xlsx"
-    #result = rev.revisiontable_to_excel(fpath)
 
  
  
